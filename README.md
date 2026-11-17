@@ -11,7 +11,9 @@ Everywhere, the Library App showcase, Internet Detective, Java Young Robot
 Builders, Nerd Heaven (the Tech Support Workshop), Numbers in the Wild, Packet
 Playground, Secret Squares, Space Camp, Tonight's Sky, and Weather Everywhere — plus
 The Games Room, The Map Room, and (new in v1.0.5) Find It, the traveller's
-category finder with its Help menu and documentation — plus the
+category finder with its Help menu and documentation — plus (new in v1.0.11)
+The Radio Room, a retro wooden radio that plays live SomaFM streams, with
+its listening shelf, radio workshop, and Help menu — plus the
 project ZIP downloads, so the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
@@ -24,8 +26,8 @@ live copies of the projects — open in your default browser.
 Grab the installer for your system from the
 [releases page](https://github.com/caeled/everyday-cool-app/releases):
 
-- **Windows:** `Everyday.Cool_1.0.5_x64-setup.exe` (or the `.msi`)
-- **macOS:** `Everyday.Cool_1.0.5_universal.dmg` (Intel and Apple silicon)
+- **Windows:** `Everyday.Cool_1.0.11_x64-setup.exe` (or the `.msi`)
+- **macOS:** `Everyday.Cool_1.0.11_universal.dmg` (Intel and Apple silicon)
 
 The builds are unsigned, so Windows SmartScreen or macOS Gatekeeper may ask
 you to confirm before the first run.
