@@ -18,8 +18,17 @@ Everyday Chemistry, a visual atom bench and numbers bench with eight
 kitchen experiments and its Help menu — plus (new in v1.0.13)
 Everyday Electronics, a live circuit bench, Ohm's law and LED resistor
 benches, a crystal radio explained and built, a fruit battery, and its
-Help menu, cross-linked with The Radio Room both ways — plus the
-project ZIP downloads, so the "take a copy" links work offline too.
+Help menu, cross-linked with The Radio Room both ways — plus (new in
+v1.0.14) Everyday Physics, a playable pool table with the reflection
+angles and momentum drawn on, a ballistics launcher, pendulum and
+seesaw benches, and its Help menu; the hub now leads with a STEM block
+(Nerd Heaven, then Physics, Chemistry, Electronics, Tonight's Sky, The
+Radio Room); Everyday Electronics gains its Wikipedia "read deeper"
+shelf; and The Radio Room gains two shelves of its own — "Ham radio &
+CB — the two-way side," with a cool-stations-to-try list, and "Clubs —
+the people side," with the ARRL club search and the clubs around
+Defiance, Ohio — plus the project ZIP downloads, so the "take a copy"
+links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
