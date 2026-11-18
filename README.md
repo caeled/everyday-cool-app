@@ -33,8 +33,16 @@ twelve organs, a brain explorer with twelve regions and the networks
 caveat stated on the page, connection scenarios that follow everyday
 actions across cooperating systems, a quiz, and its Help menu — it
 takes the fifth seat in the hub's STEM block, right after Everyday
-Electronics — plus the project ZIP downloads, so the "take a copy"
-links work offline too.
+Electronics — plus (new in v1.0.16) Everyday Language, the Secret
+Squares sibling built on Steven's line that language is a code too: an
+explorable Indo-European family tree with English's Germanic ancestry
+drawn in gold, a cognates bench of eleven word families with
+false-friend warnings, a ten-phrase phrasebook in six languages with a
+"Take it traveling" card pointing at the separate Travel Kit app, a
+brain language-network bench cross-linked to Everyday Body, and its
+Help menu; it sits in the hub right after Secret Squares, which gains
+the reciprocal cross-link card — plus the project ZIP downloads, so
+the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
