@@ -27,7 +27,13 @@ Radio Room); Everyday Electronics gains its Wikipedia "read deeper"
 shelf; and The Radio Room gains two shelves of its own — "Ham radio &
 CB — the two-way side," with a cool-stations-to-try list, and "Clubs —
 the people side," with the ARRL club search and the clubs around
-Defiance, Ohio — plus the project ZIP downloads, so the "take a copy"
+Defiance, Ohio — plus (new in v1.0.15) Everyday Body, the anatomical
+explorer ChatGPT built for the collection: a working body atlas with
+twelve organs, a brain explorer with twelve regions and the networks
+caveat stated on the page, connection scenarios that follow everyday
+actions across cooperating systems, a quiz, and its Help menu — it
+takes the fifth seat in the hub's STEM block, right after Everyday
+Electronics — plus the project ZIP downloads, so the "take a copy"
 links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
