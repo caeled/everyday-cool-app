@@ -15,7 +15,10 @@ category finder with its Help menu and documentation — plus (new in v1.0.11)
 The Radio Room, a retro wooden radio that plays live SomaFM streams, with
 its listening shelf, radio workshop, and Help menu — plus (new in v1.0.12)
 Everyday Chemistry, a visual atom bench and numbers bench with eight
-kitchen experiments and its Help menu — plus the
+kitchen experiments and its Help menu — plus (new in v1.0.13)
+Everyday Electronics, a live circuit bench, Ohm's law and LED resistor
+benches, a crystal radio explained and built, a fruit battery, and its
+Help menu, cross-linked with The Radio Room both ways — plus the
 project ZIP downloads, so the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
@@ -28,8 +31,8 @@ live copies of the projects — open in your default browser.
 Grab the installer for your system from the
 [releases page](https://github.com/caeled/everyday-cool-app/releases):
 
-- **Windows:** `Everyday.Cool_1.0.12_x64-setup.exe` (or the `.msi`)
-- **macOS:** `Everyday.Cool_1.0.12_universal.dmg` (Intel and Apple silicon)
+- **Windows:** `Everyday.Cool_1.0.13_x64-setup.exe` (or the `.msi`)
+- **macOS:** `Everyday.Cool_1.0.13_universal.dmg` (Intel and Apple silicon)
 
 The builds are unsigned, so Windows SmartScreen or macOS Gatekeeper may ask
 you to confirm before the first run.
