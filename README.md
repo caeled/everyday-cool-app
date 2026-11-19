@@ -103,7 +103,25 @@ floating tiles (</>, the sun, the sparkle) on the hub's cream
 ground, under the same ✳ wordmark — rebuilt from the hub
 stylesheet's own rules, so the app splashes and then drops into
 the hub page with the same image already on it; the ten-second
-timing from v1.1.3 is unchanged; no content changes — plus the project ZIP downloads, so
+timing from v1.1.3 is unchanged; no content changes — plus (new in v1.1.5) the
+rooms catch up with the web: The Survival Guide reaches its final
+form — a "Take it with you" section pointing at the Travel Kit app;
+direction five ways, every clue graded (the North Star A, the phone
+compass A− — a hardware magnetometer that needs no signal at all,
+the shadow stick B, the satellite dish B on Steven's correction —
+field-tested, because navigation is not a precision thing, it is a
+"go thataway" and you get there — with the salvage beat that a
+storm-wrecked dish is a parts shelf of copper wire, and moss D);
+and a ten-card Reading Signs section — the flickering streetlight,
+lights that breathe like clockwork, darker grass, the utility paint
+code, snow melting in a pattern, the rotten-egg smell, a streetlight
+burning at noon, water running on a dry day, the pole that hums
+wrong, and reading an outage's shape — and Nerd Heaven's workshop
+home gains the aphorism panel above its hero: Steven's "go
+thataway" troubleshooting text — rules are a map, the real trick is
+pattern recognizers that see similarities across gates — with the
+AI-generated gates-pattern infographic; the splash screen, native
+menus, and product index carry over unchanged — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
