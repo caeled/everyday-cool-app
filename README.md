@@ -56,7 +56,14 @@ fixes from the collection's PR #7 — reworked Physics benches, scripts
 and tests, Radio Room fixes, refreshed room ZIPs and provenance for
 both rooms, and the hub's Radio Room card rewritten — with a line each
 refreshed in Everyday Chemistry and Everyday Electronics and all
-23 rooms current — plus the project ZIP downloads, so
+23 rooms current — plus (new in v1.1.0) The STEM Room: the hub's six
+Science workshops — Everyday Physics, Everyday Chemistry, Everyday
+Electronics, Everyday Measure, Everyday Body, and The Radio Room —
+gather behind one card on the main hub, in a new landing room of
+their own with its banner, its six doors carrying each workshop's
+hub blurb, and its Help menu; the six rooms keep their own pages,
+files, and addresses exactly as they were, nothing moved or renamed,
+and the collection grows to 24 rooms — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
