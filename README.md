@@ -41,7 +41,15 @@ false-friend warnings, a ten-phrase phrasebook in six languages with a
 "Take it traveling" card pointing at the separate Travel Kit app, a
 brain language-network bench cross-linked to Everyday Body, and its
 Help menu; it sits in the hub right after Secret Squares, which gains
-the reciprocal cross-link card — plus the project ZIP downloads, so
+the reciprocal cross-link card — plus (new in v1.0.17) Everyday
+Measure, the metric system for Americans: an interactive prefix ladder
+with each prefix's meaning in plain words, four converter benches
+(length, weight, volume, temperature) that show their working from the
+exact legal definitions, seven "feel it" anchors, a comparison shelf
+reading familiar things in both systems at once, trap cards for the
+tonne/ton and US/Imperial gallon collisions, the Mars Climate Orbiter
+and Gimli Glider breakage stories, and its Help menu; it takes the
+sixth seat in the hub's Science run, right after Everyday Body — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
