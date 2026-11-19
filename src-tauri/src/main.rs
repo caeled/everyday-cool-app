@@ -19,17 +19,41 @@ fn is_app_url(url: &tauri::Url) -> bool {
     }
 }
 
+/// Splash timing state. Steven ran v1.1.1 and found the splash flashed
+/// past too fast to see, so from v1.1.3 the splash holds for a minimum
+/// of ten seconds from launch: it comes down at whichever completes
+/// LATER — the main window's first page finishing loading, or the ten
+/// seconds elapsing. A separate fifteen-second hard cap (see setup)
+/// dismisses it unconditionally, so it can still never trap the user.
+static MAIN_LOADED: std::sync::atomic::AtomicBool =
+    std::sync::atomic::AtomicBool::new(false);
+static MIN_TIME_PASSED: std::sync::atomic::AtomicBool =
+    std::sync::atomic::AtomicBool::new(false);
+static SPLASH_DISMISSED: std::sync::atomic::AtomicBool =
+    std::sync::atomic::AtomicBool::new(false);
+
 /// Close the splash window (if it is still up) and show the main window.
-/// Called when the main window's first page finishes loading, and again
-/// from a fallback timer, so the splash can never trap the user: whichever
-/// call lands second simply finds nothing to do.
+/// Runs at most once; later calls simply find nothing to do.
 fn dismiss_splash(handle: &AppHandle) {
+    if SPLASH_DISMISSED.swap(true, std::sync::atomic::Ordering::SeqCst) {
+        return;
+    }
     if let Some(splash) = handle.get_webview_window("splashscreen") {
         let _ = splash.close();
     }
     if let Some(main) = handle.get_webview_window("main") {
         let _ = main.show();
         let _ = main.set_focus();
+    }
+}
+
+/// Dismiss the splash only once both conditions hold: the main window
+/// has finished its first load AND the ten-second minimum has elapsed.
+fn maybe_dismiss_splash(handle: &AppHandle) {
+    if MAIN_LOADED.load(std::sync::atomic::Ordering::SeqCst)
+        && MIN_TIME_PASSED.load(std::sync::atomic::Ordering::SeqCst)
+    {
+        dismiss_splash(handle);
     }
 }
 
@@ -110,12 +134,15 @@ fn main() {
             _ => {}
         })
         .on_page_load(|webview, payload| {
-            // The main window starts hidden behind the splash; the moment
-            // its first page has loaded, swap them.
+            // The main window starts hidden behind the splash. Its first
+            // finished load is one of the two conditions for the swap;
+            // the other is the ten-second minimum (see setup), and the
+            // splash comes down at whichever completes later.
             if webview.label() == "main"
                 && matches!(payload.event(), PageLoadEvent::Finished)
             {
-                dismiss_splash(&webview.app_handle());
+                MAIN_LOADED.store(true, std::sync::atomic::Ordering::SeqCst);
+                maybe_dismiss_splash(&webview.app_handle());
             }
         })
         .setup(|app| {
@@ -135,13 +162,26 @@ fn main() {
                 .initialization_script(format!("window.__EC_VERSION = {version:?};"))
                 .build()?;
 
-            // Fallback: whatever happens to the load event, the splash
-            // comes down a few seconds after launch.
-            let fallback = app.handle().clone();
+            // Minimum display: ten seconds after launch the minimum is
+            // met; if the main window has already loaded, the splash
+            // comes down now, otherwise it comes down when the load
+            // finishes (see on_page_load).
+            let min_timer = app.handle().clone();
             std::thread::spawn(move || {
-                std::thread::sleep(std::time::Duration::from_secs(5));
-                let h = fallback.clone();
-                let _ = fallback.run_on_main_thread(move || dismiss_splash(&h));
+                std::thread::sleep(std::time::Duration::from_secs(10));
+                MIN_TIME_PASSED.store(true, std::sync::atomic::Ordering::SeqCst);
+                let h = min_timer.clone();
+                let _ = min_timer.run_on_main_thread(move || maybe_dismiss_splash(&h));
+            });
+
+            // Hard cap: whatever happens to the load event, the splash
+            // comes down unconditionally fifteen seconds after launch,
+            // so it can never trap the user.
+            let cap_timer = app.handle().clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_secs(15));
+                let h = cap_timer.clone();
+                let _ = cap_timer.run_on_main_thread(move || dismiss_splash(&h));
             });
 
             let nav_handle = app.handle().clone();

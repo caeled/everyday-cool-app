@@ -89,7 +89,13 @@ written against American Red Cross and Scouts BSA practice —
 every card carrying a safety line and an honesty line; the hub
 card sits immediately before Space Camp, and the collection
 grows to 25 rooms; the splash screen, native menus, and product
-index from v1.1.1 carry over unchanged — plus the project ZIP downloads, so
+index from v1.1.1 carry over unchanged — plus (new in v1.1.3) a
+longer look at the splash screen: it now stays up a full ten
+seconds from launch (Steven's correction after running v1.1.1,
+where it flashed past too fast to see) — it comes down at
+whichever is later, the workshop finishing loading or the ten
+seconds elapsing, with a fifteen-second hard cap so it can still
+never trap anyone; no content changes — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
