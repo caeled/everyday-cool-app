@@ -49,7 +49,14 @@ exact legal definitions, seven "feel it" anchors, a comparison shelf
 reading familiar things in both systems at once, trap cards for the
 tonne/ton and US/Imperial gallon collisions, the Mars Climate Orbiter
 and Gimli Glider breakage stories, and its Help menu; it takes the
-sixth seat in the hub's Science run, right after Everyday Body — plus the project ZIP downloads, so
+sixth seat in the hub's Science run, right after Everyday Body — plus
+(new in v1.0.18) a refresh of the whole workshop to the current
+collection: Everyday Physics and The Radio Room pick up the review
+fixes from the collection's PR #7 — reworked Physics benches, scripts
+and tests, Radio Room fixes, refreshed room ZIPs and provenance for
+both rooms, and the hub's Radio Room card rewritten — with a line each
+refreshed in Everyday Chemistry and Everyday Electronics and all
+23 rooms current — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
