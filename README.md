@@ -77,7 +77,19 @@ five-second fallback so it can never linger), a native menu bar
 (File → Exit, or Quit in the app menu on macOS; Help → Documentation,
 Product Index, and About Everyday Cool), and a product index page in
 the collection (Everyday Cool, Spectrum Search, the Travel Kit, and
-Steven Powell Tech Services) — plus the project ZIP downloads, so
+Steven Powell Tech Services) — plus (new in v1.1.2) The Survival
+Guide, the collection's capstone room — "Putting it all together":
+fire from little, a layered water filter with its honesty line in
+the page's biggest type (filtering clears grit; boiling is what
+makes water safe), soap from ash and fat, batteries from the
+pantry, direction by stars and shadow with every clue graded
+(moss comes last and weakest), a remedies shelf that states its
+evidence and its limits, and first aid as the anchor section,
+written against American Red Cross and Scouts BSA practice —
+every card carrying a safety line and an honesty line; the hub
+card sits immediately before Space Camp, and the collection
+grows to 25 rooms; the splash screen, native menus, and product
+index from v1.1.1 carry over unchanged — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
