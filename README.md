@@ -63,7 +63,21 @@ gather behind one card on the main hub, in a new landing room of
 their own with its banner, its six doors carrying each workshop's
 hub blurb, and its Help menu; the six rooms keep their own pages,
 files, and addresses exactly as they were, nothing moved or renamed,
-and the collection grows to 24 rooms — plus the project ZIP downloads, so
+and the collection grows to 24 rooms — plus (new in v1.1.1) Everyday
+Electronics finished out: a virtual breadboard with real tie rules and a
+live simulation (batteries, AC, resistors, capacitors, LEDs that light
+and pop, a transistor, an oscilloscope probe, and presets), the crystal
+radio bench with a working tuner and five fictional stations, and the
+one-transistor amplifier beside it (buildable on the breadboard; the
+room's tests measure its gain at ×7.3); The Radio Room gains a card
+pointing straight at the crystal bench; and the app itself gains a
+splash screen (watercolor classroom artwork with the title set as real
+type over it — it closes the moment the workshop has loaded, with a
+five-second fallback so it can never linger), a native menu bar
+(File → Exit, or Quit in the app menu on macOS; Help → Documentation,
+Product Index, and About Everyday Cool), and a product index page in
+the collection (Everyday Cool, Spectrum Search, the Travel Kit, and
+Steven Powell Tech Services) — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
