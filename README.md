@@ -95,7 +95,15 @@ seconds from launch (Steven's correction after running v1.1.1,
 where it flashed past too fast to see) — it comes down at
 whichever is later, the workshop finishing loading or the ten
 seconds elapsing, with a fifteen-second hard cap so it can still
-never trap anyone; no content changes — plus the project ZIP downloads, so
+never trap anyone; no content changes — plus (new in v1.1.4) the
+splash screen trades its classroom artwork for the collection's
+own face: it now shows the hub page's header illustration — the
+orange question-mark planet, its thin orbit rings, and the three
+floating tiles (</>, the sun, the sparkle) on the hub's cream
+ground, under the same ✳ wordmark — rebuilt from the hub
+stylesheet's own rules, so the app splashes and then drops into
+the hub page with the same image already on it; the ten-second
+timing from v1.1.3 is unchanged; no content changes — plus the project ZIP downloads, so
 the "take a copy" links work offline too.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live

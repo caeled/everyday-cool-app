@@ -5,24 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Everyday Cool</title>
 <style>
+/* The splash wears the collection hub's own face: same cream ground
+   (#f8f6ef, the hub body background), same wordmark, and the hub hero
+   illustration rebuilt from the very rules in the hub's stylesheet —
+   so the app splashes, then drops into the hub page with the same
+   image already on it. */
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:#0d1825}
-body{font-family:Georgia,"Times New Roman",serif}
-img.art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,20,32,.62) 0%,rgba(8,20,32,.18) 30%,rgba(8,20,32,0) 48%)}
-.title{position:absolute;top:26px;left:0;right:0;text-align:center;color:#fff}
-.title h1{margin:0;font-size:52px;font-weight:700;letter-spacing:.5px;text-shadow:0 2px 14px rgba(0,0,0,.45)}
-.title p{margin:6px 0 0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;letter-spacing:2.6px;color:#f5c369;text-transform:uppercase}
-.version{position:absolute;right:16px;bottom:12px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:13px;font-weight:650;color:#fff;background:rgba(8,20,32,.55);padding:4px 10px;border-radius:20px}
-.loading{position:absolute;left:16px;bottom:12px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:13px;color:#d9e5ed;background:rgba(8,20,32,.55);padding:4px 10px;border-radius:20px}
+html,body{margin:0;height:100%;overflow:hidden;background:#f8f6ef}
+body{font-family:"Segoe UI",Arial,sans-serif;color:#202b38;display:flex;flex-direction:column}
+.brand{display:flex;gap:12px;align-items:center;padding:22px 28px 0;font-size:30px;font-weight:750;letter-spacing:-.8px}
+.brand-mark{color:#e26045;font-size:46px;line-height:1}
+.edition{font-size:9px;letter-spacing:1.5px;font-weight:600;max-width:80px;line-height:1.5;margin-left:7px;border-left:1px solid #bbc0be;padding-left:12px}
+.hero-art{height:350px;position:relative;overflow:hidden;width:100%;max-width:560px;margin:auto}
+.orbit{position:absolute;border:1px solid #bec4c2;width:290px;height:290px;border-radius:50%;left:50%;top:40%;transform:translate(-50%,-50%)}
+.orbit-b{width:215px;height:330px;transform:translate(-50%,-50%) rotate(47deg)}
+.planet{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) rotate(-12deg);width:133px;height:133px;border-radius:50%;display:grid;place-items:center;background:#eb694b;color:#f8f6ef;font:100px Georgia,serif;box-shadow:12px 14px 0 #f0dfcc}
+.tile{position:absolute;display:grid;place-items:center;border:1px solid #243747;width:87px;height:87px;border-radius:12px;font-weight:700;font-size:33px}
+.t-one{left:8%;top:18%;background:#c0d6db;transform:rotate(-13deg)}
+.t-two{right:5%;top:53%;background:#f5d47e;transform:rotate(12deg);font-size:45px}
+.t-three{right:15%;top:3%;background:#e5e7d8;transform:rotate(8deg);font-size:50px}
+.art-note{position:absolute;bottom:16px;text-align:center;width:100%;font-size:9px;letter-spacing:2px;font-weight:700}
+.version{position:absolute;right:16px;bottom:12px;font-size:13px;font-weight:650;color:#202b38;background:rgba(255,253,248,.8);border:1px solid #d5d7d1;padding:4px 10px;border-radius:20px}
+.loading{position:absolute;left:16px;bottom:12px;font-size:13px;color:#596466;background:rgba(255,253,248,.8);border:1px solid #d5d7d1;padding:4px 10px;border-radius:20px}
 </style>
 </head>
 <body>
-<img class="art" src="splash-art.jpg" alt="">
-<div class="shade"></div>
-<div class="title"><h1>Everyday Cool</h1><p>The Whole Workshop</p></div>
+<div class="brand"><span class="brand-mark" aria-hidden="true">✳</span> Everyday Cool<span class="edition">A GROWING COLLECTION</span></div>
+<div class="hero-art" aria-hidden="true"><span class="orbit orbit-a"></span><span class="orbit orbit-b"></span><span class="planet">?</span><span class="tile t-one">&lt;/&gt;</span><span class="tile t-two">☀</span><span class="tile t-three">✦</span><span class="art-note">ASK → TRY → NOTICE → UNDERSTAND</span></div>
 <div class="loading">Opening the workshop…</div>
-<div class="version" id="ver">v1.1.1</div>
+<div class="version" id="ver">v1.1.4</div>
 <script>
 if (window.__EC_VERSION) document.getElementById("ver").textContent = "v" + window.__EC_VERSION;
 </script>
