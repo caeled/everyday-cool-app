@@ -191,7 +191,15 @@ between Food and the Guide both ways. The queued picker fix rides
 too: Help → Documentation now works from the profile picker (it
 opens the collection's Documentation page in the browser), and the
 picker page itself gains Documentation and Steve's Profile links.
-No other app-code changes.
+No other app-code changes — plus (new in v1.4.1) the Library
+update: A Library shelves eight references the newer rooms added —
+Kephart's Camp Cookery (1910), time.gov, Math is Fun, Explore
+Sound, The Physics Classroom, Eat The Weeds, the North American
+Sundial Society, and The Mutopia Project — bringing the shelf to
+43 links, and its combined "Earth, sky, and making" shelf splits
+into two shelves, "Earth & sky" and "Images & music", entries
+moved only, none added, removed, or reworded. A content sync
+only; no app-code changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
