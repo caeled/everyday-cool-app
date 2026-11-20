@@ -203,7 +203,11 @@ only; no app-code changes — plus (new in v1.4.2) the Expanded
 table: Everyday Physics gains a second, bigger pool table — an
 SVG angles & force physics lab built with Google Antigravity —
 linked as "Expanded table" under the room's own pool bench. A
-content sync only; no app-code changes.
+content sync only; no app-code changes — plus (new in v1.4.3)
+Tensor-Tris: The Games Room gains a second falling-block game —
+an AI token packing & context window Tetris Steven uploaded —
+with its own section and nav entry beside Stack-a-Bot. A content
+sync only; no app-code changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
