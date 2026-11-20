@@ -157,7 +157,19 @@ could hang the app before the workshop opened (frame and menus up,
 workshop blank, Not Responding); a pick now restarts the app straight
 into that user's workshop, the same flag-and-restart road Switch User
 and Clear Cache already take, and the windows are only ever built at
-startup. No content changes.
+startup. No content changes — plus (new in v1.3.2) the documentation
+release: documentation was the one part of the workshop that did not
+look like a real program, so now it does. The Help menu gains a
+GitHub Repository item that opens the collection's source on GitHub;
+the bundled Documentation page is rebuilt as a proper manual — a
+contents row, numbered sections, and new pages on users & profiles,
+troubleshooting (a stale room is cured by File → Clear Cache, with
+progress preserved), and source & support; and the whole workshop
+carries the collection's documentation upgrade — a Source on GitHub
+link in every room's Help, a documentation action bar or panel in
+all 29 workshops, a new collection Documentation page, and Steve's
+Profile (his LinkedIn) at the foot of every Help section. No app
+behaviour changes beyond the new menu item.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum

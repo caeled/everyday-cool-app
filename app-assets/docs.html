@@ -7,58 +7,103 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#0d1825;color:#d9e5ed;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:820px;margin:0 auto;padding:34px 22px 50px}
+.topbar{background:#132334;border-bottom:1px solid #304354;padding:13px 22px;font-family:Georgia,"Times New Roman",serif;font-size:17px;color:#fff}
+.topbar .mark{color:#f5c369}
+main{max-width:860px;margin:0 auto;padding:30px 22px 50px}
 h1{font-family:Georgia,"Times New Roman",serif;font-size:38px;margin:0 0 8px;color:#fff}
-h2{font-family:Georgia,"Times New Roman",serif;font-size:24px;margin:30px 0 8px;color:#fff}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:24px;margin:38px 0 10px;padding-bottom:7px;border-bottom:2px solid #304354;color:#fff;scroll-margin-top:18px}
+h2 .sec-num{color:#f5c369;font-size:16px;letter-spacing:1px;margin-right:10px;vertical-align:2px}
+h3{font-size:16.5px;margin:16px 0 4px;color:#fff}
 .eyebrow{color:#f5c369;font-size:13px;font-weight:700;letter-spacing:1.6px;margin:0 0 10px}
 .lead{font-size:18px;color:#9db4c0}
 a{color:#79d9c9}
-.card{background:#132334;border:1px solid #304354;border-radius:12px;padding:18px 22px;margin:16px 0}
+.contents{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.contents a{background:#132334;border:1px solid #304354;border-radius:999px;padding:6px 13px;font-size:13.5px;font-weight:650;color:#d9e5ed;text-decoration:none}
+.contents a:hover{border-color:#79d9c9;color:#79d9c9}
+.card{background:#132334;border:1px solid #304354;border-left:3px solid #79d9c9;border-radius:12px;padding:18px 22px;margin:16px 0}
+.card.warn{border-left-color:#f5c369}
 .card p{margin:0 0 8px}
 .card p:last-child{margin-bottom:0}
+.card h3:first-child{margin-top:0}
 ul{margin:6px 0 12px;padding-left:22px}
 li{margin-bottom:5px}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid #304354;font-size:14.5px;color:#9db4c0}
 :focus-visible{outline:3px solid #f5c369;outline-offset:2px}
 </style>
 </head>
 <body>
+<header class="topbar"><span class="mark">✳</span> Everyday Cool · Documentation</header>
 <main>
 <p class="eyebrow">EVERYDAY COOL · DOCUMENTATION</p>
 <h1>How the workshop works</h1>
 <p class="lead">Everyday Cool is a collection of interactive rooms — radios you can tune, benches you can build on, the night sky, maps, language, numbers — each one showing its working and saying plainly what it simplified. This app carries the whole collection in one installable program.</p>
 
-<h2>Getting around</h2>
+<nav class="contents" aria-label="Contents">
+<a href="#getting-around">Getting around</a>
+<a href="#room-docs">Every room documents itself</a>
+<a href="#menus">Menus</a>
+<a href="#users">Users &amp; profiles</a>
+<a href="#online-offline">Online &amp; offline</a>
+<a href="#troubleshooting">Troubleshooting</a>
+<a href="#source-support">Source &amp; support</a>
+</nav>
+
+<h2 id="getting-around"><span class="sec-num">01</span>Getting around</h2>
 <div class="card">
-<p>The <a href="index.html">hub</a> is the front door: every room has a card there, and the search box at the top filters the cards as you type. The six science rooms — Physics, Chemistry, Electronics, Measure, Body, and the Radio Room — gather behind <strong>The STEM Room</strong> card.</p>
+<p>The <a href="index.html">hub</a> is the front door: every room has a card there, and the search box at the top filters the cards as you type. The ten science workshops — Physics, Chemistry, Electronics, Measure, Engineering, Math, Earth, Computing, Body, and the Radio Room — gather behind <strong>The STEM Room</strong> card.</p>
 <p>Links that stay inside the workshop open here in the app. Links that leave it — documentation sources, live services, downloads' home sites — open in your default browser, so the workshop stays exactly where you left it.</p>
 </div>
 
-<h2>Every room documents itself</h2>
+<h2 id="room-docs"><span class="sec-num">02</span>Every room documents itself</h2>
 <div class="card">
-<p>Each room carries a <strong>Help ▾</strong> menu in its own header. That menu opens the room's documentation right on the page: what each bench does, the honest simplifications behind it, and the safety lines where a room has them. The full README for a room rides along inside the app as well, so the documentation works offline.</p>
+<p>Each room carries a <strong>Help ▾</strong> menu in its own header. That menu opens the room's documentation right on the page: what each bench does, the honest simplifications behind it, and the safety lines where a room has them. The documentation section itself carries the same doors in every room — the full README, the room's source on GitHub, its sources &amp; limitations, and a download of the room on its own. The full README for a room rides along inside the app as well, so the documentation works offline.</p>
 <p>If you are stuck in a room, its Help menu is the first place to look — it was written for that room, not for the collection in general.</p>
 </div>
 
-<h2>The menu bar</h2>
+<h2 id="menus"><span class="sec-num">03</span>Menus</h2>
 <div class="card">
 <ul>
 <li><strong>File → Exit</strong> (on macOS, the Everyday Cool menu → Quit) closes the app.</li>
 <li><strong>Help → Documentation</strong> opens this page.</li>
 <li><strong>Help → Product Index</strong> opens the index of Steven Powell's products — Everyday Cool, Spectrum Search, the Travel Kit, and Steven Powell Tech Services — in your browser. A bundled copy also lives at <a href="products/index.html">products/index.html</a> inside the app.</li>
+<li><strong>Help → GitHub Repository</strong> opens the Everyday Cool collection's source repository on GitHub in your browser — every room's code and writing, exactly as it ships here.</li>
 <li><strong>Help → About Everyday Cool</strong> shows the app name and version.</li>
 </ul>
 </div>
 
-<h2>Online and offline</h2>
+<h2 id="users"><span class="sec-num">04</span>Users &amp; profiles</h2>
+<div class="card">
+<p>Several people can share one machine. Once more than one user exists, a <strong>profile picker</strong> opens at startup: pick your name, and the app restarts straight into your workshop. Each user keeps their own saved progress, preferences, and cache in every room — no room's code had to change for that.</p>
+<p>The <strong>File</strong> menu shows the current user and carries <strong>Switch User</strong> and <strong>Add User</strong>. The data the app already had became the first user, "Default," adopted untouched. And <strong>File → Clear Cache</strong> clears only the current user's cached pages — never their progress.</p>
+</div>
+
+<h2 id="online-offline"><span class="sec-num">05</span>Online and offline</h2>
 <div class="card">
 <p>Most of the workshop runs fully offline inside the app — the benches, diagrams, and games are arithmetic and text. A few rooms use live data when you are online (the weather, the library catalogues, shared radios and station streams), and say so on their own pages. Nothing in the workshop sends your activity anywhere: the benches compute in your own window.</p>
 </div>
 
-<h2>The live collection</h2>
+<h2 id="troubleshooting"><span class="sec-num">06</span>Troubleshooting</h2>
+<div class="card warn">
+<h3>A room is showing an old version of itself</h3>
+<p>Use <strong>File → Clear Cache</strong>. The app clears its cached pages, code caches, and service workers, then restarts with fresh copies of every room. Your room progress and preferences are <em>not</em> touched — they live in local storage, which Clear Cache deliberately leaves alone.</p>
+<h3>The app opens to a profile picker</h3>
+<p>That is profiles working as designed: more than one user exists on this machine. Pick your name and the app restarts into your workshop, with your progress where you left it.</p>
+<h3>A room asks for the internet</h3>
+<p>Some rooms are live by nature: weather forecasts, the library catalogues, radio streams and scanner feeds, map tiles and place searches, and fresh satellite orbit data all live on other people's servers. The benches and lessons around them still work offline; the room's own page says plainly which parts need a connection.</p>
+</div>
+
+<h2 id="source-support"><span class="sec-num">07</span>Source &amp; support</h2>
 <div class="card">
-<p>The same collection lives on the web at <strong>caeled.github.io/everyday-cool</strong>, and the app is built from it — what you see here is the collection itself, not a copy of a copy. Room pages there carry the same Help menus and documentation.</p>
+<p>The same collection lives on the web at <a href="https://caeled.github.io/everyday-cool/">caeled.github.io/everyday-cool</a>, and the app is built from it — what you see here is the collection itself, not a copy of a copy. Room pages there carry the same Help menus and documentation. The collection's own <a href="documentation.html">Documentation page</a> rides along inside the app, too.</p>
+<ul>
+<li><strong>The collection's source:</strong> <a href="https://github.com/caeled/everyday-cool">github.com/caeled/everyday-cool</a> — every room, its writing, and its history.</li>
+<li><strong>This app's source:</strong> <a href="https://github.com/caeled/everyday-cool-app">github.com/caeled/everyday-cool-app</a> — the shell that carries the collection.</li>
+<li><strong>Found something wrong?</strong> <a href="https://github.com/caeled/everyday-cool-app/issues">Report an issue</a> on GitHub — a room that misbehaves, a page that looks stale, a fact that needs correcting.</li>
+</ul>
 <p><a href="index.html">← Back to the hub</a></p>
 </div>
+
+<footer>By Steven Powell · <a href="https://www.linkedin.com/in/stevendouglaspowell">Steve's Profile ↗</a></footer>
 </main>
 </body>
 </html>
