@@ -139,7 +139,19 @@ adopted untouched and in place, and Clear Cache now clears only
 the current user's caches. On Windows and Linux each user gets a
 separate webview data folder; on macOS 14 and later, a separate
 website data store (older macOS shares the default store, so
-profiles there are names without separate storage).
+profiles there are names without separate storage) — plus (new in v1.3.0)
+the STEM Room fills out to ten workshops: the four rooms that went
+live on the web first now ride in the app — Everyday Engineering
+(the six simple machines, with lever, pulley, ramp, and frame
+benches and a pocket log table), Everyday Math (tricks with their
+reasons, a scientific calculator, and the printable 16 × 16 times
+grid and log sheet), Everyday Earth (the water cycle, rocks, soil,
+and weather from the ground), and Everyday Computing (counting in
+twos, the six gates, a half adder, and a free-form logic builder —
+which Nerd Heaven's aphorism panel now links to, closing the loop
+between the saying and the bench); The Survival Guide's links out
+gain the machine shop behind its field skills; no app-code changes
+— the profiles and Clear Cache of v1.2.0 stand as they were.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
