@@ -485,7 +485,8 @@ fn build_add_user_window(handle: &AppHandle) {
 
 /// The File menu's "Current user: …" item, kept so a pick in the
 /// startup picker can update its text for the session that follows.
-static CURRENT_USER_ITEM: std::sync::OnceLock<MenuItem> = std::sync::OnceLock::new();
+static CURRENT_USER_ITEM: std::sync::OnceLock<MenuItem<tauri::Wry>> =
+    std::sync::OnceLock::new();
 
 fn update_current_user_menu(name: &str) {
     if let Some(item) = CURRENT_USER_ITEM.get() {
