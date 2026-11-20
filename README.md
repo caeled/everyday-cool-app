@@ -169,7 +169,29 @@ carries the collection's documentation upgrade — a Source on GitHub
 link in every room's Help, a documentation action bar or panel in
 all 29 workshops, a new collection Documentation page, and Steve's
 Profile (his LinkedIn) at the foot of every Help section. No app
-behaviour changes beyond the new menu item.
+behaviour changes beyond the new menu item — plus (new in v1.4.0)
+wave 2 rides in, with a new neighbour: the STEM Room fills out to
+thirteen workshops as Everyday Sound (tones, decibels, and echoes —
+and a little piano with five voices), Everyday Time (a sundial that
+shows its working, the leap-year machine, and the pendulum), and
+Everyday Light (mixing light and paint, colour chords beside Sound's
+circle of fifths, and why the sky is blue) join Physics, Chemistry,
+Electronics, Measure, Body, the Radio Room, Engineering, Math,
+Earth, and Computing; the Survival Guide gains a Knots section —
+ten scout-engineering knots, each with its safety line and its
+honesty line, under the standing rule that no knot there makes a
+rope safe for climbing; Everyday Physics gains Flight — three paper
+planes, a wing-loading bench, and a trim doctor under the test-throw
+ritual; and a whole new room, Everyday Food, takes the main hub next
+to the Survival Guide: the tongue map audited and found wrong,
+flavour as taste plus smell, bitter and sweet in balance, six
+food-plant cards taught under the rule that no webpage makes a wild
+plant safe to eat, and a Dutch-oven coal bench — with links running
+between Food and the Guide both ways. The queued picker fix rides
+too: Help → Documentation now works from the profile picker (it
+opens the collection's Documentation page in the browser), and the
+picker page itself gains Documentation and Steve's Profile links.
+No other app-code changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
