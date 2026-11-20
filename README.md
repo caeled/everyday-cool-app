@@ -128,7 +128,18 @@ serving its pre-update copy out of the app's saved web data (the
 field failure v1.1.5 ran into on Nerd Heaven): it clears the cached
 pages, code caches, and service workers, then restarts the app —
 room progress and preferences, which live in local storage, are
-deliberately left untouched; no content changes.
+deliberately left untouched; no content changes — plus (new in v1.2.0)
+user profiles, so several people can share one machine: each person
+— picked by name from a startup picker once more than one user
+exists, and managed from the File menu (a Current user label,
+Switch User, and Add User) — gets their own saved progress,
+preferences, and cache in every room, with no room's code changed;
+the data the app already had becomes the first user, "Default,"
+adopted untouched and in place, and Clear Cache now clears only
+the current user's caches. On Windows and Linux each user gets a
+separate webview data folder; on macOS 14 and later, a separate
+website data store (older macOS shares the default store, so
+profiles there are names without separate storage).
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum

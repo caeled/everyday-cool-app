@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everyday Cool — Users</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d1825;color:#d9e5ed;font:15.5px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:26px 28px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;margin:0 0 6px;color:#fff}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:19px;margin:22px 0 8px;color:#fff}
+.sub{color:#9db4c0;margin:0 0 18px}
+.tile{background:#122334;border:1px solid #24405c;border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.pick{display:block;width:100%;text-align:left;background:none;border:none;padding:2px 0;cursor:pointer;color:#fff;font:inherit}
+.pick .name{font-size:19px;font-weight:700}
+.pick .tag{display:block;font-size:13px;color:#f5c369;font-weight:600}
+.pick .hint{display:block;font-size:13.5px;color:#9db4c0}
+.controls{margin-top:8px;display:flex;gap:14px}
+.controls button{background:none;border:none;padding:0;cursor:pointer;color:#9db4c0;font:13.5px system-ui,sans-serif;text-decoration:underline}
+.controls button.armed{color:#e08a8a;font-weight:700}
+.renameform{display:flex;gap:8px;margin-top:8px}
+input[type=text]{flex:1;background:#0a141f;border:1px solid #24405c;border-radius:8px;color:#eaf3f8;padding:9px 11px;font:15px system-ui,sans-serif}
+button.primary{background:#f5c369;color:#14202e;border:none;border-radius:8px;padding:9px 16px;font:700 15px system-ui,sans-serif;cursor:pointer}
+.addform{display:flex;gap:8px}
+.fine{font-size:13.5px;color:#9db4c0;margin-top:10px}
+</style>
+</head>
+<body>
+<h1 id="heading">Who's using Everyday Cool?</h1>
+<p class="sub" id="sub"></p>
+<div id="tiles"></div>
+<div id="addbox">
+<h2>Add a user</h2>
+<form class="addform" action="ec-action" method="get">
+<input type="text" name="add" maxlength="40" placeholder="Name" autocomplete="off">
+<button class="primary" type="submit">Add user</button>
+</form>
+<p class="fine">No passwords — a name here is just a label, like picking a seat at the bench. Each user keeps their own progress and place in every room.</p>
+</div>
+<script>
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function actionUrl(qs){return 'ec-action?' + qs;}
+function tile(u){
+  var wrap=document.createElement('div'); wrap.className='tile';
+  var pick=document.createElement('button'); pick.className='pick'; pick.type='button';
+  var tags=[];
+  if(u.is_default) tags.push('the original user — the data this app already had');
+  if(u.is_last_used) tags.push('last used');
+  pick.innerHTML='<span class="name">'+esc(u.name)+'</span>' +
+    (tags.length ? '<span class="tag">'+esc(tags.join(' · '))+'</span>' : '') +
+    '<span class="hint">Open the workshop as ' + esc(u.name) + '</span>';
+  pick.addEventListener('click',function(){ location.href=actionUrl('pick='+encodeURIComponent(u.id)); });
+  wrap.appendChild(pick);
+  var controls=document.createElement('div'); controls.className='controls';
+  var rename=document.createElement('button'); rename.type='button'; rename.textContent='Rename';
+  rename.addEventListener('click',function(){
+    controls.innerHTML='';
+    var form=document.createElement('form'); form.className='renameform'; form.action='ec-action'; form.method='get';
+    form.innerHTML='<input type="hidden" name="rename" value="'+esc(u.id)+'">' +
+      '<input type="text" name="name" maxlength="40" value="'+esc(u.name)+'" autocomplete="off">' +
+      '<button class="primary" type="submit">Save</button>';
+    controls.appendChild(form);
+  });
+  controls.appendChild(rename);
+  if(u.can_delete){
+    var del=document.createElement('button'); del.type='button'; del.textContent='Delete';
+    del.addEventListener('click',function(){
+      if(del.dataset.armed){ location.href=actionUrl('del='+encodeURIComponent(u.id)); }
+      else { del.dataset.armed='1'; del.className='armed'; del.textContent='Click again to delete ' + u.name + ' and their saved progress'; }
+    });
+    controls.appendChild(del);
+  }
+  wrap.appendChild(controls);
+  return wrap;
+}
+function render(state){
+  if(!state) return;
+  window.__EC_PICKER=state;
+  var addMode = state.mode==='add';
+  document.getElementById('heading').textContent = addMode ? 'Add a user' : "Who's using Everyday Cool?";
+  document.getElementById('sub').textContent = addMode
+    ? 'The new user gets their own saved progress and place in every room. Once they are added, Switch User in the menu takes you to them.'
+    : 'Each user keeps their own progress, preferences, and place in every room. Pick your name to open the workshop.';
+  var wrap=document.getElementById('tiles'); wrap.innerHTML='';
+  if(!addMode){ (state.users||[]).forEach(function(u){ wrap.appendChild(tile(u)); }); }
+}
+window.__ecState=render;
+render(window.__EC_PICKER || {mode:'pick', users:[]});
+</script>
+</body>
+</html>
