@@ -300,6 +300,7 @@ enum UserAction {
     Add(String),
     Delete(String),
     Rename(String, String),
+    Open(String),
 }
 
 fn parse_user_action(url: &tauri::Url) -> Option<UserAction> {
@@ -311,6 +312,7 @@ fn parse_user_action(url: &tauri::Url) -> Option<UserAction> {
     let mut delete = None;
     let mut rename = None;
     let mut name = None;
+    let mut open = None;
     for (key, value) in url.query_pairs() {
         match key.as_ref() {
             "pick" => pick = Some(value.into_owned()),
@@ -318,6 +320,7 @@ fn parse_user_action(url: &tauri::Url) -> Option<UserAction> {
             "del" => delete = Some(value.into_owned()),
             "rename" => rename = Some(value.into_owned()),
             "name" => name = Some(value.into_owned()),
+            "open" => open = Some(value.into_owned()),
             _ => {}
         }
     }
@@ -329,15 +332,30 @@ fn parse_user_action(url: &tauri::Url) -> Option<UserAction> {
         Some(UserAction::Delete(id))
     } else if let (Some(id), Some(raw)) = (rename, name) {
         Some(UserAction::Rename(id, raw))
+    } else if let Some(key) = open {
+        Some(UserAction::Open(key))
     } else {
         None
     }
+}
+
+/// The picker page's two outside links, whitelisted by key: the page
+/// asks by name and Rust opens the destination in the OS browser —
+/// the picker webview itself never navigates away from its tiles.
+fn open_picker_link(handle: &AppHandle, key: &str) {
+    let url = match key {
+        "documentation" => "https://caeled.github.io/everyday-cool/documentation.html",
+        "profile" => "https://www.linkedin.com/in/stevendouglaspowell",
+        _ => return,
+    };
+    let _ = handle.opener().open_url(url, None::<&str>);
 }
 
 /// Act on a startup-picker action. Runs on the main thread, deferred
 /// out of the navigation callback that intercepted it.
 fn handle_picker_action(handle: &AppHandle, action: UserAction) {
     match action {
+        UserAction::Open(key) => open_picker_link(handle, &key),
         UserAction::Pick(id) => {
             // Bookkeeping only — then restart, and let setup build
             // the windows. Field failure (v1.3.0, Steven's machine):
@@ -426,6 +444,10 @@ fn handle_picker_action(handle: &AppHandle, action: UserAction) {
 /// never restarts anything: the registry gains an entry, the window
 /// closes, and the workshop (or the picker behind it) hears about it.
 fn handle_add_user_action(handle: &AppHandle, action: UserAction) {
+    if let UserAction::Open(key) = &action {
+        open_picker_link(handle, key.as_str());
+        return;
+    }
     if let UserAction::Add(raw) = action {
         if let Some(name) = sanitize_user_name(&raw) {
             let mut registry = load_registry(handle);
@@ -914,6 +936,19 @@ fn main() {
                         }
                     }
                     let _ = win.set_focus();
+                } else {
+                    // No main window yet — the startup picker is what
+                    // is on screen, and there is no window to navigate,
+                    // so this item used to do nothing at all there
+                    // (Steven's report, 2026-11-20). From the picker,
+                    // Documentation opens the collection's own
+                    // Documentation page in the OS browser instead;
+                    // the bundled manual is one pick away once the
+                    // workshop opens.
+                    let _ = app.opener().open_url(
+                        "https://caeled.github.io/everyday-cool/documentation.html",
+                        None::<&str>,
+                    );
                 }
             }
             "products" => {

@@ -23,6 +23,8 @@ input[type=text]{flex:1;background:#0a141f;border:1px solid #24405c;border-radiu
 button.primary{background:#f5c369;color:#14202e;border:none;border-radius:8px;padding:9px 16px;font:700 15px system-ui,sans-serif;cursor:pointer}
 .addform{display:flex;gap:8px}
 .fine{font-size:13.5px;color:#9db4c0;margin-top:10px}
+.foot{margin-top:26px;padding-top:14px;border-top:1px solid #24405c;display:flex;gap:18px}
+.foot button{background:none;border:none;padding:0;cursor:pointer;color:#9db4c0;font:13.5px system-ui,sans-serif;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -36,6 +38,10 @@ button.primary{background:#f5c369;color:#14202e;border:none;border-radius:8px;pa
 <button class="primary" type="submit">Add user</button>
 </form>
 <p class="fine">No passwords — a name here is just a label, like picking a seat at the bench. Each user keeps their own progress and place in every room.</p>
+</div>
+<div class="foot">
+<button type="button" id="doclink">Documentation ↗</button>
+<button type="button" id="profilelink">Steve's Profile ↗</button>
 </div>
 <script>
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -86,6 +92,8 @@ function render(state){
 }
 window.__ecState=render;
 render(window.__EC_PICKER || {mode:'pick', users:[]});
+document.getElementById('doclink').addEventListener('click',function(){ location.href=actionUrl('open=documentation'); });
+document.getElementById('profilelink').addEventListener('click',function(){ location.href=actionUrl('open=profile'); });
 </script>
 </body>
 </html>
