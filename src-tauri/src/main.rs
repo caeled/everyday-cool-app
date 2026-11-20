@@ -68,6 +68,7 @@ struct UserRegistry {
 const DEFAULT_USER_ID: &str = "default";
 const USERS_FILE: &str = "users.json";
 const SHOW_PICKER_FLAG: &str = "show-picker.flag";
+const PICKED_FLAG: &str = "picked.flag";
 
 fn users_file_path(handle: &AppHandle) -> Option<std::path::PathBuf> {
     handle
@@ -338,19 +339,32 @@ fn parse_user_action(url: &tauri::Url) -> Option<UserAction> {
 fn handle_picker_action(handle: &AppHandle, action: UserAction) {
     match action {
         UserAction::Pick(id) => {
+            // Bookkeeping only — then restart, and let setup build
+            // the windows. Field failure (v1.3.0, Steven's machine):
+            // this branch used to close the picker and call
+            // launch_main right here, synchronously inside the
+            // closure the navigation intercept dispatched — closing
+            // the very webview whose navigation the main thread had
+            // just handled, then building the splash and main
+            // WebView2 windows on that same thread, wedged it for
+            // good: frame and menus painted, workshop blank white,
+            // "(Not Responding)", and even the splash's fifteen-
+            // second hard cap could never fire, because the cap is
+            // itself a post to the blocked thread. Windows are only
+            // ever built from setup — the one context that has
+            // worked in every version — so a pick now takes the
+            // flag-and-restart road Switch User and Clear Cache
+            // already use: record the pick as last_used, leave the
+            // picked flag, restart, and setup opens the workshop
+            // directly for that user (see consume_picked_flag).
             let mut registry = load_registry(handle);
-            let Some(user) = registry.users.iter().find(|u| u.id == id).cloned() else {
+            if !registry.users.iter().any(|u| u.id == id) {
                 return;
-            };
-            registry.last_used = user.id.clone();
+            }
+            registry.last_used = id;
             save_registry(handle, &registry);
-            update_current_user_menu(&user.name);
-            if let Some(picker) = handle.get_webview_window("picker") {
-                let _ = picker.close();
-            }
-            if handle.get_webview_window("main").is_none() {
-                let _ = launch_main(handle, &user);
-            }
+            write_flag(handle, PICKED_FLAG);
+            handle.restart();
         }
         UserAction::Add(raw) => {
             if let Some(name) = sanitize_user_name(&raw) {
@@ -392,15 +406,16 @@ fn handle_picker_action(handle: &AppHandle, action: UserAction) {
         UserAction::Rename(id, raw) => {
             if let Some(name) = sanitize_user_name(&raw) {
                 let mut registry = load_registry(handle);
-                let mut renamed_active = false;
                 if let Some(user) = registry.users.iter_mut().find(|u| u.id == id) {
-                    user.name = name.clone();
-                    renamed_active = id == registry.last_used;
+                    user.name = name;
                 }
                 save_registry(handle, &registry);
-                if renamed_active {
-                    update_current_user_menu(&name);
-                }
+                // No menu update here: the File menu's "Current
+                // user" label is read from the registry when the
+                // menu is built at startup, so a rename shows there
+                // from the next launch. Mutating a menu item from
+                // inside a picker callback was part of the v1.3.0
+                // hang class and is not done anymore.
                 refresh_users_window(handle, "picker", &registry, "pick");
             }
         }
@@ -483,19 +498,9 @@ fn build_add_user_window(handle: &AppHandle) {
         .build();
 }
 
-/// The File menu's "Current user: …" item, kept so a pick in the
-/// startup picker can update its text for the session that follows.
-static CURRENT_USER_ITEM: std::sync::OnceLock<MenuItem<tauri::Wry>> =
-    std::sync::OnceLock::new();
-
-fn update_current_user_menu(name: &str) {
-    if let Some(item) = CURRENT_USER_ITEM.get() {
-        let _ = item.set_text(format!("Current user: {name}"));
-    }
-}
-
 /// Path of a small flag file in the app local data directory (the
-/// Clear Cache flag and the show-picker flag live side by side).
+/// Clear Cache flag, the show-picker flag, and the picked flag live
+/// side by side).
 fn flag_path(handle: &AppHandle, name: &str) -> Option<std::path::PathBuf> {
     handle
         .path()
@@ -510,6 +515,21 @@ fn write_flag(handle: &AppHandle, name: &str) {
             let _ = std::fs::create_dir_all(parent);
         }
         let _ = std::fs::write(&flag, b"1");
+    }
+}
+
+/// Consume the picked flag left by a pick in the startup picker
+/// (see the Pick branch of handle_picker_action). Setup checks it
+/// before the picker decision: the pick restarted the app, and this
+/// process opens the workshop directly for the picked user — who is
+/// the registry's last_used — instead of showing the picker again.
+fn consume_picked_flag(handle: &AppHandle) -> bool {
+    match flag_path(handle, PICKED_FLAG) {
+        Some(flag) if flag.exists() => {
+            let _ = std::fs::remove_file(&flag);
+            true
+        }
+        _ => false,
     }
 }
 
@@ -671,10 +691,13 @@ fn maybe_dismiss_splash(handle: &AppHandle) {
 
 /// Build the splash and the main window for `user`, with the main
 /// window's webview pointed at the user's own data store (see the
-/// user-profiles notes at the top of this file). Called from setup
-/// when no picker is needed, and from the picker when a user is
-/// chosen. Default gets no store override at all — its window is
-/// built exactly as it was before profiles existed.
+/// user-profiles notes at the top of this file). Called only from
+/// setup: directly when no picker is needed, and on the restart
+/// that follows a pick (the picked flag). Never called from a
+/// picker callback — see the Pick branch of handle_picker_action
+/// for the hang that taught that. Default gets no store override
+/// at all — its window is built exactly as it was before profiles
+/// existed.
 fn launch_main(handle: &AppHandle, user: &UserProfile) -> tauri::Result<()> {
     // The splash goes up first: artwork full-bleed, the title set
     // as real HTML type over it, the version in the corner (the
@@ -782,10 +805,12 @@ fn main() {
         .plugin(tauri_plugin_opener::init())
         .menu(|handle| {
             // User profiles (v1.2.0): a disabled label naming the
-            // active user (kept in CURRENT_USER_ITEM so a pick in the
-            // startup picker can update it), plus Switch User and
-            // Add User. The registry is read here — before setup —
-            // purely for the label; setup loads it again for real.
+            // active user, plus Switch User and Add User. The label
+            // is read from the registry as the menu is built and is
+            // never mutated afterwards — a pick or rename lands in
+            // the registry and shows here from the next launch. The
+            // registry is read here — before setup — purely for the
+            // label; setup loads it again for real.
             let current_name = active_user(&load_registry(handle)).name;
             let current_user = MenuItem::with_id(
                 handle,
@@ -794,7 +819,6 @@ fn main() {
                 false,
                 None::<&str>,
             )?;
-            let _ = CURRENT_USER_ITEM.set(current_user.clone());
             let switch_user =
                 MenuItem::with_id(handle, "switch-user", "Switch User", true, None::<&str>)?;
             let add_user =
@@ -942,12 +966,21 @@ fn main() {
                 CACHE_JUST_CLEARED.store(true, std::sync::atomic::Ordering::SeqCst);
             }
 
-            // Two or more users — or a Switch User restart — means the
-            // picker comes first, and the splash and workshop are built
-            // when a user is chosen (see handle_picker_action). With a
-            // single user there is nothing to pick: open directly, as
-            // the app always has.
-            if consume_show_picker_flag(handle) || registry.users.len() > 1 {
+            // A pick in the picker restarts the app with the picked
+            // flag set (see handle_picker_action): honour it before
+            // the picker decision and open the workshop directly for
+            // the picked user — who is `active`, since the pick
+            // recorded them as last_used — even when two or more
+            // users exist. Windows are built only here, in setup,
+            // never from a picker callback.
+            //
+            // Otherwise: two or more users — or a Switch User
+            // restart — means the picker comes first. With a single
+            // user there is nothing to pick: open directly, as the
+            // app always has.
+            if consume_picked_flag(handle) {
+                launch_main(handle, &active)?;
+            } else if consume_show_picker_flag(handle) || registry.users.len() > 1 {
                 build_picker(handle, &registry)?;
             } else {
                 launch_main(handle, &active)?;

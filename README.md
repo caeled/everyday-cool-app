@@ -151,7 +151,13 @@ twos, the six gates, a half adder, and a free-form logic builder —
 which Nerd Heaven's aphorism panel now links to, closing the loop
 between the saying and the bench); The Survival Guide's links out
 gain the machine shop behind its field skills; no app-code changes
-— the profiles and Clear Cache of v1.2.0 stand as they were.
+— the profiles and Clear Cache of v1.2.0 stand as they were — plus
+(new in v1.3.1) a startup fix: picking a user at the profile picker
+could hang the app before the workshop opened (frame and menus up,
+workshop blank, Not Responding); a pick now restarts the app straight
+into that user's workshop, the same flag-and-restart road Switch User
+and Clear Cache already take, and the windows are only ever built at
+startup. No content changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
