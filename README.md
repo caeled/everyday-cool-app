@@ -122,7 +122,13 @@ thataway" troubleshooting text — rules are a map, the real trick is
 pattern recognizers that see similarities across gates — with the
 AI-generated gates-pattern infographic; the splash screen, native
 menus, and product index carry over unchanged — plus the project ZIP downloads, so
-the "take a copy" links work offline too.
+the "take a copy" links work offline too — plus (new in v1.1.6) a
+Clear Cache item in the File menu, the standing cure for a room
+serving its pre-update copy out of the app's saved web data (the
+field failure v1.1.5 ran into on Nerd Heaven): it clears the cached
+pages, code caches, and service workers, then restarts the app —
+room progress and preferences, which live in local storage, are
+deliberately left untouched; no content changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum

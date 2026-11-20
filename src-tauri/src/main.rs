@@ -25,6 +25,101 @@ fn is_app_url(url: &tauri::Url) -> bool {
 /// LATER — the main window's first page finishing loading, or the ten
 /// seconds elapsing. A separate fifteen-second hard cap (see setup)
 /// dismisses it unconditionally, so it can still never trap the user.
+/// Clear Cache (File menu, new in v1.1.6). Field failure behind it:
+/// after the v1.1.5 update, the app's persisted WebView2 profile kept
+/// serving the pre-update Nerd Heaven room — the room's own service
+/// worker answers cache-first out of Cache Storage, and neither
+/// reinstalling the app nor restarting it clears that profile.
+/// Renaming the EBWebView folder fixed it by hand; this menu item is
+/// the standing cure, with no folder surgery.
+///
+/// The item cannot clear the cache in place: the running webview owns
+/// those files. So the click writes a flag file and restarts the app,
+/// and at the very top of setup — before any window (and therefore any
+/// webview) exists — the flag is consumed: only the cache-bearing
+/// subdirectories of the profile are deleted (HTTP cache, code cache,
+/// GPU cache, and the Service Worker directory, which holds the
+/// service worker registrations and their Cache Storage). Local
+/// Storage and IndexedDB are never touched, so room progress and
+/// preferences survive a Clear Cache.
+static CACHE_JUST_CLEARED: std::sync::atomic::AtomicBool =
+    std::sync::atomic::AtomicBool::new(false);
+
+const CLEAR_CACHE_FLAG: &str = "clear-cache.flag";
+
+fn clear_cache_flag_path(handle: &AppHandle) -> Option<std::path::PathBuf> {
+    handle
+        .path()
+        .app_local_data_dir()
+        .ok()
+        .map(|dir| dir.join(CLEAR_CACHE_FLAG))
+}
+
+/// File → Clear Cache: leave the flag for the next launch, then
+/// restart. The deletion happens in setup of the new process, before
+/// its webview is created (see consume_clear_cache_flag).
+fn request_clear_cache(handle: &AppHandle) {
+    if let Some(flag) = clear_cache_flag_path(handle) {
+        if let Some(parent) = flag.parent() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+        let _ = std::fs::write(&flag, b"clear");
+    }
+    handle.restart();
+}
+
+/// Consume a Clear Cache flag left by the previous run. Returns true
+/// when a flag was present (the caller then arms the "cache cleared"
+/// notice for the main window). Deletion is best-effort with a short
+/// retry: the previous process may still be releasing file locks in
+/// the first moments after a restart.
+fn consume_clear_cache_flag(handle: &AppHandle) -> bool {
+    let Some(flag) = clear_cache_flag_path(handle) else {
+        return false;
+    };
+    if !flag.exists() {
+        return false;
+    }
+    let _ = std::fs::remove_file(&flag);
+
+    let mut targets: Vec<std::path::PathBuf> = Vec::new();
+    if let Ok(data_dir) = handle.path().app_local_data_dir() {
+        // The WebView2 profile: <app local data>/EBWebView/Default.
+        // Only cache directories are listed — Local Storage and
+        // IndexedDB live in sibling directories and are preserved.
+        let profile = data_dir.join("EBWebView").join("Default");
+        for sub in ["Service Worker", "Cache", "Code Cache", "GPUCache"] {
+            targets.push(profile.join(sub));
+        }
+    }
+    #[cfg(target_os = "macos")]
+    {
+        // WKWebView has no EBWebView; the app's system cache container
+        // (~/Library/Caches/<bundle id>) is pure cache and regenerates.
+        if let Ok(home) = handle.path().home_dir() {
+            targets.push(
+                home.join("Library")
+                    .join("Caches")
+                    .join(handle.config().identifier.as_str()),
+            );
+        }
+    }
+    for target in targets {
+        for _ in 0..5 {
+            if !target.exists() || std::fs::remove_dir_all(&target).is_ok() {
+                break;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(150));
+        }
+    }
+    true
+}
+
+/// In-page notice shown once on the main window after a Clear Cache
+/// restart, so the click never feels dead. Injected from Rust; the
+/// bundled pages are untouched.
+const CACHE_CLEARED_NOTICE_JS: &str = "(() => { const d = document.createElement('div'); d.textContent = 'Cache cleared \\u2014 rooms now load their fresh copies. Your saved progress was not touched.'; d.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99999;background:#1d3b2a;color:#eaf5ec;padding:10px 18px;border-radius:10px;font:14px system-ui,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.35)'; document.body.appendChild(d); setTimeout(() => d.remove(), 8000); })();";
+
 static MAIN_LOADED: std::sync::atomic::AtomicBool =
     std::sync::atomic::AtomicBool::new(false);
 static MIN_TIME_PASSED: std::sync::atomic::AtomicBool =
@@ -44,6 +139,11 @@ fn dismiss_splash(handle: &AppHandle) {
     if let Some(main) = handle.get_webview_window("main") {
         let _ = main.show();
         let _ = main.set_focus();
+        // If this launch consumed a Clear Cache flag, say so on the
+        // page now that it is visible (once only).
+        if CACHE_JUST_CLEARED.swap(false, std::sync::atomic::Ordering::SeqCst) {
+            let _ = main.eval(CACHE_CLEARED_NOTICE_JS);
+        }
     }
 }
 
@@ -61,6 +161,8 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .menu(|handle| {
+            let clear_cache =
+                MenuItem::with_id(handle, "clear-cache", "Clear Cache", true, None::<&str>)?;
             let docs = MenuItem::with_id(handle, "docs", "Documentation", true, None::<&str>)?;
             let products =
                 MenuItem::with_id(handle, "products", "Product Index", true, None::<&str>)?;
@@ -77,20 +179,35 @@ fn main() {
             #[cfg(target_os = "macos")]
             {
                 // macOS convention: the first submenu is the app menu, and
-                // quitting lives there as the predefined Quit item.
+                // quitting lives there as the predefined Quit item. Clear
+                // Cache rides in the app menu, above Quit — the macOS
+                // counterpart of its File-menu place on other platforms.
                 let quit = PredefinedMenuItem::quit(handle, None::<&str>)?;
-                let app_menu = Submenu::with_items(handle, "Everyday Cool", true, &[&quit])?;
+                let app_sep = PredefinedMenuItem::separator(handle)?;
+                let app_menu = Submenu::with_items(
+                    handle,
+                    "Everyday Cool",
+                    true,
+                    &[&clear_cache, &app_sep, &quit],
+                )?;
                 Menu::with_items(handle, &[&app_menu, &help])
             }
             #[cfg(not(target_os = "macos"))]
             {
                 let exit = MenuItem::with_id(handle, "exit", "Exit", true, None::<&str>)?;
-                let file = Submenu::with_items(handle, "File", true, &[&exit])?;
+                let file_sep = PredefinedMenuItem::separator(handle)?;
+                let file = Submenu::with_items(
+                    handle,
+                    "File",
+                    true,
+                    &[&clear_cache, &file_sep, &exit],
+                )?;
                 Menu::with_items(handle, &[&file, &help])
             }
         })
         .on_menu_event(|app, event| match event.id().as_ref() {
             "exit" => app.exit(0),
+            "clear-cache" => request_clear_cache(app),
             "docs" => {
                 // The bundled documentation page, at the app root: resolve
                 // it against the main window's current URL so the jump
@@ -146,6 +263,15 @@ fn main() {
             }
         })
         .setup(|app| {
+            // Clear Cache lands here, before any window — and therefore
+            // any webview — exists in this process: if the previous run
+            // left the flag, delete the profile's cache directories now
+            // (nothing holds their files yet) and arm the notice that
+            // tells the user it happened once the main window shows.
+            if consume_clear_cache_flag(app.handle()) {
+                CACHE_JUST_CLEARED.store(true, std::sync::atomic::Ordering::SeqCst);
+            }
+
             // The splash goes up first: artwork full-bleed, the title set
             // as real HTML type over it, the version in the corner (the
             // page reads it from the initialization script, so it can
