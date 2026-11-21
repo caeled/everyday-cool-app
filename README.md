@@ -207,7 +207,17 @@ content sync only; no app-code changes — plus (new in v1.4.3)
 Tensor-Tris: The Games Room gains a second falling-block game —
 an AI token packing & context window Tetris Steven uploaded —
 with its own section and nav entry beside Stack-a-Bot. A content
-sync only; no app-code changes.
+sync only; no app-code changes — plus (new in v1.4.4) the
+Physics Game Table: Everyday Physics gains a whole table of
+twelve playable physics games built with Google Antigravity —
+lunar lander, orbital pinball and gravity golf, marble run,
+pendulum grapple, bridge builder, siege demolition, jelly
+soft-body, falling sand, hill-climb suspension, air-hockey
+curl, and ragdoll archery — gathered on one portal page linked
+beside the Expanded table, and the Survival Guide's Knots
+section gains step-through diagrams for every knot, added in
+response to a scoutmaster's feedback. A content sync only; no
+app-code changes.
 
 Most of the workshop runs fully offline inside the app. A few rooms use live
 data when you are online (the weather, the library catalogues, Spectrum
