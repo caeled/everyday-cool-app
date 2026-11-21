@@ -54,14 +54,26 @@ Large recordings are not stored in Git. The optional download helper assembles a
 
 ## The Back Doors — game lessons for builders
 
-Six games elsewhere in Everyday Cool keep a back door open: a lesson page that explains the physics the game runs on and shows how it was coded, with the proof that its levels can actually be beaten. The workshop home shelves all six as builder reading, because every game's "How it's built" section points onward to this bench:
+Eighteen games keep a back door open: a lesson page that explains the physics — or the method — the game runs on and shows how it was coded, with the proof that its levels can actually be beaten. The workshop home shelves all eighteen as builder reading, because every game's "How it's built" section points onward to this bench. This bench's own game leads the list:
 
+- [Find the Fault — the lesson](find-the-fault-lesson.html) — this workshop's own game: four dead machines, six suspects each, diagnosed by the pattern of test results. An outcome matrix is the whole world; the greedy solver that proves every case crackable reads the same table the player reasons over, and par is the solver's own score.
 - [Docking — the lesson](../everyday-physics/docking-lesson.html) — a pure-function orbital core stepped with RK4, flown by a script to prove every level dockable.
 - [Stage It — the lesson](../everyday-physics/stage-it-lesson.html) — one rocket-equation core serving the design screen, the flight, and the test.
 - [Ballast — the lesson](../everyday-physics/ballast-lesson.html) — a proof pilot that flies on the same instruments the player gets.
 - [Laser & Mirrors — the lesson](../everyday-light/laser-mirrors-lesson.html) — a beam tracer that doubles as the prover of its own levels.
 - [Tune the String — the lesson](../everyday-sound/tune-the-string-lesson.html) — real Web Audio synthesis; the beating is summed tones, not a sound effect.
 - [Shake Table — the lesson](../everyday-engineering/shake-table-lesson.html) — a lumped-mass model searched backwards by inverse iteration.
+- [Don't Cook the LED — the lesson](../everyday-electronics/dont-cook-the-led-lesson.html) — one Ohm's-law formula, fenced as a pure core the page and the proof share.
+- [Wire the Adder — the lesson](../everyday-computing/wire-the-adder-lesson.html) — circuits stored as a readable netlist; the truth table is the judge.
+- [Shelf It! — the lesson](../a-library/dewey-game-lesson.html) — one Dewey table read both ways; the answer key and the catalog can never drift apart.
+- [Go Thataway — the lesson](../map-room/go-thataway-lesson.html) — a core that keeps only the truth; the proof navigator plays with the player's information, never the truth.
+- [Balance It — the lesson](../everyday-chemistry/balance-it-lesson.html) — one formula parser serves both modes and the judge; "balanced" and "finished" are separate checks.
+- [Pass It On — the lesson](../secret-squares/pass-it-on-lesson.html) — a seeded channel with declared corruption recipes; the catches are exhaustive counts, not hopes.
+- [Route It — the lesson](../packet-playground/route-it-lesson.html) — the table is data and the walk is one pure function; the loop dies at exactly its TTL.
+- [The Boring Bet Wins — the lesson](../decisions-everywhere/the-boring-bet-wins-lesson.html) — EV as exact fractions; the long run counted, not asserted (100 runs, 100 flashy ruins).
+- [Catch the Pass — the lesson](../satellite-watch/catch-the-pass-lesson.html) — an analytic arc and a pure scoring function; the umpire is arithmetic.
+- [Anchors — the lesson](../everyday-measure/anchors-lesson.html) — one anchor table drives the shelf, the feedback, and the proof's estimator; the three can never drift apart.
+- [Corrected by Halves — the lesson](corrected-by-halves-lesson.html) — the collection's audit of Gemini Neon's ten-op halving suite: what's genuine, what's named loosely, checked against the code.
 
 ## Library
 
