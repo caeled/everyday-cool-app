@@ -53,3 +53,33 @@ The rules (reflection, the pool step, equal-mass collisions, projectile range/ap
 - `ballast-lesson.html` — the game's lesson page: the physics, the math, worked examples from the proof runs, and the coding choices (opens inside the game from its 📖 Lesson button)
 - The supplied games' lesson pages — the back door for each Antigravity-built game on the Table, written for Everyday Cool from a close read of each game's own code (the physics, the math, worked examples from the game's real constants, the coding choices, and the simplifications named — including where a game's label outruns its code): `lunar-lander-cave-lesson.html`, `orbital-gravity-golf-lesson.html`, `pendulum-grapple-swinger-lesson.html`, `bridge-builder-truss-lesson.html`, `hill-climb-suspension-lesson.html`, `jelly-softbody-platformer-lesson.html`, `falling-sand-sandbox-lesson.html`, `air-hockey-curl-lesson.html`, `ragdoll-archery-duel-lesson.html`, `siege-demolition-lesson.html`, `marble-run-lesson.html`, `orbital-pinball-lesson.html`, `pool-table-physics-lesson.html`
 - `test.cjs` — rule tests
+
+
+## Star Forge (added 22 November 2026)
+
+An N-body gravity sandbox built by Google Antigravity at Steven Powell's direction: true pairwise gravity, velocity Verlet integration, sticky mergers that conserve momentum, and a system-lifetime score. Play `star-forge.html`; the audit lesson is `star-forge-lesson.html`.
+
+
+## Murmuration (added 22 November 2026)
+
+A flocking game built by Google Antigravity at Steven Powell's direction: 360 boids, three local rules, wind shepherding, gates, and a hawk. Play `murmuration.html`; the audit lesson is `murmuration-lesson.html`.
+
+
+## Ripple Tank (added 22 November 2026)
+
+A wave bench built by Google Antigravity at Steven Powell's direction: an explicit finite-difference height-field solving the 2D wave equation, with drippers, barriers, and a field-scored target game. Play `ripple-tank.html`; the audit lesson is `ripple-tank-lesson.html`.
+
+
+## Get to Orbit (added 22 November 2026)
+
+Steven Powell's own commission to Google Antigravity: launch from Earth, the Moon, Venus or Saturn, for orbit or a Lagrange point. Play `get-to-orbit.html`; the audit lesson is `get-to-orbit-lesson.html`.
+
+## Seven more Antigravity exhibits (2026-11-22)
+
+- **Prism Bench** (`prism-bench.html`, lesson `prism-bench-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Cyclotron** (`cyclotron.html`, lesson `cyclotron-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Wind Tunnel** (`wind-tunnel.html`, lesson `wind-tunnel-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Maxwell's Demon** (`maxwells-demon.html`, lesson `maxwells-demon-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Chladni Lab** (`chladni-lab.html`, lesson `chladni-lab-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Butterfly — Double Pendulum** (`butterfly-pendulum.html`, lesson `butterfly-pendulum-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.
+- **Turing Garden** (`turing-garden.html`, lesson `turing-garden-lesson.html`) — built by Google Antigravity (Gemini) at Steven Powell’s direction; audited by Muse by running the shipped code headlessly; lesson and audit by Muse.

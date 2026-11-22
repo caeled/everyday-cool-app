@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Coloring Book — The Lesson · Everyday Cool</title>
+<style>
+  :root{
+    --bg:#f7f4ec; --panel:#ffffff; --panel2:#eef3e2; --border:#d5d7cc;
+    --text:#263240; --muted:#596575; --accent:#283c50; --good:#55703c;
+    --bad:#b34253; --warn:#b76c2e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:16px/1.6 system-ui,"Segoe UI",sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 44px}
+  .eyebrow{color:var(--warn);font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin:0 0 6px}
+  h1{font-size:29px;margin:0 0 8px;font-weight:400;font-family:Georgia,serif;letter-spacing:-.02em}
+  h1 span{color:#865031}
+  h2{font-size:20px;margin:32px 0 8px;font-weight:800;letter-spacing:-.02em;border-top:1px solid var(--border);padding-top:22px}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:16px;margin:19px 0 5px}
+  p{color:#37413f;font-size:15px;margin:8px 0}
+  .lead{font-size:16px;color:var(--text)}
+  a{color:var(--accent)}
+  .play{display:inline-block;background:#283c50;border:1px solid #283c50;color:#fff;text-decoration:none;
+    border-radius:9px;padding:9px 16px;font-size:14.5px;font-weight:650;margin:10px 0 2px}
+  .play:hover{filter:brightness(1.15)}
+  .formula{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--warn);
+    border-radius:8px;padding:11px 16px;margin:12px 0;font-size:14.5px}
+  .formula code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+  .honest{background:var(--panel2);border:1px dashed #a9b39a;border-radius:10px;padding:11px 16px;margin:12px 0}
+  .honest p{margin:2px 0;font-size:14px}
+  .honest b{color:var(--warn)}
+  .keepgoing{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .keepgoing a{display:block;background:var(--panel);border:1px solid var(--border);border-radius:12px;
+    padding:12px 15px;text-decoration:none;color:var(--text)}
+  .keepgoing a:hover{border-color:var(--warn)}
+  .keepgoing b{display:block;font-size:15px;color:var(--accent)}
+  .keepgoing span{font-size:13.5px;color:var(--muted)}
+  @media (max-width:620px){.keepgoing{grid-template-columns:1fr}}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Everyday Cool · The Coloring Book · The back door</p>
+  <h1>The Coloring Book <span>— the lesson</span></h1>
+  <p class="lead">The front door is a colouring book: twelve picture pages, a box of 24 crayons, and a
+  way to turn your own photo into an outline you can colour — then print, either blank for real
+  crayons or finished to hang up. This page is the back door: what the colouring is quietly
+  teaching while it feels like play, and how the machine does its two tricks — finding the edges
+  of a photograph, and filling a patch without spilling.</p>
+  <a class="play" href="index.html">← Back to the colouring book</a>
+
+  <h2>The real curriculum: aim</h2>
+  <p>Clicking inside a patch of the picture is a <em>targeting task</em>. Your hand has to move a
+  pointer across a distance and land it inside a boundary — and the smaller the patch, the harder
+  that is. That trade is not a feeling; it was measured in 1954 by Paul Fitts, and it is called
+  <b>Fitts's law</b>:</p>
+  <div class="formula">
+    <code>movement time = a + b × log<sub>2</sub>( distance ÷ target width + 1 )</code>
+    <p style="margin:6px 0 0">The time to hit a target grows as the distance grows, and shrinks as
+    the target gets wider. Double the distance or halve the patch and the tap gets measurably
+    slower and less certain — for children and for fighter pilots alike.</p>
+  </div>
+  <p>That is why the twelve pages are graded the way they are. The <b>Little hands</b> pages —
+  Rocket, Robot Buddy, Robot Pup — are built from 13 or 14 big, forgiving patches. The
+  <b>Getting steady</b> pages (Baby Bot, Bulldog, Fish, Butterfly) carry 19 to 21 medium patches.
+  The <b>Fine detail</b> pages (Train, Dinosaur, Owl, Submarine, Castle) hold 27 to 31 patches,
+  some of them small enough that landing inside one is a genuine shot. Nobody is graded and
+  nothing is timed: the practice is the progression itself, big targets first, and the miss —
+  the wrong patch filling — is feedback a child reads instantly, with no adult required to
+  explain it.</p>
+  <p>This collection keeps a soft spot for lessons that arrive through the back door. Steven
+  Powell, who curates Everyday Cool, puts it this way: a generation that had never touched a
+  mouse learned drag-and-drop from Solitaire and learned the mouse buttons from Minesweeper —
+  the training was real because the game was. This book's fills belong to the same family:
+  they teach <em>aim</em> to hands that already tap, one patch at a time.</p>
+
+  <h2>How a photo becomes an outline</h2>
+  <p>Five steps, each one simple, all of them running on your own device — the picture is never
+  uploaded anywhere. The first version of this bench ran only steps 1, 3 and a single-bar
+  version of step 4, and a real family photo showed why that wasn't enough: a stone wall and a
+  hedge behind the people turned into thousands of speckled lines, while the soft outline of a
+  face — the line that mattered most — fell under the same bar that was supposed to calm the
+  stones down. The five steps below are the fix, a classic arrangement called a
+  <b>Canny-style detector</b>.</p>
+  <h3>1. Grayscale — forget the colour, keep the brightness</h3>
+  <p>Every pixel is replaced by a single brightness number, mixing the red, green and blue it
+  arrived with (roughly 30% red, 59% green, 11% blue — green counts most because your eyes are
+  most sensitive to it). Shape lives in brightness; colour would only be noise for what comes
+  next.</p>
+  <h3>2. Blur — calm the grain before judging it</h3>
+  <p>First, the picture is softened with a Gaussian blur — every pixel averaged with its
+  neighbours, the near ones counting most. Fine grain lives at the smallest scale: the pocks in
+  a stone, the leaves on a hedge, the weave of a shirt. Blurring melts that grain toward its
+  own average while barely touching the big, slow changes — a shoulder against the sky — that
+  carry the real shapes. The <b>Detail</b> slider sets the blur: toward <em>Simple</em> it
+  strengthens (calmer pages, best for busy photos); toward <em>Detailed</em> it lightens
+  (finer lines survive).</p>
+  <h3>3. Sobel edges — find where brightness changes fast</h3>
+  <p>An <b>edge</b> is a place where brightness changes fast: the side of a dark dog against a
+  pale wall, the rim of a cup on a table. The Sobel operator visits every pixel and asks two
+  questions — <em>how fast is brightness changing sideways?</em> and <em>how fast up and
+  down?</em> — by comparing the pixel with its eight neighbours, the near ones counting double.
+  A flat patch of sky scores zero both ways. A border scores high. The length of the two answers
+  together is that pixel's <em>edge strength</em>, and their angle is the edge's
+  <em>direction</em> — both are kept, because the next step needs the direction.</p>
+  <h3>4. Thinning, then two bars — keep real contours, drop speckle</h3>
+  <p><b>Thinning</b> (non-maximum suppression) walks each edge and keeps only the strongest
+  pixel across it — the one-pixel-wide ridge down the middle — so contours come out as clean
+  single lines instead of smears. Then comes the step that separates a faint-but-real line from
+  background speckle, called <b>hysteresis</b>, and it uses two bars instead of one. A pixel
+  stronger than the high bar — the <b>Line strength</b> slider — is a definite line. A pixel
+  between the two bars is a <em>maybe</em>, and a maybe counts only if it is connected to a
+  definite line: <em>a faint line counts if it holds hands with a strong one</em>. The soft
+  curve of a cheek usually touches a stronger stretch of the same outline somewhere, so it
+  survives whole. One pebble's edge in a stone wall holds hands with nothing, so it drops
+  away. In the workshop's own check on a grainy test picture, the stony background went from
+  12,031 stray line pixels under the old single-bar method to none — while the smooth shape in
+  front of the stones kept its outline.</p>
+  <h3>5. Sealing — close the fences before the paint arrives</h3>
+  <p>Last, every line is grown by one pixel in all directions. A hairline gap in a contour —
+  one pixel where the line blinked — is enough for the paint-bucket fill to leak through and
+  flood the whole page, so the lines are sealed shut first. The sealed version is the one the
+  book displays, prints and fills against, which is why printed lines may look a touch bolder
+  than the raw edges the detector found. In the workshop's check, a drawn ring with a
+  deliberate one-pixel gap let the fill paint 896 squares outside it; sealed, it painted
+  none.</p>
+
+  <h2>The paint-bucket walk</h2>
+  <p>Filling a patch on a photo page is <b>flood fill</b> — the paint-bucket tool every drawing
+  program has, and a first piece of real computer science hiding in plain sight. Start where you
+  tapped. Paint that square. Then look at the squares next door: any square the same colour as
+  where you started (close enough — the book allows a small tolerance, so a slightly shaded edge
+  still counts as the same patch) joins the patch and gets painted, and <em>its</em> neighbours
+  get checked in turn. The fill walks outward square by square until every direction is fenced
+  off by a line or by a different colour. It is a graph walk — the same family of walking that
+  routes a packet across a network or a robot across a floor — wearing an apron.</p>
+  <p>The workshop proof walked it against a drawn box: the fill coloured exactly the 216 squares
+  inside a one-square-thick wall and not one square outside it. And a tap that lands on a line
+  itself fills nothing at all — the walk refuses to start on a fence.</p>
+
+  <div class="honest">
+    <p><b>Honest edges.</b> A converted outline is only as clean as the photo's contrast. The
+    blur-and-hysteresis pipeline narrows the gap between a clean photo and a busy one — texture
+    is calmed, faint connected contours survive — but it does not close the gap. A busy photo
+    still makes a busier outline, because many of those texture borders <em>are</em> real edges
+    honestly reported, and no step in the pipeline can know which lines you meant. The two
+    sliders are the fix we offer, not a cure: a shape whose outline never once reaches the high
+    bar, and touches nothing that does, will still be lost. And the sealing step grows every
+    line by a pixel, so converted lines sit slightly bolder than the edges themselves —
+    the price of fences that don't leak.</p>
+    <p><b>Two different engines, on purpose.</b> The twelve preloaded pages are hand-built vector
+    shapes — every patch is one clean closed outline, filled exactly. Your photo is a raster, a
+    grid of squares, so its patches are found by the flood-fill walk instead. The vector pages
+    will always be tidier; the photo pages will always be <em>yours</em>. The book keeps both
+    because they are good at different things.</p>
+  </div>
+
+  <h2>Keep going</h2>
+  <div class="keepgoing">
+    <a href="index.html"><b>The Coloring Book →</b><span>The room itself: twelve pages, the crayon box, and your own photo turned into an outline.</span></a>
+    <a href="../numbers-in-the-wild/index.html"><b>Numbers in the Wild →</b><span>Home of Mines — the other great mouse teacher. Its patches are squares and its lesson is counting; this book's patches are pictures and its lesson is aim.</span></a>
+    <a href="../nerd-heaven-tech-support/index.html"><b>Nerd Heaven →</b><span>The builders' bench. The habits on this page — state the rule instead of hiding it, prove the core with a script, name the simplifications — are Tech Bench habits.</span></a>
+    <a href="https://en.wikipedia.org/wiki/Fitts%27s_law" target="_blank" rel="noopener"><b>Fitts's law — Wikipedia ↗</b><span>The 1954 result behind the graded pages, and why every button you've ever missed was a little too small or a little too far.</span></a>
+  </div>
+
+  <footer>Everyday Cool · The Coloring Book — the book is the front door, this page is the back door. Built by Muse at Steven Powell's direction.</footer>
+</div>
+</body>
+</html>

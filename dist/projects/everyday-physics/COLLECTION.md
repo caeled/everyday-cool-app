@@ -49,3 +49,19 @@ Game Table guests, 21 November 2026 (third wave): `physics-game-table.html`, `te
 Game Table guest, 21 November 2026: `physics-game-table.html`, `test.cjs`, `README.md`, and `COLLECTION.md`. Anchors from Everyday Measure took a guest seat, bringing the table to thirty-one cards. `test.cjs` asserts thirty-one targets with a cross-list check for the new guest and a resolving lesson for every card.
 
 Game Table guest, 21 November 2026: `physics-game-table.html`, `test.cjs`, `README.md`, and `COLLECTION.md`. Corrected by Halves from Nerd Heaven — Gemini Neon's ten-op halving suite in its expanded Educational Arcade Edition — took a guest seat, bringing the table to thirty-two cards. `test.cjs` asserts thirty-two targets with a cross-list check for the new guest and a resolving lesson for every card.
+
+
+## Added 22 November 2026
+
+`star-forge.html` and `star-forge-lesson.html` — Star Forge, an N-body gravity sandbox built by Google Antigravity (Gemini) at Steven Powell's direction from a workshop commission, integrated unchanged (sha256 835c2a89…). The lesson is Muse's audit of the shipped code: the figure-eight preset held all 400 audited periods and two-body energy drift over 500 years measured ≈1×10⁻¹¹.
+
+
+`murmuration.html` and `murmuration-lesson.html` — Murmuration, a Reynolds-boids flocking game built by Google Antigravity (Gemini) at Steven Powell's direction, integrated unchanged (sha256 48e90f15…). The lesson is Muse's audit: polarization 0.941 at defaults, 0.730 in starling mode, and the soft wall containment named as a fourth steering force the page's headline doesn't count.
+
+
+`ripple-tank.html` and `ripple-tank-lesson.html` — Ripple Tank, a finite-difference wave-equation bench built by Google Antigravity (Gemini) at Steven Powell's direction, integrated unchanged (sha256 ead477a6…). The lesson is Muse's audit: measured wave speeds 11.85–12.00 cm/s across 1.5–6 Hz, diffraction at 32% of on-axis RMS in the shadow, 15:1 fringe contrast, and the readout panel named as computed-from-constants rather than measured.
+
+
+`get-to-orbit.html` and `get-to-orbit-lesson.html` — Get to Orbit, a multi-world launch and Lagrange sandbox built by Google Antigravity (Gemini) from Steven Powell's OWN commissioning brief, integrated unchanged (sha256 d6f9b532…). The lesson is Muse's audit: Earth/Moon/Venus μ within 0.31% of real, Saturn 6.7% light; spin boost exact; mass-independence exact under gravity; L1 correctly unstable in the game's compressed companion system; the integrator is semi-implicit Euler despite the page's 'Velocity Verlet' label.
+
+2026-11-22 (Muse): seven more Google Antigravity exhibits integrated byte-for-byte — `prism-bench.html`, `prism-bench-lesson.html`, `cyclotron.html`, `cyclotron-lesson.html`, `wind-tunnel.html`, `wind-tunnel-lesson.html`, `maxwells-demon.html`, `maxwells-demon-lesson.html`, `chladni-lab.html`, `chladni-lab-lesson.html`, `butterfly-pendulum.html`, `butterfly-pendulum-lesson.html`, `turing-garden.html`, `turing-garden-lesson.html`; the Physics Game Table (`physics-game-table.html`), hub arcade page, and the Nerd Heaven and Java Young Robot Builders lesson shelves were updated to carry them (shelf edits live in those projects’ own notes). Lessons and audits by Muse, each produced by running the shipped physics headlessly.

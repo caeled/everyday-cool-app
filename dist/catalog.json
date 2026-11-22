@@ -560,16 +560,32 @@
       "title": "Flynn's Arcade",
       "topic": "Computing",
       "hook": "An oldtimers room for the young.",
-      "description": "Twenty cabinets built in one night for Flynn and David: arcade classics, BBS door games reskinned for the AI age, a card table with honest odds, a bulletin board, and a wandering hub \u2014 every cabinet with its story, its lesson, and a Play button.",
+      "description": "Twenty-one cabinets built for Flynn and David: arcade classics, BBS door games reskinned for the AI age, a card table with honest odds, a bulletin board, and a wandering hub \u2014 every cabinet with its story, its lesson, and a Play button.",
       "starter": "Open a cabinet drawer, read its story, then hit Play.",
       "original": "https://github.com/caeled/everyday-cool/tree/main/projects/flynns-arcade",
       "originLabel": "Workshop source",
       "source": null,
       "entry": "projects/flynns-arcade/index.html",
-      "detail": "20 cabinets \u00b7 19 playable pages \u00b7 PWA \u2014 installable from the browser",
+      "detail": "21 cabinets \u00b7 20 playable pages \u00b7 PWA \u2014 installable from the browser",
       "bundled": true,
       "importCommit": null,
       "download": "downloads/flynns-arcade.zip"
+    },
+    {
+      "id": "coloring-book",
+      "title": "The Coloring Book",
+      "topic": "Making",
+      "hook": "Aim is a skill, and it practices like one.",
+      "description": "Twelve preloaded line-art pages (Robot Buddy, Robot Pup, Baby Bot, a bulldog, a castle and more) to colour by tap \u2014 plus turn any photo into an outline and colour that. Print the blank outline for real crayons, or print the finished picture. The back door is eye-hand coordination: every fill is a small act of aim.",
+      "starter": "Pick Robot Buddy and a crayon, and tap inside the lines.",
+      "original": "https://github.com/caeled/everyday-cool/tree/main/projects/coloring-book",
+      "originLabel": "Workshop source",
+      "source": null,
+      "entry": "projects/coloring-book/index.html",
+      "detail": "12 preloaded pages \u00b7 photo-to-outline converter \u00b7 print both ways \u00b7 works offline",
+      "bundled": true,
+      "download": "downloads/coloring-book.zip",
+      "importCommit": null
     }
   ]
 }
