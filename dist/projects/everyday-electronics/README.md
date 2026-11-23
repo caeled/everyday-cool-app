@@ -23,6 +23,34 @@ An Everyday Cool workshop about the electricity already running your house's sma
 - **Help menu** — the header's **Help ▾** menu opens the documentation directly (the circuit bench, the Ohm's law bench, the LED resistor bench, the breadboard, the crystal radio, the crystal bench, the transistor amplifier, the build plans, safety plainly, the offline answer), plus a "Full documentation (README)" entry. This README ships inside the desktop app copy, so Help's full documentation works in the app too.
 - **Sister rooms:** The Radio Room (hear the stations the crystal radio would catch — the cross-link runs both ways), Everyday Chemistry (the atoms behind the fruit battery), Tonight's Sky (radio astronomy), and The Games Room (the shape cousin: shelf + things that work on the page + workshop).
 
+
+## The Electronics Wave (23 November 2026)
+
+Eight benches built by Muse at Steven Powell's direction, to the standard the Antigravity physics exhibits set: a real simulation core under every bench, one fenced pure core driving both the display and a `runProofs()` harness, and a lesson beside each bench printing the measured numbers — bends included.
+
+- `transient-lab.html` / `transient-lab-lesson.html` — **Transient Lab**: RC charge/discharge (exact per-step exponential update) and series RLC ringing (RK4). τ off the trace = RC; ring frequency matches ωd = √(ω₀²−α²).
+- `filter-bench.html` / `filter-bench-lesson.html` — **Filter Bench**: RC low/high-pass Bode plots from the exact transfer function (−3.0103 dB, ∓45.0000° at fc), plus a simulated time-domain inset (0.7071 ratio, −44.75° at fc). The lesson names the −17.03 dB corner secant: −20 dB/decade is the asymptote.
+- `fourier-builder.html` / `fourier-builder-lesson.html` — **Fourier Builder**: harmonic stacking for square/triangle/sawtooth. Gibbs overshoot measured 8.9507% of the jump at N=49, not shrinking with N; the triangle max-error threshold is reached at N=41, not N=25 as first specced — corrected in print.
+- `diode-junction.html` / `diode-junction-lesson.html` — **Diode Junction**: Shockley I–V and depletion width with ni = 1.0×10¹⁰ cm⁻³ stated; 59.53 mV/decade measured, W ∝ √(Vbi−V) exact, Is openly a chosen representative value.
+- `op-amp-bench.html` / `op-amp-bench-lesson.html` — **Op-Amp Bench**: inverting/non-inverting gains and a true integrator with hard rail saturation; integrator sine amplitude within 0.0001% of 1/(2πfRC).
+- `transmission-line.html` / `transmission-line-lesson.html` — **Transmission Line**: a 200-section lossless LC lattice, Z0 = 50 Ω. Γ measured from the wave: +1.000000 open, −1.000000 short, 0.000000 matched, ±0.333333 at 100/25 Ω. The lattice's Nyquist ripple and the 10-step source rise that tames it are disclosed.
+- `modulation-deck.html` / `modulation-deck-lesson.html` — **Modulation Deck**: AM/FM synthesis and demodulation at fs = 48 kHz. Envelope recovery correlation 0.9946 in the good RC regime, 0.8376 in diagonal clipping (shown on purpose); FM deviation exact from phase increments.
+- `sampling-lab.html` / `sampling-lab-lesson.html` — **Sampling Lab**: aliasing measured from the samples by DFT; 9 Hz at fs = 10 Hz yields a sequence identical to −1 Hz within 1.5×10⁻¹³; sinc reconstruction recovers the alias (RMS 0.004), not the original (RMS 0.999).
+
+## The Electronics Wave II (23 November 2026)
+
+Nine benches built by Google Antigravity (Gemini) at Steven Powell's direction, integrated byte-for-byte and audited by Muse by driving the shipped code headlessly. Each lesson prints the measured numbers, the bends, and anything false — flagged at the top of the lesson. Three are sibling treatments of Wave I subjects and their lessons carry the side-by-side comparison.
+
+- `transistor-lab.html` / `transistor-lab-lesson.html` — **Transistor Lab**: MOSFET square law exact to every printed digit; the BJT is a constant-β multiplier (no V_BE input), its "Ebers–Moll" knee a flagged misnomer.
+- `rlc-resonance.html` / `rlc-resonance-lesson.html` — **RLC Resonance**: f₀ at 0.000% error on seven L/C pairs, Q and Δf exact from its own curve; the shaded −3 dB band is painted f₀ ± Δf/2 instead of geometric — flagged.
+- `rf-transmission-line.html` / `rf-transmission-line-lesson.html` — **RF Transmission Line**: FDTD line, Γ telemetry exact to six places on nine loads, in full agreement with the Wave I bench on identical cases; the Z_in readout repeats the load instead of rotating it — flagged.
+- `pn-junction.html` / `pn-junction-lesson.html` — **PN Junction**: depletion ratio exactly 2.0000, slopes at ideality × 59.53 mV/dec; V_bi is a heuristic (0.936 V) under a printed textbook formula (0.7143 V), and the Blue LED preset can never emit — both flagged.
+- `circuit-sandbox.html` / `circuit-sandbox-lesson.html` — **Circuit Sandbox**: a genuine MNA/Newton–Raphson solver, matching an independent solver on every test circuit (KCL residuals ~10⁻¹⁰ A); a dead short reports 8,911 A, "Converged," with no warning — flagged.
+- `logic-gates-lab.html` / `logic-gates-lab-lesson.html` — **Logic Gates Lab**: 1,246 exhaustive rows, zero logic mismatches, a real delay engine with a reproduced hazard glitch; a "DEC" caption wrong on 136/256 subtract rows and a latch labelled a flip-flop — flagged.
+- `power-pwm.html` / `power-pwm-lesson.html` — **Power & PWM**: five converter topologies as a sub-stepped ODE solver with a five-mechanism loss model; displayed efficiency is computed against a floored Pin, flattering itself by up to four points — flagged.
+- `opamp-studio.html` / `opamp-studio-lesson.html` — **Op-Amp Studio**: eight topologies, gains to 0.006%, sibling agreement with the Wave I bench ≤0.01%; a hidden 1.5 V/µs cap behind the "Ideal (Fast)" slew label — flagged.
+- `timer-555-lab.html` / `timer-555-lab-lesson.html` — **555 Timer Lab**: the engine uses exact ln 2 / ln 3 (monostable constant 1.098612, not 1.1), thresholds exactly ⅓/⅔ V_CC; the "50%" badge appears at a measured 12.82% duty — flagged.
+
 ## Run it
 
 Open `index.html` in a browser. The benches, walk-through, and build cards work fully offline — they are arithmetic and text. Only the Links Out shelf needs the internet.
@@ -43,3 +71,4 @@ The rules (circuit state, the Ohm's law solver, E12 rounding, the LED resistor s
 - `style.css` — the room's styling (shared Everyday Cool room styling plus the benches and diagrams)
 - `everyday-electronics-banner.jpg` — AI-generated banner art (see COLLECTION.md)
 - `test.cjs` — rule tests
+- The eight wave benches and their lessons (see "The Electronics Wave" above) — each a single self-contained page with its core and proof harness inside
