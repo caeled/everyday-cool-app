@@ -34,3 +34,24 @@ Electronics Wave II back doors, 23 November 2026: `index.html` gained back doors
 ## Back doors 99–115 — Mathematics, Earth Science, and the completed Biology Wave · 23 November 2026
 
 `index.html` gained seventeen back doors (99–115) in the mixed Antigravity delivery integrated the same day: seven for the Mathematics Wave (Everyday Math), eight for the Earth Science Wave (Weather Everywhere), and two for the completed Biology Wave — Mitosis & Genetics and the Lenia Automata Zoo (Everyday Body). The section heading rose from "Ninety-eight games" to "One hundred fifteen games", verified sequential 1–115 on the page. Each card carries the audit's one-line receipt; the full measurements live in the lessons, in their home rooms.
+
+
+## Back door 116 — Skip · 23 November 2026
+
+`index.html` gained one back door (116) for Skip (The Radio Room) — Steven Powell's own Python skywave game, ported to the web by Muse with its physics and Morse cores carried over line for line; the card carries the port's receipt (secant-law MUF exact at 18.000000000000 MHz for fo 9 at 30°, the original self-test's 31 checks passing against the shipped code). The section heading rose from "One hundred fifteen games" to "One hundred sixteen games", verified sequential 1–116 on the page. The full measurements live in the lesson, in its home room.
+
+## Back door 117 — Web Page Workshop · 23 November 2026
+
+`index.html` gained one back door (117) for the Web Page Workshop (Nerd Heaven) — a kid-friendly WYSIWYG editor whose lesson teaches its own construction: the contenteditable doorway, the execCommand engine named honestly, the two-way View Source, and the nine driven interaction tests (13 checks passing, Preview asserted byte-identical to Export). The section heading rose from "One hundred sixteen games" to "One hundred seventeen games", verified sequential 1–117 on the page. The full measurements live in the lesson, in its home room.
+
+Back doors 118–125 — Mechanical Engineering, Robotics & Control wave · 24 November 2026
+
+`index.html` gained eight back doors (118–125) for the Antigravity wave in Everyday Physics: Kinematics — Robotic Arm IK (118), Stabilizer — PID Inverted Pendulum (119), Clockwork — Gears & Linkages (120), Topology — FEA Optimizer (121), SLAM — Lidar Robot (122), Carnot — Heat Engines P–V (123), Harmonics — Acoustics FFT Synth (124) and Mach — Supersonic Lab (125). The section heading rose from "One hundred seventeen games" to "One hundred twenty-five games", verified sequential 1–125 on the page. The full measurements live in the lessons, in their home room.
+
+Back doors 126–133 — Computer Science & AI wave · 24 November 2026
+
+`index.html` gained eight back doors (126–133) for the Antigravity wave in Nerd Heaven: Attention — Transformer Attention Lab (126), Perceptron — Neural Backprop Lab (127), Cipher — Cryptography ECC Lab (128), Pipeline — Pipelined CPU Sim (129), Consensus — Raft Consensus Sim (130), RayTrace — Raytracer Pipeline Lab (131), Entropy — Compression Huffman DCT (132) and AlgoArena — Sorting Trees Race (133). The section heading rose from "One hundred twenty-five games" to "One hundred thirty-three games", verified sequential 1–133 on the page. The full measurements live in the lessons, in their home room.
+
+Back doors 134–138 — Bordeom batch + Resonance · 24 November 2026
+
+`index.html` gained five back doors: Morse — the Radio Room Sender (134, The Radio Room; Steven's Python Morse sender ported line for line, 19 proof rows matching the Python self-test), Dead Drop — Sneakernet Workbench (135, Secret Squares; Steven's workbench integrated byte-for-byte, self-test 4/4 plus 50 independent checks), Fractal — the Endless Spirals (136, Everyday Math; Steven's Mandelbrot/Julia dive ported line for line, 13/13 proofs), Warp — the Palette Is the Animation (137, Everyday Math; Steven's Acidwarp tribute ported line for line, 15/15 proofs) and Resonance — the Physics of Vibration (138, Everyday Physics; a new Muse original, ten proofs live on the page). The section heading rose from "One hundred thirty-three games" to "One hundred thirty-eight games", verified sequential 1–138 on the page. The full measurements live in the lessons, in their home rooms.
