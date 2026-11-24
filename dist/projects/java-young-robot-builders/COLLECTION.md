@@ -4,7 +4,7 @@ This is an independent source copy in the [Everyday Cool collection](https://git
 
 The [original project](https://github.com/caeled/java-young-robot-builders) and [original website](https://caeled.github.io/java-young-robot-builders/) remain at their current addresses and continue to be maintained. Everyday Cool is the curated home for the current collection and future additions. Copies are updated through deliberate review, not automatic synchronization.
 
-Original files, licenses, and third-party credits are preserved. Local changes to imported files: `index.html` and `assets/styles.css` carry the robots-building-robots banner and the PWA wiring (manifest.json, sw.js, icons/), added November 15, 2026, in step with the original project. This notice is an additional collection file. Use the collection root tools to build or publish the collection; project publishing helpers still target their original repository.
+Original files, licenses, and third-party credits are preserved. Local changes to imported files: `index.html` and `assets/styles.css` carry the robots-building-robots banner and the PWA wiring (manifest.json, sw.js, icons/), added November 15, 2026, in step with the original project. On November 24, 2026, `index.html` also gained the Robot Room return door (a “next room” card linking to the collection's Robot Room, which grew out of this room), added at Steven Powell's direction during the Robot Room integration pass. This notice is an additional collection file. Use the collection root tools to build or publish the collection; project publishing helpers still target their original repository.
 
 [Back to the collection](../../index.html) · [Contribution guide](../../CONTRIBUTING.md)
 
@@ -55,3 +55,7 @@ Back doors 126–133 — Computer Science & AI wave · 24 November 2026
 Back doors 134–138 — Bordeom batch + Resonance · 24 November 2026
 
 `index.html` gained five back doors: Morse — the Radio Room Sender (134, The Radio Room; Steven's Python Morse sender ported line for line, 19 proof rows matching the Python self-test), Dead Drop — Sneakernet Workbench (135, Secret Squares; Steven's workbench integrated byte-for-byte, self-test 4/4 plus 50 independent checks), Fractal — the Endless Spirals (136, Everyday Math; Steven's Mandelbrot/Julia dive ported line for line, 13/13 proofs), Warp — the Palette Is the Animation (137, Everyday Math; Steven's Acidwarp tribute ported line for line, 15/15 proofs) and Resonance — the Physics of Vibration (138, Everyday Physics; a new Muse original, ten proofs live on the page). The section heading rose from "One hundred thirty-three games" to "One hundred thirty-eight games", verified sequential 1–138 on the page. The full measurements live in the lessons, in their home rooms.
+
+Back door 142 — Rocketry & Thrust · 24 November 2026
+
+`index.html` gained back door 142, Rocketry & Thrust — the Physics of Rockets (Everyday Physics; a new original built by Grok Bot, sixteen proofs live on the page). The section heading rose from "One hundred forty-one games" to "One hundred forty-two games", verified sequential 1–142 on the page. The full measurements live in the lesson, in its home room.
