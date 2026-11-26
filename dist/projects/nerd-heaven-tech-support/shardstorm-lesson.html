@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shardstorm — the lesson · Nerd Heaven</title>
+<meta name="description" content="The audit of Shardstorm: 600 measured cuts, a printed law that failed them, and the corrected law — generic cut n + 4, one corner n + 3, true diagonal n + 2.">
+<style>
+  :root{--ink:#e8ecf4;--dim:#9aa7bd;--accent:#7ee2ff;--gold:#ffcf7d;--panel:#12182b;--line:#263355}
+  *{box-sizing:border-box}
+  body{margin:0;background:#05070f;color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  .crumb{color:var(--gold);letter-spacing:.18em;font-size:12px;text-transform:uppercase;margin:0 0 8px}
+  h1{font-size:30px;margin:0 0 10px;line-height:1.25}
+  h2{font-size:21px;margin:28px 0 8px}
+  p,li{color:var(--dim)}
+  b,strong{color:var(--ink)}
+  table{border-collapse:collapse;margin:12px 0;font-size:15px}
+  td,th{border:1px solid var(--line);padding:6px 12px;text-align:left;color:var(--dim)}
+  th{color:var(--ink);background:var(--panel)}
+  td b{color:var(--ink)}
+  .note{border-left:3px solid var(--gold);background:#0d1322;padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim)}
+  .note b{color:var(--ink)}
+  a{color:var(--accent)}
+  footer{margin-top:34px;color:var(--dim);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="crumb">Nerd Heaven · Lesson</p>
+  <h1>Shardstorm — the lesson</h1>
+  <p>Steven's what-if, asked on 25 November 2026 minutes after playing Mine Storm on the Vectrex Console:
+  what if the rocks in Asteroids weren't blobs but honest polygons — triangles, hexagons, other polygons — in a
+  mixed field, and they broke up the way geometry says? Muse built it the same day: your bullet's path through a
+  rock is the <b>chord</b>, and the rock splits along that line into the two real polygons on either side. This
+  lesson is what the audit measured — including the part where the audit caught the builder's own headline claim
+  being wrong, and the page had to be corrected before it shipped.</p>
+
+  <h2>What was measured</h2>
+  <table>
+    <tr><th>Check</th><th>Measured</th></tr>
+    <tr><td>Cut battery</td><td><b>600 cuts</b> — exact regular polygons, 3 to 12 sides, 12 angles × 5 offsets each, driven through the shipped page's own splitter</td></tr>
+    <tr><td>Area conservation</td><td>Pieces' areas sum to the parent's on every two-piece cut; max relative error <b>2.8×10⁻¹⁶</b> — the clipping is exact</td></tr>
+    <tr><td>Scoring</td><td>Centre cut of a hexagon: two pieces, <b>+10 exactly</b>. Corner cut clipping off a 3-sided cap under the floor: cap vaporized, <b>+45</b> (3 × 15). A whole sub-floor triangle: <b>+45</b>, bystander untouched</td></tr>
+    <tr><td>The floor</td><td>Pieces under <b>800 px²</b> vaporize instead of splitting — as documented on the page</td></tr>
+    <tr><td>Controls</td><td>Turn rate measured <b>exactly 1.440 rad in 0.4 s</b> (3.6 rad/s as coded); thrust displacement direction error <b>0.000 rad</b>; P freezes the field bit-for-bit</td></tr>
+    <tr><td>Ship death</td><td>Invulnerability ends 2.5 s after respawn; a rock placed on the ship costs exactly one life, respawn at the centre <b>(480, 340)</b></td></tr>
+    <tr><td>Waves</td><td>Clearing the field advances the wave and spawns <b>3 + wave</b> fresh polygons, sides always within 3–10</td></tr>
+    <tr><td>The counter</td><td>HUD "SIDES ON FIELD" equalled the true sum of live sides at every sample taken, in both audits</td></tr>
+    <tr><td>House checks</td><td><b>1 network request</b> all session (the document itself), <b>0</b> JavaScript exceptions, <b>0</b> console errors, runs from a lone local file; render census found 28,360 lit pixels mid-game, 22,278 of them the rocks' cyan vector strokes</td></tr>
+  </table>
+
+  <h2>The law that failed, and the one that holds</h2>
+  <p>The first version of the game page printed this law: <em>cut an n-sided polygon and the pieces' sides add to
+  n + 2.</em> It was the builder's claim, made in the chat where the game was proposed, and it is the rule for a
+  cut drawn <b>between two existing corners</b> — a diagonal. A bullet doesn't draw diagonals. Its line crosses
+  two edge interiors and creates <b>two new corners, which both pieces own</b>. The first audit's 600 cuts
+  falsified the printed law completely: 572 generic cuts, and <b>not one</b> satisfied n + 2 — every one summed to
+  n + 4. The game's own counter said so in live play: one cut through a hexagon, 6 sides became 10.</p>
+  <p>The page was corrected and the splitter fixed (it had also been double-counting a corner that lies exactly
+  on the cut). The re-audit then decomposed all 597 two-piece cuts, and the true law is prettier than the false
+  one — it counts how the line meets the corners:</p>
+  <table>
+    <tr><th>How the cut crosses</th><th>Cuts measured</th><th>Pieces' sides sum to</th></tr>
+    <tr><td>Two edge interiors (the ordinary bullet)</td><td><b>572</b></td><td><b>n + 4</b></td></tr>
+    <tr><td>Exactly one existing corner</td><td><b>9</b></td><td><b>n + 3</b></td></tr>
+    <tr><td>Two existing corners — a true diagonal</td><td><b>16</b></td><td><b>n + 2</b></td></tr>
+  </table>
+  <p>No exceptions in any class. Steven's standing rule for this whole collection is that breakage is the only
+  honest audit; this exhibit is that rule catching its own builder, in print, before a single player saw the wrong
+  law. The page now states the measured law, and its counter agrees with it.</p>
+
+  <h2>What's real</h2>
+  <ul>
+    <li>The split is genuine polygon clipping (Sutherland–Hodgman, once per half-plane) against the bullet's
+    actual line of travel — the pieces are computed from the parent's vertices, never canned shapes.</li>
+    <li>The mixed field is real: each wave spawns polygons of 3–10 sides with irregular radii, some stretched,
+    so the field is never one shape repeated.</li>
+    <li>Every number on the game page — scores, the floor, the turn rate, the respawn — was measured on the
+    shipped file, not read off the source.</li>
+  </ul>
+
+  <h2>What bends</h2>
+  <ul>
+    <li>Rocks pass through each other; only the ship and the bullets interact with them.</li>
+    <li>The cut uses the bullet's whole line at the moment of contact, so a graze near a corner can still split
+    the rock along a line the visible bullet only touched at one point — the chord is the path, not the segment.</li>
+    <li>Ship collision is a distance check against the polygon's edges, not pixel-perfect hull contact.</li>
+    <li>There is no sound.</li>
+  </ul>
+
+  <h2>The X-Ray layer — added the same day, at Steven's word</h2>
+  <p>Steven played the shipped game for a few minutes and asked for the Emulator X-Ray treatment on it too. F2
+  (or the X-RAY button under the field) now draws every live bullet's full chord across the field, labels each
+  rock with its side count and area — gold when within twice the vaporize floor — shows the drift arrows and the
+  ship's collision circle, and captions every cut at the cut site with its own arithmetic. The X-Ray audit
+  (19/19 checks) read two captions verbatim off the shipped page: <b>"6 → 5 + 5 · THE ORDINARY CUT · n + 4"</b>
+  with <b>"area 9,353 → 4,677 + 4,677 · conserved"</b>, and, for a shot fired exactly along a square's diagonal,
+  <b>"4 → 3 + 3 · TRUE DIAGONAL · n + 2"</b>. Captions arrive within ~53 ms of the cut and fade at their coded
+  2.8 s (measured gone at 2,865 ms); the render census found the dashed chord at 590 lit pixels with the layer on
+  and 0 with it off; the base game underneath is unchanged — same +10 cut, same counters, zero errors. One
+  cosmetic note, recorded rather than smoothed over: a caption rounds each piece's area independently, so the
+  hexagon's halves read 4,677 + 4,677 against a parent's rounded 9,353 — the underlying areas conserve exactly,
+  as the split-law audits established; the rounding is in the caption, not the cut.</p>
+
+  <h2>Bumps — the station-keeping is gone</h2>
+  <p>Steven's second play-test note, same afternoon: a rock that bumps you should shift your motion — the ship
+  seemed to have "a magical station keeping ability." He was right; contact had been binary, death or nothing.
+  Now a gentle contact trades momentum along the line from the rock's centre to the ship, with the rock's mass
+  set by its area and a restitution of 0.55; only a closing above <b>160 px/s</b> destroys the ship. The bump
+  audit (27/27) drove the contacts as single synchronous steps so the numbers are exact: a hexagon of mass 3.74
+  closing at 40 px/s left the ship drifting at <b>48.92 px/s</b> — the predicted impulse to the digit — while
+  the rock slowed from 40 to 26.92, momentum along the normal conserved at 149.65 before and after. A light
+  triangle (mass 0.52) took the bump the other way: the ship gained 21.26 px/s and the rock nearly stopped and
+  reversed, the velocity changes splitting in the exact inverse-mass ratio of 1.92. A 300 px/s closing cost
+  exactly one life and respawned the ship at the centre. One contact, one BUMP caption, clean separation — the
+  pair's distance grew from 59.70 to 76.61 px over the following second, no machine-gunning. The game is the
+  realer for it, which was the point of the note.</p>
+
+  <h2>Rock on rock — the sandbox note</h2>
+  <p>Steven's fourth note came from the sandbox that evening: rocks should not pass through each other — they
+  should bounce. Now they do. Every pair of rocks is tested each step: each rock collides as a circle of its
+  <b>mean vertex radius</b> around its centroid, with the <b>same mass model</b> (area / 2500, floored at 0.35)
+  and the <b>same restitution (0.55)</b> as a ship bump; an impulse trades momentum along the line of centres,
+  and a positional push-apart, weighted by inverse mass, keeps pairs from resting overlapped. Spin is not
+  exchanged — the model's named simplification, printed in the game's Help beside the rule.</p>
+  <p>The bounce audit drove the shipped page through its test hooks. Two equal hexagons (area 4,157 each)
+  closing head-on at 60 px/s separated at exactly <b>33.0 px/s</b> — 0.55 × the closing speed, the restitution
+  to the digit — and their closest sampled approach was <b>80 px</b>, exactly the sum of their radii: they touched
+  and parted, never interpenetrating in any sample. An unequal pair (areas 8,148 vs 2,037) traded by the book:
+  the big rock slowed 25 → <b>14.2 px/s</b> while the small one was knocked away −10 → <b>+33.4 px/s</b>, both
+  figures matching the impulse formula to the hook's rounding, and total momentum held (73.3 → 73.5 in the
+  hook's integer areas). Under the X-Ray, a bounce is captioned <b>BOUNCE</b> with the closing speed it traded.</p>
+  <h2>Recoil — Newton's third law, kept slight</h2>
+  <p>Steven's third note, minutes later: shouldn't shooting push the ship backwards, slightly? It should, and
+  now it does — <b>5 px/s per shot</b>, opposite the muzzle. The recoil audit (12/12) measured a single shot from
+  rest at exactly Δv = (0, +5.000) px/s, the kick reversing to (0, −5.000) when the ship turned 180°, and a
+  one-second burst of six shots summing to 26.536 px/s — the predicted damped sum to the third decimal, bounded,
+  no runaway. Three of this game's physics rules were now written by its first player's hands on the controls,
+  which is how the collection's games are supposed to grow.</p>
+
+  <h2>Chords off — visualize the line yourself</h2>
+  <p>Steven's fourth note, the same afternoon: the X-Ray's full-screen chord tracer should be optional — "not
+  always off, just an option — force you to visualize that line." It is now. The <b>T key</b> (or the CHORDS
+  button beside X-RAY) hides only the dashed chord lines; the rock labels, drift arrows, the ship's circle and
+  the cut captions all stay, and the bullet still cuts along its whole line of travel — a line you now hold in
+  your head from the moment you fire. The spot audit on the shipped file: a horizontal bullet's row carried
+  <b>414 lit pixels</b> of dashed chord with the lines on and <b>6</b> with them off; a rock's gold side-count
+  label still drew with the chords hidden (67 px at its centre); a real T keypress toggled the state; and a
+  shot fired blind still split a hexagon for +10 into two pieces. The option changes what you see, never what
+  the game does — which is exactly what an option is.</p>
+
+  <h2>The flight recorder — the Time Machine, fitted</h2>
+  <p>Steven's question, the night the <a href="xray-time-machine.html">X-Ray Time Machine</a> shipped: can we
+  do it with shards? The recorder ChatGPT designed was adopted as a core, and Shardstorm was rebuilt around it.
+  The step is now a fixed 1/60-second tick; every random draw in the game — wave spawns, rock shapes, split
+  pushes and spins, even the sparks — comes from a seeded generator whose state rides inside the recording;
+  and your controls are logged tick by tick. The panel under the field rewinds the run, branches it (fly it
+  differently, replay it unchanged, predict, or flip one rule — the recoil — and replay your exact controls
+  against the original flying beside you as a dashed gold ghost), and verifies it: re-simulate the whole
+  flight from tick zero and compare every state.</p>
+  <p>The retrofit audit drove the shipped page headlessly, through its own recorder:</p>
+  <ul>
+    <li>A scripted flight of <b>607 ticks</b> under continuous fire verified <b>607/607</b> — every state
+    reproduced from the recorded inputs alone.</li>
+    <li>An aim-driven flight of <b>2,972 ticks</b> with <b>54 cuts</b> verified <b>2,972/2,972</b>.</li>
+    <li>Two fresh page loads, same seed and same 300 inputs: <b>byte-identical first 301 states</b>, the
+    wave-one field included.</li>
+    <li>An unchanged-replay branch of the long flight matched the original at all <b>2,974 states</b>.</li>
+    <li>The recoil branch — Steven's experiment, on the game that asked it: identical to the fork, and the
+    first divergence landed exactly one tick after the first post-fork shot, the branch ship's velocity
+    differing by <b>exactly 5.000 px/s</b> with its position still identical — the kick itself, isolated.
+    The branch then verified 440/440 on its own.</li>
+    <li>Clean shots in the recorded stream still obey the old physics to the digit: post-shot velocity equals
+    the damped velocity minus 5 px/s down the muzzle line, error 0. The cut captions kept their law —
+    n + 4, n + 3, the true diagonal's n + 2 — throughout.</li>
+    <li>Zero JavaScript exceptions across every run.</li>
+  </ul>
+  <p>What bends, printed plainly. The old loop ran on a variable step capped at 1/30 s, so on a slow machine
+  the game itself slowed down; the fixed tick keeps real time at any refresh rate and drops a drawing frame
+  instead. The recorder holds sixty seconds — past that, the flight continues unrecorded and the panel says
+  so. And the audit's scripted fields never emptied, so a mid-run wave spawn rests on the seeded stream's
+  construction and the identical wave-one fields across loads rather than on a replayed wave transition; the
+  first player to clear a field on the recorder will exercise it live.</p>
+
+    <p><strong>The designer, playing the fitted build</strong> (25 November 2026, verbatim —
+  this is the receipt the recorder was built for):</p>
+  <blockquote>
+    <p>“Shardstorm gets more fun the longer you leave it running and playing. You start using
+    your own motion in both drive and rotation and even brief thrust bursts to Tai Chi your way
+    into the right firing position. Thrust vector becomes a tool instead of a control is a wierd
+    way to descibe it.”</p>
+    <p>“…even the recoils from a bounce. It really is facinating how much TaiChi
+    demonstrates all of this from redirection using thrust as an aim even in the reflection and
+    shadow bench. Skip. Its all digitial taichi.”</p>
+  </blockquote>
+  <p>That is the momentum model — recoil per shot, the ship-bump trade, rocks bouncing off
+  rocks — discovered by hand: thrust stops being how you move and becomes how you aim. The same
+  redirection runs through Bug Hunt's banked shots, Shadowline's drift, and Skip's long way
+  around. Digital Tai Chi is the designer's own name for the family.</p>
+
+<h2>Two laws of contact — Flow and 3 Lives (26 November 2026)</h2>
+  <p>Steven's ask: the game as it stands plays as a no-death game, and that should stay the default — but a
+  3-life version, switched on deliberately, would let a player test progress against themselves, and foster
+  a bit of the friendly competition Asteroids itself ran on. Lives lost by a full-on collision, whole — not
+  by a damage meter.</p>
+  <p>The audit first read the code before touching it, and the code held a surprise: the lives system was
+  already there — three ships, an extra at 10,000, a game-over state — standing behind the bump law. Only a
+  closing faster than 160 px/s could reach it, so played the Tai Chi way, yielding and redirecting, the game
+  behaves exactly as Steven described it: no death. What shipped is therefore a second law beside the first,
+  not a repair. <b>Flow</b> is the default and is untouched. <b>3 Lives</b> — the MODE button or the M key,
+  between runs only — makes any full contact cost a ship: no closing-speed test, no partial damage, a life
+  lost whole. The mode keeps your best score on this machine and shows it on the title and game-over screens:
+  a run measured against your own last one, and a number a friend has to beat. The flight recorder logs which
+  law a run was flown under, and restoring a recording reinstates its law, button label and all — a replay is
+  judged by its own rules.</p>
+  <p>Measured, driving the shipped page: a motionless rock laid over the ship in Flow — a bump, lives stay 3.
+  A rock driven in at 800 px/s in Flow — a ship lost, 3 to 2: the old law intact. The same motionless rock in
+  3 Lives — a ship lost at effectively zero closing speed. Three soft contacts drained the mode to game over,
+  and the best score the run had earned (45, from one vaporized triangle) was the score found stored on the
+  machine afterward, to the digit. Replay verification on runs flown with recorded inputs only passed exactly
+  in both laws — 241 checks in 3 Lives, 150 in Flow. (The collision tests placed rocks through the game's test
+  hooks to make the geometry exact; hooks are not inputs, so no recording made that way is asked to verify.)
+  Zero page errors across all three drives.</p>
+
+<h2>Verdict</h2>
+  <p>Ship it — corrected, and now two ways to fly it. The game does exactly what its page now says, and the page says only what was measured.
+  <a href="shardstorm.html">Play Shardstorm</a>.</p>
+
+  <h2>Keep going</h2>
+  <ul>
+    <li><a href="the-vectrex-console.html">The Vectrex Console</a> — the vector machine that started the conversation, and the game Steven played first.</li>
+    <li><a href="the-emulator-xray.html">The Emulator X-Ray</a> — the same see-inside-the-math idea, over two small games.</li>
+    <li><a href="xray-time-machine.html">The X-Ray Time Machine</a> — the recorder's home exhibit: a lander and a docking arena built recorder-first, where this retrofit's core came from.</li>
+    <li><a href="../everyday-math/gausslab.html">GaussLab</a> — the other exhibit born this morning: watch elimination walk a system to its solution, lines and all.</li>
+  </ul>
+
+  <div class="note"><b>References.</b> Sutherland &amp; Hodgman, "Reentrant Polygon Clipping," Communications of
+  the ACM, 1974 — the clipping algorithm the split is built on. The side-count law is elementary and was settled
+  here by measurement: 600 cuts, classified by how the line meets the corners.</div>
+
+  <footer>
+    <p>Shardstorm was designed by Steven Powell and built by Muse, 25 November 2026; audited twice — the first
+    audit falsified the builder's printed law, the second verified the correction; the flight-recorder
+    retrofit was audited the same night against the Time Machine's three criteria. Back to
+    <a href="index.html">Nerd Heaven</a> · <a href="../../index.html">Everyday Cool hub</a></p>
+  </footer>
+</div>
+</body>
+</html>

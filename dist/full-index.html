@@ -292,7 +292,7 @@
     <button class="filter-btn" data-cat="rigid">Rigid-Body &amp; Destruction</button>
     <button class="filter-btn" data-cat="sports">Sports &amp; Arcade</button>
     <button class="filter-btn" data-cat="docs">Notes &amp; Research</button>
-    <span class="count-pill" id="countPill">383 Items</span>
+    <span class="count-pill" id="countPill">444 Items</span>
   </nav>
 
   <section class="grid" id="gameGrid"></section>
@@ -325,7 +325,7 @@
 
   const GAMES = [
   {
-    "title": "Nerd Heaven",
+    {{"title":"Route the Package","file":"projects/packet-playground/route-the-package.html","icon":"🚚","cat":"Packet Playground","desc":"Route It's physical twin: a parcel from the Defiance depot to a Fort Wayne address, one next hop at a time — hubs, a snowed-in hub, a flagged mis-sort lane, and the last-mile van, scored against the network's own best.","concepts":"Hub and Spoke · Routing · Logistics","cta":"Ship it"},"title":"Tai Chi Forms — The Same Move","file":"projects/everyday-body/tai-chi-forms.html","icon":"☯","cat":"Everyday Body","desc":"The four gates of Grasp the Bird's Tail — Ward Off, Roll Back, Press, Push — and the one move they share with a pool bank, a banked shot, a timed push, and a signal taking the long way around: redirection. Two benches: turn a ball on a curve at full speed, and grow a swing by timing.","concepts":"Tai Chi · Reflection · Resonance · Redirection","cta":"Meet the move"},"title": "Nerd Heaven",
     "file": "projects/nerd-heaven-tech-support/index.html",
     "icon": "💻",
     "cat": "rooms",
@@ -497,13 +497,159 @@
     "file": "projects/tonights-sky/index.html",
     "icon": "🌍",
     "cat": "rooms",
-    "desc": "Drag and zoom a live night sky with 900 stars, constellations, the planets and the Moon's phase, then run time forward. Catch the ISS and SpaceX Starlink passing over, listen to the radio sky, and download a family plan for a backyard radio telescope.",
+    "desc": "Drag and zoom a live night sky with 900 stars, constellations, the planets and the Moon's phase, then run time forward. Catch the ISS and SpaceX Starlink passing over, listen to the radio sky, and read the family plan for a backyard radio telescope.",
     "concepts": [
       "Earth & space",
       "The sky is a giant clock."
     ],
     "cta": "Open Workshop"
+  },    {
+    "title": "Is the Earth Flat?",
+    "file": "projects/tonights-sky/is-the-earth-flat.html",
+    "icon": "🌍",
+    "cat": "rooms",
+    "desc": "A social game of sorts: walk the five classic flat-earth proofs as they are actually argued, run the measurement at each bench, collect the “Yes, but…” deflection cards, and finish with The Final Experiment — the 24-hour Antarctic sun.",
+    "concepts": [
+      "Earth & space",
+      "Measure it; don’t argue it."
+    ],
+    "cta": "Open Workshop"
   },
+  {
+    "title": "Is the Earth Flat? — the lesson",
+    "file": "projects/tonights-sky/is-the-earth-flat-lesson.html",
+    "icon": "📖",
+    "cat": "rooms",
+    "desc": "The audit of the game: every figure recomputed independently — 24.0 ft of drop over six miles, two sun-heights 1,030 km apart, the sidereal 15.04° an hour — and the bends printed.",
+    "concepts": [
+      "Earth & space",
+      "Receipts over rhetoric."
+    ],
+    "cta": "Open Workshop"
+  },
+  {
+    "title": "The Backyard Radio Telescope Plan — Rev 2",
+    "file": "projects/tonights-sky/backyard-radio-telescope.html",
+    "icon": "📡",
+    "cat": "rooms",
+    "desc": "The family's full plan for turning the salvaged DIRECTV dish into a receive-only 21 cm hydrogen-line radio telescope — Rev 2 engineering edition (25 November 2026, with Google Antigravity) of the 4 November 2026 original prepared with Muse, in memory of Henry Douglas Powell, ham radio operator since 1956. Stage 0: dish geometry, the offset pointing angle, and a buried-RG-6 audit (hidden SWM splitters, copper-clad-steel DC drop vs. the SAWbird's 180 mA). Stage 0.5: a one-hour Ku-band aim check on the Sun and Moon. Stage 1 (~$125–$195): exact DIY feed blueprints (copper biquad, paint-can cantenna with verified waveguide math), the SAWbird+ H1 at the feed per Friis, bandpass calibration three ways, and Doppler conversion that reads the Milky Way's spiral-arm rotation in km/s. Honest expectations printed on its face: the Sun and the Galactic Plane yes; Cassiopeia A not until Stage 4's bigger dish. In Tonight's Sky.",
+    "concepts": [
+      "Radio Astronomy",
+      "Hydrogen Line",
+      "DIY Engineering",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Plan"
+  },  {
+    "title": "Hear the Hydrogen Line",
+    "file": "projects/tonights-sky/hydrogen-line.html",
+    "icon": "📡",
+    "cat": "rooms",
+    "desc": "Grok Bot's companion to the Backyard Radio Telescope Plan, in Tonight's Sky: the hydrogen spin flip behind the 21 cm line (1420.405751768 MHz, λ ≈ 21.106 cm), a Doppler tuner with the radio-convention sign stated, a pretend dish swept along galactic longitude over a toy Galaxy with simulated spectra and real radiometer noise for 0.8 m, 3 m and 25 m dishes, the tangent-point method building the Milky Way's rotation curve (R₀ = 8.2 kpc, V₀ = 230 km/s; flat curve as a stated simplification, Kepler for contrast), and an honest backyard-dish calculator — the hydrogen line and the Sun yes, Cassiopeia A not on 0.8 m. Sixteen built-in proofs run live.",
+    "concepts": [
+      "Radio Astronomy",
+      "Hydrogen Line",
+      "Doppler Effect",
+      "Galactic Rotation"
+    ],
+    "cta": "Open the Bench"
+  },
+  {
+    "title": "Hear the Hydrogen Line — the lesson",
+    "file": "projects/tonights-sky/hydrogen-line-lesson.html",
+    "icon": "📡",
+    "cat": "rooms",
+    "desc": "The physics behind Hear the Hydrogen Line: the F = 1 → 0 spin flip and its 11-million-year wait, the Doppler formula and its sign, the tangent-point geometry (v_t = V(R₀ sin l) − V₀ sin l), flat rotation curves and dark matter, N_H = 1.8224e18 ∫T dv, the radiometer equation, what a backyard dish can really hear and why the LSR correction matters — with the sixteen proof results and every constant sourced.",
+    "concepts": [
+      "Radio Astronomy",
+      "Hydrogen Line",
+      "Galactic Rotation"
+    ],
+    "cta": "Read the Lesson"
+  },  {
+    "title": "DipoleLab",
+    "file": "projects/radio-room/dipolelab.html",
+    "icon": "📻",
+    "cat": "rooms",
+    "desc": "Google Antigravity's antennas, polarization and ham-radio workbench for the Radio Room: dipoles vs verticals with true elevation patterns, Yagi beams and phased arrays, a Jones-vector polarization bench (cos²θ exactly, RHCP tilt-proof at 50%), Malus's law and the three-polarizer paradox, SWR on a complete Smith chart, a decibel link studio whose S-meter honours both IARU standards, and a current Technician to Extra roadmap. Audited line by line: wire math exact at eight bands, steering exact, roadmap current; nine bends (an invented vertical pattern, a self-inconsistent Yagi estimate, a half-drawn Smith chart) fixed under Steven's sanction, hash chain in the lesson.",
+    "concepts": [
+      "Radio",
+      "Antennas",
+      "Polarization",
+      "Ham Radio"
+    ],
+    "cta": "Open the Bench"
+  },
+  {
+    "title": "DipoleLab — the lesson",
+    "file": "projects/radio-room/dipolelab-lesson.html",
+    "icon": "📻",
+    "cat": "rooms",
+    "desc": "The audit of DipoleLab: what measured exact (468/f at eight bands, Jones-product polarization, I₀/8 through the paradox stack, both IARU S-meter standards — the bench out-audited its auditor on the second), what bent (the vertical's drawn pattern, the Yagi gain heuristic, the partial Smith chart, a thousand-fold watt slip), the eleven sanctioned fixes as a hash chain, and the one banner nit Steven approved with his eyes open.",
+    "concepts": [
+      "Radio",
+      "Audit and Receipts",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },  {
+    "title": "LuxLab",
+    "file": "projects/everyday-physics/luxlab.html",
+    "icon": "🪞",
+    "cat": "rooms",
+    "desc": "Google Antigravity's eleven-chapter reflection, shadow and EM-resonance workbench for Everyday Physics: reflection as oscillating electrons, umbra/penumbra geometry, Fresnel diffraction and the Arago–Poisson spot, Brewster's angle, TIR and evanescent tunneling, superposition lattices, Fabry–Pérot cavities and thin films, Feynman's QED mirror, curved-mirror caustics and mirror halls, BRDF and gold's relativistic colour, and ionospheric radio skipping. Two independent audits: every engine exact — Fresnel to 0.1 pt, QED phasor sums reproduced to ±0.01, etalon spacing exactly λ/2n — and seventeen presentation fixes applied under Steven's two sanctions, hash chain in the lesson.",
+    "concepts": [
+      "Optics",
+      "Fresnel Equations",
+      "Diffraction",
+      "QED",
+      "Ionosphere"
+    ],
+    "cta": "Open the Bench"
+  },
+  {
+    "title": "LuxLab — the lesson",
+    "file": "projects/everyday-physics/luxlab-lesson.html",
+    "icon": "🪞",
+    "cat": "rooms",
+    "desc": "The two audits of LuxLab: what measured exact across eleven chapters (shadow tangents to four decimals, Brewster snap R_p = 0.0%, cavity stored energy peaking on design, the zone-plate mirror out-collecting the full mirror at 585.6%), what bent (an Arago preset oversold for its 2D world, an undisclosed s-polarization thin-film model, a 1-D visibility readout wearing an area's clothes, a cavity probe sitting on a node), and the seventeen sanctioned fixes as two hash chains.",
+    "concepts": [
+      "Optics",
+      "Audit and Receipts",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },  {
+    "title": "SpacetimeLab",
+    "file": "projects/everyday-physics/spacetimelab.html",
+    "icon": "🕳️",
+    "cat": "rooms",
+    "desc": "Google Antigravity's gravitational-wave workbench for Everyday Physics: waves OF space passing, swirling and falling into mass — Shapiro delay and bending, the wave-optics regime at λ ~ r_s, Kerr frame-dragging and the river model, the photon sphere at 1.5 r_s with its capture cross-section, quasinormal ringdown, and lensed echoes in LIGO, Virgo and LISA. The independent audit found the arithmetic exact and the Kerr wake flipping sign with the spin as promised, but the Arago chapter failed as presented (no spot at λ ≈ r_s in the sim's own view; the caustic is real at λ ≳ 1.7 r_s) — twenty-one sanctioned copy fixes, hash chain in the lesson.",
+    "concepts": [
+      "Gravitational Waves",
+      "General Relativity",
+      "Frame-Dragging",
+      "Photon Sphere"
+    ],
+    "cta": "Open the Bench"
+  },
+  {
+    "title": "SpacetimeLab — the lesson",
+    "file": "projects/everyday-physics/spacetimelab-lesson.html",
+    "icon": "🕳️",
+    "cat": "rooms",
+    "desc": "The audit of SpacetimeLab: what measured exact (river flow c at the horizon and 0.5c at 4 r_s, wake centroid +76.7 px to −78.4 px as spin flips, telemetry 12/12, capture at bundle level, the detector ring's width+height constant at 341–343 px), the chapter that failed (the gravitational Arago spot absent at its headlined wavelength), and the twenty-one fixes — Kerr spin splits printed, detector wavelengths corrected, the missing Shapiro Δt, σ and ringdown numbers added as labelled references, and one apostrophe repair the spot-check probe caught.",
+    "concepts": [
+      "Gravitational Waves",
+      "Audit and Receipts",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },
+
+
+
+
   {
     "title": "The Radio Room",
     "file": "projects/radio-room/index.html",
@@ -4831,6 +4977,614 @@
     "cta": "Read the Lesson"
   },
   {
+    "title": "The Relay",
+    "file": "projects/nerd-heaven-tech-support/the-relay.html",
+    "icon": "🔁",
+    "cat": "comp",
+    "desc": "A game you can't play alone: two to four players share one Courier Bot on a 10×10 board of walls and pits, three Action Points a turn — move, bridge, scan — then a note and maybe a gift for the next player, and the device changes hands. Guided shows the goal; Fog adds a compass and warmer/colder; Blind is warmer/colder only. Built by Meta AI as a React app at Steven Powell's direction; ported by Muse to one self-contained page.",
+    "concepts": [
+      "Pass-and-Play",
+      "Setting Up the Next Player",
+      "Warmer / Colder Navigation",
+      "Relay Codes"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The Relay — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-relay-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The Relay: the three port changes on the record (Meta's save backend became local storage, dealt boards are BFS-verified winnable, the framework is gone), the 12/12 proof table with a 29/29 DOM drive behind it, and the honest surprise — the source's unguarded board scatter dealt 0 unwinnable boards in 10,000 tries, so the guard is insurance, not a rescue.",
+    "concepts": [
+      "Pass-and-Play",
+      "Setting Up the Next Player",
+      "Warmer / Colder Navigation",
+      "Relay Codes"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The Baton Box",
+    "file": "projects/baton-box/index.html",
+    "icon": "📦",
+    "cat": "comp",
+    "desc": "A small relay server for pass-and-play games — games you play together, but not at the same time. One host installs it (one Python file, no dependencies); it keeps whose turn it is and carries each game's state blob from player to player under a six-letter code, never learning a rule of any game it serves. The Relay is passenger number one; the landing page carries the setup and join notes in plain language, and the project ZIP is the install.",
+    "concepts": [
+      "Asynchronous Play",
+      "Opaque State Blobs",
+      "Turn-Taking",
+      "Local Networks"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The Baton Box — the lesson",
+    "file": "projects/baton-box/baton-box-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for the Baton Box: Steven's 'almost needs a small relay server' made reusable by his own amendment, the opaque-blob design, the 20/20 self-test receipts (the whole loop over real HTTP, a stale hand-back refused with HTTP 409, sessions surviving a restart, a dummy game registered by manifest alone), and the one named compromise — no deep link into the unmodified client, so a turn is copy, open, paste.",
+    "concepts": [
+      "Asynchronous Play",
+      "Opaque State Blobs",
+      "Turn-Taking",
+      "Local Networks"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The SNES Console",
+    "file": "projects/nerd-heaven-tech-support/the-snes-console.html",
+    "icon": "🎮",
+    "cat": "comp",
+    "desc": "A whole Super Nintendo in one page — Snes9x inside the EmulatorJS frontend, vendored unmodified with both licenses carried and Snes9x credited on its face under Steven Powell\'s attribution ruling — shipping with an empty slot: bring your own cartridges, read from your machine and never uploaded, and hand a frozen moment on as a State Code. The honest limit is printed on its face: this core build\'s pad arrives cross-wired — the face buttons land on shifted keys, but Select and the D-pad directions never reach the cartridge through the digital path. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "State Codes",
+      "The 65816"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The SNES Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-snes-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The SNES Console: the license reasoning in plain words (Snes9x freeware for personal, non-commercial use, its text carried verbatim; EmulatorJS GPL-3.0), the full provenance with hashes, the 20/20 audit driven through the page\'s own slot — pixels exact, the core fetched from the vendored folder, zero external requests — the State Code measured at 1,097,923 characters, and the pad map measured at the cartridge: the pad word\'s bytes arrive exchanged, the face buttons land on shifted keys, and Select and all four D-pad directions never arrive at all.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Input Maps",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The 6502 Bench",
+    "file": "projects/nerd-heaven-tech-support/the-6502-bench.html",
+    "icon": "🧮",
+    "cat": "comp",
+    "desc": "An original NMOS 6502 built from scratch in one page — the processor inside the Apple IIe, the Atari 800, the 2600 and the NES, set on a bench: a two-pass assembler, a line-numbered BASIC with PEEK and POKE onto the machine\'s own screen, a Drive Shelf for your own .bin files, and whole-machine codes that hand the computer itself to the next player. Proofs 42/42, the JMP-indirect page-boundary bug reproduced faithfully — and greeted by Steven with HELLO WORLD and a program of his own. In Nerd Heaven.",
+    "concepts": [
+      "The 6502",
+      "Assembly and BASIC",
+      "State Codes",
+      "A Machine You Can Hand On"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The 6502 Bench — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-6502-bench-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The 6502 Bench: how an original 6502 was built in one page — the census of 151 opcodes across 56 mnemonics, decimal mode exact with the NMOS flag quirk, a save-state round-trip of all 65,536 bytes, the famous page-boundary bug kept on purpose and proven, and the simplifications named on its face: a linear screen map, a stand-in BASIC, approximate cycle counts.",
+    "concepts": [
+      "The 6502",
+      "Proofs and Audits",
+      "Famous Bugs, Kept",
+      "Honest Simplifications"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The 2600 Console",
+    "file": "projects/nerd-heaven-tech-support/the-2600-console.html",
+    "icon": "🕹️",
+    "cat": "comp",
+    "desc": "A whole Atari 2600 in one page — Javatari v5.0.4 by Paulo Peccin, embedded unmodified with its AGPL-3.0 license carried beside it — shipping with an empty slot: bring your own cartridges, read from your machine and never uploaded; save states are .jst files passed hand to hand. The audit drove a hand-assembled test cartridge through its own drag-and-drop for 17/17, pixels exact, zero external requests. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "The 6507",
+      "Racing the Beam"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The 2600 Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-2600-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The 2600 Console: the provenance of the embedded Javatari (v5.0.4, AGPL-3.0, byte-identical), the 17/17 audit — playfield geometry and colours measured at the programmed values, inputs changing execution live, save states round-tripping both ways — and the honest limits: states are files, not codes, and cycle-exact timing on pathological cartridges is desktop Stella\'s ground, claimed neither way.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Pixels",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The NES Console",
+    "file": "projects/nerd-heaven-tech-support/the-nes-console.html",
+    "icon": "🎮",
+    "cat": "comp",
+    "desc": "A whole Nintendo in ONE self-contained page — JSNES by Ben Firshman (Apache-2.0) inlined byte-for-byte into the page itself, so it works served, saved, or opened alone from a folder — shipping with an empty slot: bring your own cartridges, read on your machine and never uploaded. The console talks: each cartridge is named with its mapper, or refused in plain words; freeze a moment and hand it on as a State Code, here or through the Baton Box. Run-confirmed by Steven on his own Chip \'n Dale — \'it works great.\' In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "State Codes",
+      "The 6502"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The NES Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-nes-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The NES Console: the 18/18 audit through the page\'s own slot, the mapper coverage list, the State Code measured at about 851,070 characters — and the three field fixes from Steven\'s own testing, each root-caused: the slot rebuilt native after a click that flashed and died, the engine inlined after a lone-file open left the page mute, and a self-bound keyboard plus a cold-restart Reset after a saved remap ate his Z key and JSNES\'s reset was caught never loading an MMC1\'s banks (his $9fd crash, reproduced to the address).",
+    "concepts": [
+      "Emulation",
+      "Field Fixes",
+      "Provenance and Attribution",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The DOS Console",
+    "file": "projects/nerd-heaven-tech-support/the-dos-console.html",
+    "icon": "🖥️",
+    "cat": "comp",
+    "desc": "A whole DOS machine in a page — DOSBox via the js-dos player, vendored unmodified, running anywhere — whose first door is a familiar habit: pick a drive folder (or a zip of it) and the console mounts it as C: and boots to the prompt, a big drive loading as a skeleton with its heavy folders on demand; a second door takes a single game zip, a third opens the public shelf at the Internet Archive, and a fourth — the rescue door — reads files back out of the mounted drive to a zip you download. The support bench’s reading room for old drives. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Drive",
+      "State Codes",
+      "Cross-Origin Isolation"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The DOS Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-dos-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The DOS Console: the DOSBox Pure era and its isolation geography (history, kept), then the 26 November 2026 engine swap to DOSBox via js-dos and everything that followed in one morning — sliced zip reads, the folder door, the 2 GB size wall and the streaming door, the lazy drive in Steven’s own design, his pre-pick warning verbatim, and the rescue door’s byte-identical receipts.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Pixels",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The DOS Workbench",
+    "file": "projects/nerd-heaven-tech-support/the-dos-workbench.html",
+    "icon": "🛠️",
+    "cat": "comp",
+    "desc": "The DOS Console stood on a bench: the page loads straight into the emulator — DOS already on, at its own Z: prompt — and the console's doors become benches below. Mount your own C: drive and the workbench restarts onto it (a big drive loads as a skeleton, heavy folders on demand), load one game, browse the Internet Archive shelf, or rescue files back out of a mounted drive as a zip you download. A real honest-to-God OS you can play with. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Drive",
+      "Data Recovery",
+      "Workbench Posture"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The BBS Door — Step Into a Real One",
+    "file": "projects/nerd-heaven-tech-support/the-bbs-door.html",
+    "icon": "🚪",
+    "cat": "Nerd Heaven",
+    "desc": "A door into real, functioning BBSes: pick a board and a live telnet session opens in the page — Crossroads of the Elements on MajorBBS first — with the DOS bench below it, Pack 002 already mapped.",
+    "concepts": "BBS door, live telnet session, fTelnet, Crossroads of the Elements, MajorBBS, DOS bench, Pack 002 mapped",
+    "cta": "Step through"
+  },
+  {
+    "title": "The Phone Book — Boards That Still Answer",
+    "file": "projects/nerd-heaven-tech-support/the-bbs-phone-book.html",
+    "icon": "📞",
+    "cat": "Nerd Heaven",
+    "desc": "Twelve telnet BBSes that still answer, plus Crossroads of the Elements on MajorBBS — drawn from the Telnet BBS Guide, with its DOS twin BBS.TXT riding in Pack 002's NET folder.",
+    "concepts": "telnet BBS list, bulletin board systems, MajorBBS Crossroads of the Elements, Telnet BBS Guide, mTCP TELNET, BBS.TXT, living boards",
+    "cta": "Pick a number"
+  },
+  {
+    "title": "Online Interaction and Communication, as Told in the Age of the BBS",
+    "file": "projects/nerd-heaven-tech-support/online-interaction-and-communication.html",
+    "icon": "📞",
+    "cat": "comp",
+    "desc": "Steven Powell's guide to the rules, etiquette, and rules of engagement of online life as the BBS age worked them out: entering a room, proof of being read, the productive flame, and the large central section — As You Wish, the bow from his Usenet lesson. Full text plus the printable PDF.",
+    "concepts": [
+      "Netiquette",
+      "Community Norms",
+      "Knowledge Transfer",
+      "Honest Limits"
+    ],
+    "cta": "Read the Guide"
+  },
+  {
+    "title": "The DOS Workbench — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-dos-workbench-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The DOS Workbench: the difference between an exhibit and a bench, the audit of the unassisted boot to a live Z: prompt and the restart onto a mounted drive, and the honest bends — Z: is the machine's own drive, a restart is a restart, and the console's machinery bends are inherited by reference. The name and framing are Steven's.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "Pack 001 — The Broken Boot (DOS Workbench lesson)",
+    "file": "projects/nerd-heaven-tech-support/pack-001-the-broken-boot-lesson.html",
+    "icon": "🧰",
+    "cat": "comp",
+    "desc": "The first DOS Workbench lesson pack: a 2.4 KB C: drive that is broken in exactly one place — a PATH typo (TOOL for TOOLS) that stops a front desk's morning startup. Download the drive, mount it on the Workbench, and work it the bench way: read the error literally, prove the report program is alive, follow the chain through START.BAT and AUTOEXEC.BAT, prove the diagnosis, fix it, then break it on purpose and watch. With the case for AUTOEXEC.BAT as the ancestor of every startup script since. In Nerd Heaven.",
+    "concepts": [
+      "Troubleshooting Method",
+      "DOS Startup Files",
+      "PATH",
+      "Learn by Breaking"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "Pack 002 — The Network Card (DOS Workbench lesson)",
+    "file": "projects/nerd-heaven-tech-support/pack-002-the-network-card-lesson.html",
+    "icon": "📻",
+    "cat": "comp",
+    "desc": "A DOS TCP/IP setup workshop: a plain machine with a fitted NE2000-compatible card and nothing loaded — bring up Realtek's real 1995 packet driver and the real mTCP stack layer by layer (card, driver, configuration, stack, address), on a workshop page that puts the walkthrough beside the machine. Clean by design; every quoted message captured from the programs themselves; closes with Steven's control-daemons corollary and the Trumpet WINSOCK.DLL field note.",
+    "concepts": [
+      "Networking",
+      "DOS",
+      "Diagnosis in Layers"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The Emulator Box — the whole shelf",
+    "file": "projects/nerd-heaven-tech-support/index.html#emulator-box",
+    "icon": "🕹️",
+    "cat": "comp",
+    "desc": "The machine room gathered as one exhibit on the Nerd Heaven index: seven whole computers and consoles — the 6502 Bench, the 2600, NES, and SNES Consoles, the DOS Console, the Apple IIe Console, and the MAME Console — every one shipping empty, because the machines live here and the cartridges and disks stay yours, each audited by driving it and each carrying its lesson, with the Baton Box named as the post office that serves and relays them. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Library",
+      "The Cartridge Shelf",
+      "Relay Play"
+    ],
+    "cta": "Enter the Machine Room"
+  },
+  {
+    "title": "The Apple IIe Console",
+    "file": "projects/nerd-heaven-tech-support/the-apple-iie-console.html",
+    "icon": "🍎",
+    "cat": "comp",
+    "desc": "The 6502 Bench's home machine, whole: an enhanced Apple IIe in a page — Apple2TS by Chris Torrence and the Apple2TS contributors (MIT), vendored unmodified with its bundled disk library left behind on purpose — shipping with an empty slot for your own disk images, read on your machine and never uploaded. The default disk Steven asked for by name, The Oregon Trail (MECC, 1985), opens in the Internet Archive's own player; the audit booted that very disk through the page's own slot to the game's main menu in 20 same-origin requests, and a 400,854-byte save-state file round-tripped across browser sessions. The firmware-ROM caveat is printed on its face. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Disks",
+      "State Files",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The Apple IIe Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-apple-iie-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The Apple IIe Console: how Apple2TS was chosen at the gate and pinned to its own GitHub Pages build, the firmware-ROM caveat in the open, the CORS wall at the Internet Archive, and the measured receipts — Oregon Trail's main menu reached through the house slot and held, the keyboard proven at the menu and in Applesoft, the save state round-tripped across sessions, and the window sizes at every stop.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The MAME Console",
+    "file": "projects/nerd-heaven-tech-support/the-mame-console.html",
+    "icon": "👾",
+    "cat": "comp",
+    "desc": "The Emulator Box's arcade cabinet: MAME 2003-Plus — the libretro core built on MAME 0.78 — inside the EmulatorJS frontend, both vendored unmodified with both licenses carried, shipping with an empty slot for your own romset zips, read on your machine and never uploaded; a parent set and a BIOS set ride their own fields, and the marquee lights with the game's name. The core ships a non-threaded build, so it plays right here on the plain site. The audit drove mamedev's own free romsets through the shipped page: Robby Roto was coined, started, and played by keyboard, and its MAMESTATE1: code round-tripped at 35,147 characters. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Romsets",
+      "Arcade Cabinets",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The MAME Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-mame-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The MAME Console: the threading verdict measured on a plain non-isolated server, the warning screen that eats first coins, the corrected liturgy (coin is V, start is Enter — desktop MAME's 5 and 1 are wrong in this stack, and 1 is quick-save), the license correction (the core carries the classic MAME non-commercial license, not the GPL the plan expected), the silent parent/BIOS hang fixed page-side, and the romset diagnostic that reads an archive's vintage — Steven's first run with his own zip is the field receipt.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The 7800 Console",
+    "file": "projects/nerd-heaven-tech-support/the-7800-console.html",
+    "icon": "🕹️",
+    "cat": "comp",
+    "desc": "The Emulator Box's eighth machine: Atari's 1986 7800 — a 6502 with the MARIA display-list chip — emulated by ProSystem (GPL-2.0) inside the EmulatorJS frontend, both vendored unmodified with both licenses carried, shipping with an empty slot for your own .a78 cartridges, read on your machine and never uploaded; no BIOS needed. The core ships a non-threaded build, so it plays right here on the plain site. The audit drove a synthetic cartridge that paints one colour per input: X measured as button 1, Z as button 2, and a 7800STATE1: code round-tripped at 65,675 characters. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "Atari 7800",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The 7800 Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-7800-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The 7800 Console: the threading verdict measured on a plain non-isolated server, the fixture that painted black until it handed MARIA a display list, the one-button/two-button merge measured at the cartridge (either fire key drives the single legacy input until a game asks for two buttons), the full measured key table — X button 1, Z button 2, A reset, V select, Enter pause, Q/E difficulty — and the GPL-2.0 license text fetched from the core's own repository because the npm package ships none. Steven's first cartridge from his own library is the field receipt.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The 5200 Console",
+    "file": "projects/nerd-heaven-tech-support/the-5200-console.html",
+    "icon": "🎛️",
+    "cat": "comp",
+    "desc": "The Emulator Box's ninth machine and its only two-door one: Atari's 1982 SuperSystem — ANTIC, GTIA and POKEY, the analog stick that never centres, a keypad on every controller — emulated by the a5200 core (GPL-2.0, Atari800 lineage) inside the EmulatorJS frontend, both vendored unmodified with both licenses carried. It takes your cartridge (.a52 or .bin) and your own 2,048-byte BIOS — Atari's firmware, not bundled — and refuses in plain words without it. The core ships a non-threaded build, so it plays right here on the plain site. The audit booted a synthetic cartridge through a real BIOS and measured the stick, both fire buttons, and every keypad key arriving; a 5200STATE1: code round-tripped at 350,347 characters. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "Bring Your Own BIOS",
+      "Atari 5200",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The 5200 Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-5200-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The 5200 Console: the plain-language BIOS refusal driven verbatim, the zip-wrap hand-off that delivers your BIOS under the one name the core looks for (proven by contrast with a zero-filled BIOS's black screen), the threading verdict measured on a plain non-isolated server, the stick and both fire buttons measured at the cartridge, every keypad key witnessed arriving at POKEY — and the one honest limit: per-key keypad codes could not be read back, because the core delivers them on POKEY's scan timing, so the key names rest on the core's own published map. Steven's own BIOS, first cartridge, and call on the analog stick are the field receipts.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The Vectrex Console",
+    "file": "projects/nerd-heaven-tech-support/the-vectrex-console.html",
+    "icon": "📐",
+    "cat": "comp",
+    "desc": "The Emulator Box's tenth machine: the 1982 Vectrex — the only home console that drew with light instead of pixels, a 6809 machine with a built-in vector tube — emulated by JSVecX (GPLv3), raz0red's JavaScript port of VecX, vendored unmodified. Pure JavaScript with no workers and no WebAssembly, so it is the one machine in the box that also runs from a lone local file. An empty slot boots Mine Storm, the game built into the machine; your own .vec or .bin rides the slot, read locally and never uploaded. The re-audit measured the Mine Storm title at 396 lit pixels, a homebrew cartridge's title at 1,927 lit pixels in three intensity levels, and identical frames served and from file://. The engine has no save states — the lesson says so plainly. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "Vector Display",
+      "Vectrex",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The Vectrex Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-vectrex-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The Vectrex Console: the gate that chose JSVecX (GPLv3) before anything was built, the exec-ROM posture stated in the open (the engine ships the machine's 8 KB firmware as upstream ships it, under the Apple IIe precedent and Smith Engineering's documented non-commercial blessing), and the completion re-audit's receipts — Mine Storm's title card at 396 lit pixels and PLAYER 1 card at 139, button 1 starting the built-in game into a live playfield, a homebrew cartridge rendered at 1,927 lit pixels in three true intensity levels, eject returning to Mine Storm, and the same page opened as a lone file:// document producing identical frames with zero external requests. Confessed in the lesson: no save states exist in this engine, the stick is digital, and sound went unmeasured headlessly. Steven's first cartridge from his own library is the field receipt.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "The Genesis Console",
+    "file": "projects/nerd-heaven-tech-support/the-genesis-console.html",
+    "icon": "🎮",
+    "cat": "comp",
+    "desc": "The Emulator Box's eleventh machine: Sega's Genesis (Mega Drive) emulated by Genesis Plus GX — under its own non-commercial license, carried verbatim — inside the EmulatorJS 4.2.3 frontend (GPL-3.0), both vendored unmodified. A cartridge slot (.md, .gen, .smd, .bin — no BIOS needed) and a Sega CD door with a bring-your-own BIOS slot and a disc slot, built for CD homebrew. The audit booted a homebrew test cartridge in about two seconds at a measured 60 fps on the non-threaded payload, round-tripped a GENSTATE1: code at 1,381,762 characters, and drove the CD door's no-BIOS refusal verbatim. It also found a defect in the console's own page — fixed in the finishing pass: the frontend hands this core a two-button Master System pad unless the page names the Genesis scheme — the one-line fix is in the lesson, waiting on Steven's word. In Nerd Heaven.",
+    "concepts": [
+      "Emulation",
+      "Bring Your Own Cartridges",
+      "Bring Your Own BIOS",
+      "Sega Genesis",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "The Genesis Console — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-genesis-console-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for The Genesis Console: Genesis Plus GX's license posture (its own non-commercial license, fetched verbatim from the core's repository because the npm package names a license file it does not ship), the threading verdict measured both ways (the non-threaded payload on plain hosting, the threaded build under isolation headers), the audit's receipts — a homebrew test cartridge booted in about two seconds at 60 fps, a GENSTATE1: code of 1,381,762 characters (1,036,312 bytes) round-tripped, the Sega CD refusal driven word for word — and the headline defect — and its one-line fix — in full: the frontend's scheme table resolves this core to segaMS, so as shipped the pad is a two-button Master System pad with no Start; the full Genesis table measured with the scheme line injected, the fix one line and unapplied pending Steven's word, the console page's key table still an empty placeholder, and pad input undrivable in the sandbox by any path. Steven's first cartridge is the pad receipt; his first Sega CD, with his own BIOS, is the door's.",
+    "concepts": [
+      "Emulation",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "Emulator X-Ray",
+    "file": "projects/nerd-heaven-tech-support/the-emulator-xray.html",
+    "icon": "🔬",
+    "cat": "comp",
+    "desc": "The Emulator Box's companion exhibit — not an emulator, and no ROMs: two small original vector games (a Lunar Lander and an Asteroid Drift) built by ChatGPT at Steven Powell's direction, shipped byte-for-byte, wearing an X-Ray layer that shows their own physics while you play. F2 toggles velocity and acceleration arrows on the ship, dashed collision boundaries and the position trail; a telemetry panel reads the simulation live; pause and Step advance exactly one 1/60-second physics tick; and Player, Programmer and Engineer modes re-read the same moment — with the Programmer view's registers labeled a toy on the page itself, because there is no CPU in it. The audit drove every claim the page prints: 27/27, telemetry matching the simulation's own state to the printed digit. In Nerd Heaven.",
+    "concepts": [
+      "X-Ray Telemetry",
+      "Fixed Timestep",
+      "Collision Boundaries",
+      "Honest Instruments",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "Emulator X-Ray — the lesson",
+    "file": "projects/nerd-heaven-tech-support/the-emulator-xray-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for Emulator X-Ray: a ChatGPT guest build adopted the morning it was proposed, shipped byte-for-byte, and audited by driving the shipped page over file:// with real keyboard events — 27 checks, 27 held: dt exactly 1/60 s, lander gravity 30 and thrust 85 px/s², drift thrust 115 with no gravity or drag, the landing verdict strict at speed < 35 px/s and tilt < 14° with the pad tested at the ship's centre, Step advancing exactly one tick per press, telemetry matching the sim's internal state to the printed digit, and one network request in the whole session (the page's own document). The lesson also draws the honest-instruments boundary the page itself prints: real where telemetry is read from the running simulation, labeled toy where the Programmer view models registers, and named unavailable for hardware registers, scanlines and CPU cycles. Its follow-on: a real CPU X-Ray for the 6502 Bench.",
+    "concepts": [
+      "X-Ray Telemetry",
+      "Provenance and Attribution",
+      "Measured Boots",
+      "Honest Limits"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "Shardstorm",
+    "file": "projects/nerd-heaven-tech-support/shardstorm.html",
+    "icon": "🔷",
+    "cat": "comp",
+    "desc": "Steven Powell's Asteroids what-if, asked minutes after playing Mine Storm on the Vectrex Console and built by Muse the same day: the rocks are honest polygons in a mixed field — 3 to 10 sides, irregular — and your bullet's path through a rock is the chord it splits along, into the two real polygons on either side, clipped exactly from the parent's own vertices (Sutherland–Hodgman). Pieces under the 800 px² floor vaporize and pay by their sides; a live counter keeps the field's total sides. The first audit falsified the side-count law printed on the page; the shipped page states the measured law — a generic cut sums to n + 4, a cut through one corner n + 3, a true diagonal n + 2. In Nerd Heaven, on the vector shelf beside the Emulator X-Ray.",
+    "concepts": [
+      "Polygon Clipping",
+      "Chords and Diagonals",
+      "Measured Laws",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "Shardstorm — the lesson",
+    "file": "projects/nerd-heaven-tech-support/shardstorm-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for Shardstorm: an audit story with the builder as the caught party. A 600-cut battery driven through the shipped page's own splitter falsified the law the page printed — cut an n-gon and the pieces sum to n + 2 — completely: 572 generic cuts, and not one satisfied it, every one summing to n + 4, because a bullet's line crosses two edge interiors and creates two new corners that both pieces own. The page was corrected before shipping, the splitter's corner double-count fixed, and the re-audit decomposed all 597 two-piece cuts with no exceptions: 572 generic cuts at n + 4, 9 through exactly one corner at n + 3, 16 true diagonals at n + 2 — with area conserved to 2.8×10⁻¹⁶, and scoring, the vaporize floor, the turn rate, the waves and the live sides counter all measured on the shipped file.",
+    "concepts": [
+      "Polygon Clipping",
+      "Measured Laws",
+      "Honest Limits",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "X-Ray Time Machine",
+    "file": "projects/nerd-heaven-tech-support/xray-time-machine.html",
+    "icon": "📼",
+    "cat": "comp",
+    "desc": "ChatGPT's proposal to the collection, built by Muse from ChatGPT's own proof test: a flight recorder for two small games — a lunar lander and a recoil-and-rocks arena. Every flight is recorded (inputs and the seed behind every random draw), so you can rewind to any tick, keep the original as a ghost, and branch with exactly one change — different controls, one altered rule, a prediction locked before the reveal — then watch the futures diverge, or replay unchanged and watch them refuse to. The flagship experiment answers Steven's Shardstorm question as a recording: a ship docking on gun recoil alone, engine disabled. In Nerd Heaven, beside the Emulator X-Ray.",
+    "concepts": [
+      "Deterministic Replay",
+      "Seeded Randomness",
+      "Counterfactuals",
+      "Flight Recorders"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "X-Ray Time Machine — the lesson",
+    "file": "projects/nerd-heaven-tech-support/xray-time-machine-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for the X-Ray Time Machine: the three criteria Steven set before anything was built (record everything, replay exactly, branch with one change) and the two audits that enforced them — on ChatGPT's test and on the finished exhibit. The lander demo lands and verifies over 1,990 transitions; the Recoil Experiment docks engine-off across 1,304; seeded mid-flight rock replacements replay bit-exact; a gravity branch separates by exactly ½Δg·t² and matches an independent re-simulation. Plus the bends, and the four requirements any game must meet to adopt the recorder.",
+    "concepts": [
+      "Deterministic Replay",
+      "Measured Laws",
+      "Honest Limits",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },  {
+    "title": "Bug Hunt",
+    "file": "projects/nerd-heaven-tech-support/bughunt.html",
+    "icon": "🐛",
+    "cat": "comp",
+    "desc": "Steven Powell's Duck Hunt what-if, built by Muse the same day: the ducks are famous software bugs crossing a code window, and each behaves like the error it is named after — LOOKERROR freezes under your cursor and darts when you look away, OFFBYONE is hit beside itself rather than on itself, NULLPOINTER is only a tag pointing at nothing, HEISENBUG teleports when a shot's line passes close, STACKOVERFLOW copies itself on a near miss, MEMORYLEAK grows and pays more the longer it lives, DEADLOCK travels frozen in pairs. The debugger's shot is a travelling vector that pierces and ricochets up to three times; the X-Ray (F2) draws its predicted path and every bug's true hitbox. Escapes are presented by Clippy, who from round 3 also takes the field as a 750-point boss running a borrowed behaviour. Audited in fourteen areas on the shipped file. In Nerd Heaven.",
+    "concepts": [
+      "Error Taxonomy",
+      "Vector Ricochet",
+      "X-Ray Prediction",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "Bug Hunt — the lesson",
+    "file": "projects/nerd-heaven-tech-support/bughunt-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for Bug Hunt: fourteen audit areas driven on the shipped file — the ricochet prediction matched the shot's travelled path to within substep overshoot (flight 2,064 ms against a predicted 2,047), OFFBYONE's hitbox measured displaced +27 px from its drawn body, LOOKERROR frozen to the pixel under a near cursor and at 2.2× speed away from it, HEISENBUG teleported at fire time, MEMORYLEAK grew at a measured 2.20 px/s with its value tracking the printed formula exactly, and the boss Clippy ran borrowed behaviours at a flat 750. The audit's one defect — the completed shot's trail vanished the instant the shot died, though the page promised it would linger for comparison — was the builder's own, fixed and re-measured before shipping.",
+    "concepts": [
+      "Measured Behaviours",
+      "Path Truth",
+      "Honest Limits",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },  {
+    "title": "Shadowline",
+    "file": "projects/nerd-heaven-tech-support/shadowline.html",
+    "icon": "🛩️",
+    "cat": "comp",
+    "desc": "Steven Powell's Zaxxon what-if, built by Muse the same day — the third of the day's originals: an isometric fortress run where the screen never shows your height, so you judge it by your shadow on the ground below and an altimeter whose bands match the gaps in the walls ahead. Underneath, the world is honest 3D — corridor 96 units wide, sky 46 tall, every wall a box with one 13-unit gap — and collisions are decided in world units while the projection only draws. Thread gaps for precision bonuses, shoot fuel drums to stay airborne, and press T to take the altimeter away and fly by shadow alone. The X-Ray (F2) adds a drop-line, true heights, and a side-elevation profile strip. Audited in nine areas on the shipped file, all passing. In Nerd Heaven.",
+    "concepts": [
+      "Isometric Projection",
+      "Altitude Judgement",
+      "Honest 3D",
+      "Provenance and Attribution"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "Shadowline — the lesson",
+    "file": "projects/nerd-heaven-tech-support/shadowline-lesson.html",
+    "icon": "📖",
+    "cat": "comp",
+    "desc": "The back-door lesson for Shadowline: nine audit areas on the shipped file — the shadow separation measured as exactly altitude × 3 px in the projection function and confirmed on the canvas (centroids 69.6 px apart at altitude 23), the altimeter marker true to half a pixel with its gap band spanning rows 427–465 for a [18, 31] gap, both wall-gap boundaries exact to a tenth of a unit (18.0 passes, 17.9 crashes), the instruments toggle censused as it removed the altimeter (5,662 px to 0) while the shadow stayed, fuel draining at exactly 2.20/s, and a 17-wall autopilot run proving the generator never demands more than 3.6 of the ship's 27 units/s of climb. All nine areas passed with no defects.",
+    "concepts": [
+      "Measured Instruments",
+      "Boundary Truth",
+      "Honest Limits",
+      "Provenance and Attribution"
+    ],
+    "cta": "Read the Lesson"
+  },
+
+
+  {
     "title": "The Robot Room",
     "file": "projects/robot-room/index.html",
     "icon": "🤖",
@@ -5175,6 +5929,64 @@
       "Proof Table"
     ],
     "cta": "Read the Lesson"
+  },
+  {
+    "title": "GaussLab — the Matrix Workbench",
+    "file": "projects/everyday-math/gausslab.html",
+    "icon": "🧮",
+    "cat": "math",
+    "desc": "Antigravity's matrix workbench, commissioned by Steven: systems from 2×2 to 6×6 solved in exact BigInt fractions — never a rounded float — by four methods sharing one grid, every row operation a playable card, a geometry canvas whose lines and planes morph through the elimination, and eight reference chapters alongside. Audited 283/283; the four bends the audit found were fixed at Steven's word, banner included, and the lesson keeps the measurements and the edit record.",
+    "concepts": [
+      "Gauss–Jordan Elimination",
+      "Exact Rational Arithmetic",
+      "Cramer's Rule",
+      "Rank & the Three Fates"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "GaussLab — the lesson",
+    "file": "projects/everyday-math/gausslab-lesson.html",
+    "icon": "📖",
+    "cat": "math",
+    "desc": "The back-door lesson for GaussLab: Muse's audit — 283/283 checks recomputed in exact rationals, 90 row operations verified step by step, 26/26 geometry pixels — the four bends (a silent zero in the input cells, two teaching sentences, one preset's sign), the fixes Steven sanctioned, and the before/after hash chain.",
+    "concepts": [
+      "Gauss–Jordan Elimination",
+      "Exact Rational Arithmetic",
+      "Cramer's Rule",
+      "Rank & the Three Fates"
+    ],
+    "cta": "Read the Lesson"
+  },
+  {
+    "title": "Calculus Without Fear",
+    "file": "projects/everyday-math/calculus-without-fear.html",
+    "icon": "∫",
+    "cat": "math",
+    "desc": "The deep dive after Algebra, Geometry and Trigonometry, commissioned by Steven: calculus as two ideas you can see. Shrink h until the secant becomes the tangent (with an honest float-wall row), drag along a curve to draw its slope graph and measure the power rule before stating it, stack left, right and midpoint Riemann sums until the area is exact, and watch the fundamental theorem side by side. A stripped-down rocket — constant thrust, uniform gravity, no drag — is integrated from acceleration to velocity to altitude against the closed-form rocket equation. 16/16 proofs live.",
+    "concepts": [
+      "Derivatives by Zooming",
+      "Power Rule",
+      "Riemann Sums",
+      "Fundamental Theorem",
+      "Rocket Equation"
+    ],
+    "cta": "Launch Exhibit"
+  },
+  {
+    "title": "Calculus Without Fear — the lesson",
+    "file": "projects/everyday-math/calculus-without-fear-lesson.html",
+    "icon": "📖",
+    "cat": "math",
+    "desc": "The back-door lesson for Calculus Without Fear: the difference quotient and why computers hit a float wall, the derivative as a function and the power rule, why midpoint sums converge four times faster, the fundamental theorem in one sentence, the constant-thrust rocket worked from a(t) to v(t) to h(t) with the model's simplifications named, and the 16-row proof table.",
+    "concepts": [
+      "Derivatives by Zooming",
+      "Power Rule",
+      "Riemann Sums",
+      "Fundamental Theorem",
+      "Rocket Equation"
+    ],
+    "cta": "Read the Lesson"
   }
 ];
 
@@ -5231,5 +6043,6 @@
   render();
 })();
 </script>
+<p>Questions or feedback? <a href="https://groups.google.com/g/everydaycool" target="_blank" rel="noopener">Join our Forum</a> — anyone may ask to join; members post.</p>
 </body>
 </html>

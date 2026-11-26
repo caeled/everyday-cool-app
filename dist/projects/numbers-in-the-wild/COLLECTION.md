@@ -14,3 +14,10 @@ Documentation update (20 November 2026): at Steven Powell's direction, `index.ht
 Game added 22 November 2026: `yahtzee.html` and `yahtzee-lesson.html` — Yahtzee, built by Muse at Steven Powell's direction. Full classic rules with Yahtzee-bonus joker rules; all probabilities computed by exact enumeration (252-multiset engine, multinomial weights); the build's 42-check proof suite passed, including P(Yahtzee in a full turn, best play) = 4.6029% and the hold advisor's expected values matched against an independent brute force. `index.html` gained the Yahtzee nav link and section 07.
 
 Staleness fix, 22 November 2026: `yahtzee-lesson.html` — the history line corrected: Yahtzee was sold by the E.S. Lowe Company from 1956; Milton Bradley bought Lowe in 1973.
+
+Cross-link added 24 November 2026, at Steven Powell's direction: `index.html` gained a "When the small numbers grow up" section directly under the hero (plus a matching hero-nav link), pointing across the hall to the Math Deep Dives in Everyday Math — the section anchor `../everyday-math/index.html#deepdives` and the three dive pages named individually: Algebra, Geometry, Trigonometry. Changed files: `index.html` and this `COLLECTION.md` (this note). The imported original, `original-converter.html.txt`, is untouched; its hash in `../../provenance/numbers-in-the-wild.json` was re-verified unchanged in the map's sha256 format.
+
+Cross-link added 25 November 2026: `index.html` — the "When the small numbers grow up" section now names the fourth Math Deep Dive, Calculus Without Fear, in its paragraph and links it beside Algebra, Geometry and Trigonometry. Changed files: `index.html` and this `COLLECTION.md` (this note). The imported original, `original-converter.html.txt`, is untouched.
+
+
+Forum link (26 November 2026): `index.html` gained the collection's Join our Forum line (Steven's Google Group — anyone may ask to join, members post), the feedback door he asked to have everywhere.

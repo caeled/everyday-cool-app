@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shardstorm — the chord is the cut · Nerd Heaven</title>
+<meta name="description" content="An Asteroids variation where the rocks are polygons and your bullet's path is the chord that splits them. Every cut adds new sides to the world — counted exactly, on the page.">
+<style>
+  :root{--ink:#e8ecf4;--dim:#9aa7bd;--accent:#7ee2ff;--gold:#ffcf7d;--panel:#12182b;--line:#263355}
+  *{box-sizing:border-box}
+  body{margin:0;background:#05070f;color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,sans-serif}
+  .wrap{max-width:1020px;margin:0 auto;padding:28px 20px 60px}
+  .crumb{color:var(--gold);letter-spacing:.18em;font-size:12px;text-transform:uppercase;margin:0 0 8px}
+  h1{font-size:32px;margin:0 0 10px;line-height:1.2}
+  h1 .thin{color:var(--accent)}
+  p.lede{color:var(--dim);max-width:70ch}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:18px 0}
+  canvas{display:block;width:100%;height:auto;background:#02030a;border-radius:8px}
+  .hud{display:flex;gap:22px;flex-wrap:wrap;font-family:ui-monospace,Consolas,monospace;font-size:14px;color:var(--dim);padding:10px 4px 2px}
+  .hud b{color:var(--ink)}
+  .hud .sides b{color:var(--gold)}
+  .hud button{background:#0d1322;color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:3px 12px;font:inherit;cursor:pointer}
+  .hud button.on{color:var(--gold);border-color:var(--gold)}
+  table.keys{border-collapse:collapse;margin:10px 0;font-size:15px}
+  table.keys td{padding:3px 14px 3px 0;color:var(--dim)}
+  table.keys td:first-child{color:var(--ink);font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  summary{cursor:pointer;font-weight:600}
+  details p,details li{color:var(--dim)}
+  details b,details strong{color:var(--ink)}
+  .note{border-left:3px solid var(--gold);background:#0d1322;padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim)}
+  .note b{color:var(--ink)}
+  .tm{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 18px}
+  .tm-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0}
+  .tm-title{color:var(--gold);letter-spacing:.12em;font-size:13px}
+  .tm input[type=range]{width:100%}
+  .tm button{background:#0d1322;color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:4px 12px;font:inherit;cursor:pointer}
+  .tm button:hover{color:var(--ink)}
+  .tm select{background:#0d1322;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font:inherit}
+  .tm-msg{color:var(--dim);font-size:14px;margin:6px 0}
+  .tm-grow{flex:1}
+  .tm-events{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+  .tm-events button{font-size:12px;padding:2px 8px}
+  footer{margin-top:34px;color:var(--dim);font-size:14px}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="crumb">Nerd Heaven · The Vector Shelf</p>
+  <h1>Shardstorm <span class="thin">— the chord is the cut</span></h1>
+  <p class="lede">Steven's what-if, asked the morning he played Mine Storm on the Vectrex Console: what if the rocks in
+  Asteroids weren't blobs, but honest polygons — triangles, hexagons, heptagons — and they broke the way geometry
+  says they should? Here they do. Your bullet's path through a rock is a <b>chord</b>, and the rock falls apart along
+  exactly that line, into the two real polygons on either side of it. You don't just break the rock. You choose the cut.</p>
+
+  <div class="stage">
+    <canvas id="game" width="960" height="680" aria-label="Shardstorm game field"></canvas>
+    <div class="hud">
+      <span>SCORE <b id="hud-score">0</b></span>
+      <span>LIVES <b id="hud-lives">3</b></span>
+      <span>WAVE <b id="hud-wave">1</b></span>
+      <span class="sides">SIDES ON FIELD <b id="hud-sides">0</b></span>
+      <span><button id="xray-btn" type="button">X-RAY: OFF</button></span>
+      <span><button id="chords-btn" type="button">CHORDS: ON</button></span>
+      <span><button id="mode-btn" type="button">MODE: FLOW</button></span>
+      <span id="hud-msg"></span>
+    </div>
+  </div>
+
+  <div class="tm" id="tm-panel">
+    <div class="tm-row">
+      <b class="tm-title">FLIGHT RECORDER — THE TIME MACHINE, FITTED</b>
+      <span id="tm-time">TICK 0 / 0</span>
+      <span id="tm-mode">no flight recorded</span>
+    </div>
+    <input id="tm-slider" type="range" min="0" max="0" value="0" step="1" aria-label="Recorder timeline">
+    <div class="tm-row">
+      <button id="tm-play" type="button">▶ Play</button>
+      <button id="tm-step" type="button">One tick</button>
+      <button id="tm-back" type="button">↶ Back 5 seconds</button>
+      <button id="tm-start" type="button">|← Start</button>
+      <span class="tm-grow"></span>
+      <button id="tm-verify" type="button">Verify this recording</button>
+    </div>
+    <div class="tm-row">
+      <label>Branch from this tick:
+        <select id="tm-branch-mode">
+          <option value="live">Try different controls</option>
+          <option value="recoil">Change one rule — recoil off / on</option>
+          <option value="predict">Predict, then reveal (recoil flip)</option>
+          <option value="same">Unchanged replay</option>
+        </select>
+      </label>
+      <button id="tm-branch" type="button">Branch</button>
+      <span id="tm-pred" hidden>After one second the branch ship will be…
+        <button data-guess="faster" type="button">Faster</button>
+        <button data-guess="same speed" type="button">Same speed</button>
+        <button data-guess="slower" type="button">Slower</button>
+      </span>
+    </div>
+    <p class="tm-msg" id="tm-msg">Press ENTER to play — the recorder starts with the game.</p>
+    <p class="tm-msg" id="tm-pred-answer"></p>
+    <div class="tm-events" id="tm-events"></div>
+    <p class="tm-msg" id="tm-verify-out">Replay verification has not run yet.</p>
+  </div>
+
+  <table class="keys">
+    <tr><td>← → or A / D</td><td>turn the ship</td></tr>
+    <tr><td>↑ or W</td><td>thrust</td></tr>
+    <tr><td>Space</td><td>fire — the bullet's line is the cut</td></tr>
+    <tr><td>F2</td><td>the X-Ray layer — chords, vectors, side counts, and the law, live</td></tr>
+    <tr><td>T</td><td>show / hide the X-Ray's full-screen chord lines — visualize the cut yourself</td></tr>
+    <tr><td>M</td><td>switch mode between runs — FLOW (the bump law above) or 3 LIVES (any full contact costs a ship)</td></tr>
+    <tr><td>P</td><td>pause</td></tr>
+    <tr><td>Flight recorder</td><td>the panel under the field — rewind the run, branch it, verify it</td></tr>
+    <tr><td>Enter</td><td>start / restart after game over</td></tr>
+  </table>
+
+  <div class="note"><b>The law of the field:</b> cut an n-sided polygon with one straight line and the two pieces'
+  side counts add to <b>n + 4</b> — the cut creates two new corners, and each piece owns both of them. Thread the
+  cut exactly through two existing corners — a true diagonal — and it's n + 2 instead. Either way the counter
+  keeps the honest total: watch it climb as you cut. Pieces too small to cut again (under the area floor) vaporize
+  when hit, and pay by their sides. Clear the field and the next wave brings more polygons.
+  <b>Press F2</b> (or the X-RAY button) and the field turns transparent: every bullet's full chord is drawn before
+  it lands, every rock wears its side count and area, and each cut is captioned with its own arithmetic as it
+  happens. And if the drawn chord does the visualizing for you, <b>press T</b> (or the CHORDS button) to hide just
+  the full-screen chord lines — the labels, arrows and captions stay, the cut still happens along the same line,
+  and the line is one you have to picture yourself.</div>
+
+  <details>
+    <summary>Help ▾ — how Shardstorm works, in full</summary>
+    <p><strong>The game.</strong> Pilot the ship, shoot the polygons, don't touch them. The field wraps at the
+    edges: fly off one side and you come back on the other, and so do the rocks. Bullets don't wrap.</p>
+    <p><strong>The cut.</strong> When a bullet reaches a polygon, the game takes the bullet's line — the straight
+    path it was travelling — and splits the polygon along that whole line, the way a chord crosses a circle. Both
+    pieces are real polygons, computed from the parent's own vertices, and both keep drifting with a push apart
+    along the cut. Where you hit matters less than the <em>angle</em> you hit at: the same rock cut two ways gives
+    two different fields.</p>
+    <p><strong>Scoring.</strong> A cut that produces two pieces: 10 points. A piece that vaporizes — because it
+    was already under the area floor, or because the cut left it under the floor — pays 15 points per side it had.
+    An extra ship every 10,000 points.</p>
+    <p><strong>Recoil.</strong> Firing kicks the ship backwards — <b>5 px/s per shot</b>, straight down the line
+    opposite the muzzle. Slight per shot, as it should be; hold the trigger through a long burst and it sums to a
+    drift you can feel, and thrust is how you pay it back. Steven's note again: the push had to be there.</p>
+    <p><strong>Bumps.</strong> Touching a rock is not automatically death.</p> A gentle contact trades momentum
+    along the line from the rock's centre to the ship: the rock's mass is its area, so a big decagon shoves you
+    hard and barely notices, while a small triangle gets knocked away — and you are set drifting, to correct with
+    thrust. Only a hard closing — relative speed toward the rock above <b>160 px/s</b> — destroys the ship. After
+    a bump you're untouchable for three-quarters of a second so one contact can't machine-gun you. Steven's
+    play-test verdict stands as the design note: before this, the ship had a magical station-keeping ability.
+    It doesn't anymore.</p>
+    <p><strong>Two laws of contact (26 November 2026).</strong> The bump law above is <b>Flow</b>, the default, unchanged. Steven asked for the other classic: a <b>3 Lives</b> mode, switched with the MODE button or the M key between runs, where any full contact with a rock costs a ship — no closing-speed test, no damage meter, a life lost whole, the way Asteroids dealt it. Three ships, an extra at 10,000 as always, and the mode keeps your best score on this machine, shown on the title and game-over screens — a run you can measure yourself against, and a number a friend has to beat. The flight recorder logs which law a run was flown under, so a replayed run is judged by its own rules.</p>
+    <p><strong>Rock on rock.</strong> Rocks are bodies too — they no longer drift through each other. When two
+    rocks meet they trade momentum along the line between their centres, with the same mass rule (area) and the
+    same spring (restitution 0.55) as a ship bump, and they are pushed apart so they cannot rest overlapped.
+    Each rock collides as a circle of its mean radius, and spin is not exchanged — those are the model's named
+    simplifications. Under the X-Ray a bounce is captioned <b>BOUNCE</b> with the closing speed it traded.
+    Steven's sandbox note, again the design: rocks should bounce off each other. Now they do.</p>
+    <p><strong>The floor.</strong> A piece whose area is under 800 square pixels can't be cut — a hit vaporizes it
+    outright. Slivers a cut leaves under the floor vaporize on the spot and pay out the same way.</p>
+    <p><strong>The X-Ray layer (F2).</strong> The same treatment the Emulator X-Ray gives its little games, turned
+    on this one: dashed lines extend every live bullet's path across the whole field — the chord it will cut with;
+    arrows show every rock's drift and the ship's velocity; each rock is labelled with its side count and its area
+    in square pixels, and rocks within twice the floor turn gold as a warning. When a cut lands, a caption appears
+    at the cut site with the arithmetic — parent sides → the two pieces' sides, which law the cut obeyed
+    (n + 4, n + 3, or the true diagonal's n + 2), and the area before and after, conserved. Nothing in the X-Ray
+    changes the game; it only shows the mathematics the game was already doing.</p>
+    <p><strong>Hiding the chords (T).</strong> The dashed chord lines can do your visualizing for you — Steven's
+    note, after a session with them on. The T key (or the CHORDS button beside X-RAY) hides only those
+    full-screen lines: the rock labels, the drift arrows, the ship's circle and the cut captions all stay, and
+    the bullet still cuts along its whole line of travel. The difference is that now you have to hold that line
+    in your head from the moment you fire. Not a harder game, exactly — a quieter one, where the geometry is
+    yours to imagine before it proves itself on the rock.</p>
+    <p><strong>The flight recorder.</strong> Shardstorm now carries the Time Machine — the recorder designed by
+    ChatGPT for the X-Ray Time Machine and first fitted here. The game runs on a fixed tick and a seeded field:
+    every rock, split, bump and spark is drawn from a seed carried inside the recording, and your controls are
+    logged tick by tick. Play a run, then scrub the timeline back, branch from any moment, and fly the alternative
+    while the original runs beside you as a dashed gold ghost. <b>Change one rule</b> flips the recoil from the
+    branch tick onward and replays your original controls exactly — the Recoil Experiment, on the game that asked
+    the question. <b>Verify</b> re-simulates the whole recording from its first tick and compares every state:
+    if the past replays exactly, it says so, with the tick count. The recorder holds sixty seconds; past that the
+    flight continues unrecorded and the panel says so.</p>
+    <p><strong>Honesty notes.</strong> The rocks are convex polygons in a mixed field — triangles up to decagons,
+    irregular and some of them stretched, so no two fields are alike; the split is exact polygon clipping, not a
+    canned animation. Rocks pass through each other — only the ship and the bullets interact with them. Sound:
+    none. This page makes no network requests and runs from a lone local file.</p>
+  <p><strong>On a touch screen:</strong> the recorder below the stage — its buttons and timeline — is fully tappable, and the field is worth watching on its own; but flying the ship takes the arrow keys and Space, so play itself needs a keyboard.</p></details>
+
+  <footer>
+    <p>Shardstorm was designed by Steven Powell ("what if the shapes were triangles, hexagons and other polygons
+    that break up?") and built by Muse the same day, 25 November 2026. Its lesson — what the audit measured,
+    including the side-count law checked cut by cut — is beside it:
+    <a href="shardstorm-lesson.html">the Shardstorm lesson</a>.</p>
+    <p>The flight recorder was adopted from the <a href="xray-time-machine.html">X-Ray Time Machine</a> —
+    designed by ChatGPT, built by Muse there, and fitted to Shardstorm the same night, 25 November 2026,
+    as the first of the Time Machine's Phase 2 retrofits.</p>
+    <p><a href="index.html">← Back to Nerd Heaven</a> · <a href="../../index.html">Everyday Cool hub</a></p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* Shardstorm — chord-split polygon Asteroids.
+   The split: a bullet's line clips the parent polygon twice (Sutherland–Hodgman,
+   once per half-plane). For a convex parent the two pieces' side counts sum to
+   parent sides + 4 (the two crossing points become corners of BOTH pieces);
+   a cut through two existing vertices — a true diagonal — sums to + 2. */
+
+var W = 960, H = 680;
+var MIN_AREA = 800;            // below this, a piece vaporizes instead of splitting
+var canvas = document.getElementById('game');
+var ctx = canvas.getContext('2d');
+
+function cross(ax, ay, bx, by) { return ax * by - ay * bx; }
+function polyArea(p) {
+  var a = 0;
+  for (var i = 0; i < p.length; i++) {
+    var q = p[(i + 1) % p.length];
+    a += p[i].x * q.y - q.x * p[i].y;
+  }
+  return Math.abs(a) / 2;
+}
+function polyCentroid(p) {
+  var x = 0, y = 0;
+  for (var i = 0; i < p.length; i++) { x += p[i].x; y += p[i].y; }
+  return { x: x / p.length, y: y / p.length };
+}
+/* Clip polygon p to the half-plane signedDist >= 0 (side = +1) or <= 0 (side = -1),
+   where signedDist uses the line through (lx,ly) with direction (dx,dy). */
+function clipSide(p, lx, ly, dx, dy, side) {
+  var out = [];
+  function d(pt) { return side * cross(dx, dy, pt.x - lx, pt.y - ly); }
+  for (var i = 0; i < p.length; i++) {
+    var a = p[i], b = p[(i + 1) % p.length];
+    var da = d(a), db = d(b);
+    var ain = da >= -1e-9, bin = db >= -1e-9;
+    if (ain) out.push({ x: a.x, y: a.y });
+    if (ain !== bin) {
+      var t = da / (da - db);
+      out.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+    }
+  }
+  /* drop consecutive duplicate points (a vertex lying exactly on the cut is
+     emitted twice — once as a vertex, once as a t=0/1 crossing) */
+  var clean = [];
+  for (var k = 0; k < out.length; k++) {
+    var prev = clean[clean.length - 1];
+    if (!prev || Math.hypot(out[k].x - prev.x, out[k].y - prev.y) > 1e-9) clean.push(out[k]);
+  }
+  if (clean.length > 1) {
+    var f = clean[0], l = clean[clean.length - 1];
+    if (Math.hypot(f.x - l.x, f.y - l.y) <= 1e-9) clean.pop();
+  }
+  return clean;
+}
+function splitByLine(p, lx, ly, dx, dy) {
+  return [clipSide(p, lx, ly, dx, dy, 1), clipSide(p, lx, ly, dx, dy, -1)];
+}
+function pointInPoly(pt, p) {
+  var inside = false;
+  for (var i = 0, j = p.length - 1; i < p.length; j = i++) {
+    var a = p[i], b = p[j];
+    if ((a.y > pt.y) !== (b.y > pt.y) &&
+        pt.x < (b.x - a.x) * (pt.y - a.y) / (b.y - a.y) + a.x) inside = !inside;
+  }
+  return inside;
+}
+function distToPoly(pt, p) {
+  var best = Infinity;
+  for (var i = 0; i < p.length; i++) {
+    var a = p[i], b = p[(i + 1) % p.length];
+    var abx = b.x - a.x, aby = b.y - a.y;
+    var t = ((pt.x - a.x) * abx + (pt.y - a.y) * aby) / (abx * abx + aby * aby || 1);
+    t = Math.max(0, Math.min(1, t));
+    var dx = pt.x - (a.x + abx * t), dy = pt.y - (a.y + aby * t);
+    best = Math.min(best, dx * dx + dy * dy);
+  }
+  return Math.sqrt(best);
+}
+/* ---------- Time Machine core (recorder) ----------
+   Adopted from the X-Ray Time Machine (designed by ChatGPT, 25 Nov 2026):
+   a pure fixed step, a seed carried in the state, inputs as data.
+   Shardstorm's step was already a single function; the retrofit gives it
+   a seeded RNG, a fixed 1/60 tick, and a serialisable snapshot. */
+var TICK = 1 / 60, TM_MAX = 3600;
+var rngState = 1;
+function srand(seed) { rngState = (seed >>> 0) || 1; }
+function rnd() { rngState = (Math.imul(rngState, 1664525) + 1013904223) >>> 0; return rngState / 4294967296; }
+var tickCount = 0, recoilOn = true;
+var liveKeys = {};
+var tmHistory = [], tmInputs = [], tmCursor = 0, tmBase = null, tmBaseInputs = null, tmForkAt = 0;
+var tmMode = 'idle', tmInputSource = 'keys', tmBranchKind = null, tmBranchRecoil = true;
+var tmPlaying = false, tmHalt = false, tmVerifying = false, tmEvents = [], tmPrediction = null, tmDriveQueue = null;
+var gamesStarted = 0;
+
+function makeRockPoly(cx, cy, sides, radius) {
+  var pts = [], start = rnd() * Math.PI * 2;
+  for (var i = 0; i < sides; i++) {
+    var ang = start + (i / sides) * Math.PI * 2;
+    var r = radius * (0.85 + rnd() * 0.27);
+    pts.push({ x: cx + Math.cos(ang) * r, y: cy + Math.sin(ang) * r });
+  }
+  return pts;
+}
+
+/* ---------- game state ---------- */
+var ship, rocks, bullets, sparks, keys = {};
+var score, lives, wave, state, fireCooldown, respawnTimer, nextExtra;
+var mode = 'flow', bestLives = 0;
+try { bestLives = Number(localStorage.getItem('shardstorm-best-lives')) || 0; } catch (e) {}
+var started = false;
+var xray = false, chords = true, cutNotes = [];
+function fmt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function note(x, y, text, sub) { cutNotes.push({ x: x, y: y, text: text, sub: sub, life: 2.8 }); if (!tmVerifying && tmMode !== 'idle') tmEvents.push({ tick: tickCount, text: text, sub: sub }); }
+
+function resetShip() {
+  ship = { x: W / 2, y: H / 2, vx: 0, vy: 0, ang: -Math.PI / 2, invuln: 2.5 };
+}
+function spawnWave(n) {
+  rocks = [];
+  var count = 3 + n;
+  for (var i = 0; i < count; i++) {
+    var sides = 3 + Math.floor(rnd() * 8);      // 3..10 — a mixed field
+    var radius = 42 + rnd() * 24;
+    var x, y, tries = 0;
+    do { x = rnd() * W; y = rnd() * H; tries++; }
+    while (Math.hypot(x - W / 2, y - H / 2) < 180 && tries < 20);
+    var pts = makeRockPoly(x, y, sides, radius);
+    /* stretch some rocks into weird silhouettes, like a real field */
+    var sx = 0.78 + rnd() * 0.5, sy = 0.78 + rnd() * 0.5;
+    for (var j = 0; j < pts.length; j++) {
+      pts[j].x = x + (pts[j].x - x) * sx;
+      pts[j].y = y + (pts[j].y - y) * sy;
+    }
+    var sp = 20 + rnd() * 35, va = rnd() * Math.PI * 2;
+    rocks.push({
+      pts: pts,
+      vx: Math.cos(va) * sp, vy: Math.sin(va) * sp,
+      spin: (rnd() - 0.5) * 1.2
+    });
+  }
+}
+function newGame() {
+  gamesStarted++;
+  srand((20261125 + gamesStarted * 7919) >>> 0);
+  score = 0; lives = 3; wave = 1; nextExtra = 10000;
+  bullets = []; sparks = []; fireCooldown = 0; respawnTimer = 0;
+  recoilOn = true; tickCount = 0;
+  resetShip(); spawnWave(wave);
+  state = 'playing'; started = true;
+  tmReset();
+}
+function addScore(n) {
+  score += n;
+  if (score >= nextExtra) { lives++; nextExtra += 10000; flash('EXTRA SHIP'); }
+}
+var msgTimer = 0, msgText = '';
+function flash(t) { msgText = t; msgTimer = 2.2; }
+
+function vaporize(rock, idx) {
+  addScore(rock.pts.length * 15);
+  var c = polyCentroid(rock.pts);
+  for (var i = 0; i < rock.pts.length; i++) {
+    var p = rock.pts[i];
+    sparks.push({ x: p.x, y: p.y, vx: rock.vx + (p.x - c.x) * 1.4, vy: rock.vy + (p.y - c.y) * 1.4, life: 0.55 });
+  }
+  rocks.splice(idx, 1);
+}
+function hitRock(bullet, idx) {
+  var rock = rocks[idx];
+  var area = polyArea(rock.pts);
+  var nSides = rock.pts.length, cen0 = polyCentroid(rock.pts);
+  if (area < MIN_AREA) {
+    note(cen0.x, cen0.y, nSides + ' SIDES — VAPORIZED WHOLE', 'under the ' + MIN_AREA + ' floor · +' + (nSides * 15));
+    vaporize(rock, idx); return;
+  }
+  var pieces = splitByLine(rock.pts, bullet.x, bullet.y, bullet.vx, bullet.vy);
+  var kept = [], vapSides = 0;
+  for (var k = 0; k < 2; k++) {
+    var piece = pieces[k];
+    if (piece.length < 3 || polyArea(piece) < 1) continue;
+    if (polyArea(piece) < MIN_AREA) {
+      vapSides = piece.length;
+      addScore(piece.length * 15);
+      var c = polyCentroid(piece);
+      for (var i = 0; i < piece.length; i++) {
+        sparks.push({ x: piece[i].x, y: piece[i].y, vx: rock.vx + (piece[i].x - c.x) * 1.4, vy: rock.vy + (piece[i].y - c.y) * 1.4, life: 0.55 });
+      }
+      continue;
+    }
+    kept.push(piece);
+  }
+  if (kept.length === 2) {
+    addScore(10);
+    var sa = kept[0].length, sb = kept[1].length, sum = sa + sb;
+    var law = (sum === nSides + 2) ? 'TRUE DIAGONAL · n + 2' : (sum === nSides + 3) ? 'ONE CORNER · n + 3' : 'THE ORDINARY CUT · n + 4';
+    note(cen0.x, cen0.y, nSides + ' → ' + sa + ' + ' + sb + '  ·  ' + law,
+      'area ' + fmt(area) + ' → ' + fmt(polyArea(kept[0])) + ' + ' + fmt(polyArea(kept[1])) + ' · conserved');
+  } else if (kept.length === 1 && vapSides) {
+    note(cen0.x, cen0.y, nSides + ' → ' + kept[0].length + ' + a ' + vapSides + '-sided cap, vaporized',
+      'cap under the floor · +' + (vapSides * 15));
+  } else if (kept.length === 0) {
+    note(cen0.x, cen0.y, nSides + ' → both pieces under the floor', 'vaporized where they fell');
+  }
+  rocks.splice(idx, 1);
+  /* push the pieces apart along the cut's perpendicular */
+  var len = Math.hypot(bullet.vx, bullet.vy) || 1;
+  var nx = -bullet.vy / len, ny = bullet.vx / len;
+  for (var m = 0; m < kept.length; m++) {
+    var cc = polyCentroid(kept[m]);
+    var sideSign = Math.sign(cross(bullet.vx, bullet.vy, cc.x - bullet.x, cc.y - bullet.y)) || (m === 0 ? 1 : -1);
+    var push = 16 + rnd() * 10;
+    rocks.push({
+      pts: kept[m],
+      vx: rock.vx + nx * push * sideSign,
+      vy: rock.vy + ny * push * sideSign,
+      spin: rock.spin + (rnd() - 0.5) * 0.9
+    });
+  }
+}
+
+function tmSnapshot() {
+  return JSON.parse(JSON.stringify({
+    ship: ship, rocks: rocks, bullets: bullets, sparks: sparks, cutNotes: cutNotes,
+    score: score, lives: lives, wave: wave, state: state, mode: mode, fireCooldown: fireCooldown,
+    respawnTimer: respawnTimer, nextExtra: nextExtra, msgTimer: msgTimer, msgText: msgText,
+    rng: rngState, tick: tickCount, started: started, recoilOn: recoilOn
+  }));
+}
+function tmRestore(s) {
+  var c = JSON.parse(JSON.stringify(s));
+  ship = c.ship; rocks = c.rocks; bullets = c.bullets; sparks = c.sparks; cutNotes = c.cutNotes;
+  score = c.score; lives = c.lives; wave = c.wave; state = c.state; mode = c.mode || 'flow'; syncModeBtn(); fireCooldown = c.fireCooldown;
+  respawnTimer = c.respawnTimer; nextExtra = c.nextExtra; msgTimer = c.msgTimer; msgText = c.msgText;
+  rngState = c.rng; tickCount = c.tick; started = c.started; recoilOn = c.recoilOn;
+}
+function tmReset() {
+  tmHistory = [tmSnapshot()]; tmInputs = []; tmCursor = 0;
+  tmBase = null; tmBaseInputs = null; tmForkAt = 0; tmBranchKind = null;
+  tmMode = 'live'; tmInputSource = 'keys'; tmPlaying = false; tmHalt = false; tmEvents = []; tmPrediction = null;
+  tmSay('Recording. Play — then rewind, branch, and make the past argue with a different future.');
+  tmSyncPanel();
+}
+
+/* ---------- recorder driver ---------- */
+function tmSay(s) { var el = document.getElementById('tm-msg'); if (el) el.textContent = s; }
+function tmSyncPanel() {
+  var sl = document.getElementById('tm-slider'); if (!sl) return;
+  var n = Math.max(0, tmHistory.length - 1);
+  sl.max = n; if (document.activeElement !== sl) sl.value = tmCursor;
+  document.getElementById('tm-time').textContent = 'TICK ' + tmCursor + ' / ' + n + ' · ' + (tmCursor * TICK).toFixed(1) + 's';
+  document.getElementById('tm-mode').textContent = tmMode === 'idle' ? 'no flight recorded' : tmMode === 'live' ? '● recording' : tmMode === 'free' ? 'recorder full — flying unrecorded' : tmMode === 'branch' ? 'on a branch — the ghost is the original' : 'reviewing the recording';
+  var ev = document.getElementById('tm-events');
+  var sig = tmEvents.length + ':' + (tmEvents.length ? tmEvents[tmEvents.length - 1].tick : 0) + ':' + tmForkAt;
+  if (ev.dataset.sig !== sig) {
+    ev.dataset.sig = sig; ev.innerHTML = '';
+    tmEvents.slice(-14).forEach(function (e) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.textContent = (e.tick * TICK).toFixed(1) + 's · ' + e.text;
+      b.addEventListener('click', function () { tmSeek(e.tick); });
+      ev.appendChild(b);
+    });
+  }
+}
+function tmInputNow() {
+  if (tmDriveQueue && tmDriveQueue.length) return tmDriveQueue.shift();
+  if (tmInputSource === 'keys') return { left: !!liveKeys.left, right: !!liveKeys.right, up: !!liveKeys.up, fire: !!liveKeys.fire };
+  var src = tmBaseInputs[tmCursor];
+  return { left: !!src.left, right: !!src.right, up: !!src.up, fire: !!src.fire };
+}
+function tmStepTick() {
+  if (tmInputSource !== 'keys' && tmCursor >= tmBaseInputs.length) {
+    tmHalt = true; tmSay('Comparison complete. Both runs used the same recorded inputs through the original endpoint.');
+    return;
+  }
+  var inp = tmInputNow();
+  if (tmBranchKind === 'recoil' || tmBranchKind === 'predict') recoilOn = tmBranchRecoil;
+  inp.recoil = recoilOn;
+  keys.left = inp.left; keys.right = inp.right; keys.up = inp.up; keys.fire = inp.fire;
+  tmInputs[tmCursor] = inp;
+  step(TICK);
+  tickCount++;
+  tmHistory.push(tmSnapshot());
+  tmCursor++;
+  if (tmPrediction && !tmPrediction.done && tmCursor >= tmPrediction.target) {
+    var cur = tmHistory[tmCursor], g = tmBase[tmCursor];
+    var dSp = Math.hypot(cur.ship.vx, cur.ship.vy) - Math.hypot(g.ship.vx, g.ship.vy);
+    var res = Math.abs(dSp) < 0.5 ? 'the same speed' : (dSp > 0 ? 'faster' : 'slower');
+    tmPrediction.done = true; tmHalt = true;
+    document.getElementById('tm-pred-answer').textContent = 'You predicted ' + tmPrediction.guess + '. Result: ' + res + ' — Δspeed ' + dSp.toFixed(1) + ' px/s against the ghost after one second.';
+    tmSay('Prediction revealed.');
+  }
+  if (tmHistory.length - 1 >= TM_MAX && tmMode === 'live') {
+    tmMode = 'free';
+    tmSay('Recorder full — 60 seconds kept. The flight continues unrecorded; branch from the recorded minute, or press ENTER for a new recording.');
+  }
+  tmSyncPanel();
+}
+function tmFreeStep() {
+  keys.left = !!liveKeys.left; keys.right = !!liveKeys.right; keys.up = !!liveKeys.up; keys.fire = !!liveKeys.fire;
+  step(TICK); tickCount++;
+}
+function tmSeek(t) {
+  if (!tmHistory.length) return;
+  tmCursor = Math.max(0, Math.min(tmHistory.length - 1, t | 0));
+  tmRestore(tmHistory[tmCursor]);
+  tmPlaying = false;
+  if (tmMode !== 'free' && tmMode !== 'idle') tmMode = 'review';
+  tmSyncPanel();
+}
+function tmPlay() {
+  if (tmPrediction && !tmPrediction.guess) { tmSay('Choose your prediction before revealing the branch.'); return; }
+  if (tmCursor < tmHistory.length - 1) { tmPlaying = true; return; }
+  if (tmMode === 'review') { tmMode = tmBranchKind ? 'branch' : 'live'; tmHalt = false; tmSyncPanel(); }
+}
+function tmBranch() {
+  var kind = document.getElementById('tm-branch-mode').value;
+  if (!tmHistory.length || tmCursor >= tmHistory.length - 1) { tmSay('Rewind to a tick before the recording ends, then branch.'); return; }
+  if (tmHistory[tmCursor].state !== 'playing') { tmSay('Choose a moment while the ship was flying.'); return; }
+  tmBase = tmHistory; tmBaseInputs = tmInputs.slice();
+  tmForkAt = tmCursor; tmBranchKind = kind;
+  tmHistory = tmHistory.slice(0, tmCursor + 1); tmInputs = tmInputs.slice(0, tmCursor);
+  tmEvents = tmEvents.filter(function (e) { return e.tick <= tmForkAt; });
+  tmBranchRecoil = !tmHistory[tmCursor].recoilOn;
+  tmInputSource = kind === 'live' ? 'keys' : 'replay';
+  tmPrediction = null; tmHalt = false;
+  document.getElementById('tm-pred-answer').textContent = '';
+  document.getElementById('tm-pred').hidden = kind !== 'predict';
+  if (kind === 'predict') {
+    tmPrediction = { guess: null, target: Math.min(tmForkAt + 60, tmBaseInputs.length), done: false };
+    tmHalt = true;
+    tmSay('Branch armed with recoil ' + (tmBranchRecoil ? 'ON' : 'OFF') + '. Choose your prediction — the branch is locked until you do.');
+  } else if (kind === 'live') tmSay('Branch ready. Press Play, then fly it differently — the original flies beside you as a ghost.');
+  else if (kind === 'same') tmSay('Unchanged replay armed. Press Play: the same inputs again — the two ships should never separate.');
+  else tmSay('Rule branch armed: recoil ' + (tmBranchRecoil ? 'ON' : 'OFF') + ' from this tick, the original inputs replayed. Press Play and watch the futures split at the first shot.');
+  tmMode = 'review'; tmPlaying = false;
+  document.getElementById('tm-verify-out').textContent = 'This branch has not been verified yet.';
+  tmSyncPanel();
+}
+function tmVerify() {
+  if (tmHistory.length < 2) return { ok: false, checks: 0, error: -1 };
+  var saveSnap = tmSnapshot(), saveInputs = tmInputs, saveEvents = tmEvents;
+  tmVerifying = true;
+  tmRestore(tmHistory[0]);
+  var checks = 0, err = -1;
+  for (var i = 0; i < saveInputs.length; i++) {
+    var inp = saveInputs[i];
+    recoilOn = inp.recoil;
+    keys.left = inp.left; keys.right = inp.right; keys.up = inp.up; keys.fire = inp.fire;
+    step(TICK);
+    tickCount = i + 1;
+    if (JSON.stringify(tmSnapshot()) !== JSON.stringify(tmHistory[i + 1])) { err = i + 1; break; }
+    checks++;
+  }
+  tmRestore(saveSnap); tmInputs = saveInputs; tmEvents = saveEvents; tmVerifying = false;
+  tmSyncPanel();
+  return { ok: err < 0 && checks > 0, checks: checks, error: err };
+}
+
+function step(dt) {
+  if (state !== 'playing') return;
+  /* ship */
+  if (keys.left) ship.ang -= 3.6 * dt;
+  if (keys.right) ship.ang += 3.6 * dt;
+  if (keys.up) {
+    ship.vx += Math.cos(ship.ang) * 260 * dt;
+    ship.vy += Math.sin(ship.ang) * 260 * dt;
+  }
+  var damp = Math.exp(-0.22 * dt);
+  ship.vx *= damp; ship.vy *= damp;
+  ship.x = (ship.x + ship.vx * dt + W) % W;
+  ship.y = (ship.y + ship.vy * dt + H) % H;
+  if (ship.invuln > 0) ship.invuln -= dt;
+  /* fire */
+  fireCooldown -= dt;
+  if (keys.fire && fireCooldown <= 0) {
+    fireCooldown = 0.16;
+    bullets.push({
+      x: ship.x + Math.cos(ship.ang) * 14, y: ship.y + Math.sin(ship.ang) * 14,
+      vx: Math.cos(ship.ang) * 540 + ship.vx * 0.35,
+      vy: Math.sin(ship.ang) * 540 + ship.vy * 0.35, life: 0.95
+    });
+    /* recoil — Newton's third law, kept slight: 5 px/s a shot (a branchable rule) */
+    if (recoilOn) {
+      ship.vx -= Math.cos(ship.ang) * 5;
+      ship.vy -= Math.sin(ship.ang) * 5;
+    }
+  }
+  /* bullets */
+  for (var bi = bullets.length - 1; bi >= 0; bi--) {
+    var b = bullets[bi];
+    b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
+    var dead = b.life <= 0 || b.x < 0 || b.x > W || b.y < 0 || b.y > H;
+    if (!dead) {
+      for (var ri = 0; ri < rocks.length; ri++) {
+        if (pointInPoly(b, rocks[ri].pts)) { hitRock(b, ri); dead = true; break; }
+      }
+    }
+    if (dead) bullets.splice(bi, 1);
+  }
+  /* rocks */
+  for (var rj = 0; rj < rocks.length; rj++) {
+    var rk = rocks[rj];
+    var cen = polyCentroid(rk.pts);
+    var ca = Math.cos(rk.spin * dt), sa = Math.sin(rk.spin * dt);
+    for (var pi = 0; pi < rk.pts.length; pi++) {
+      var px = rk.pts[pi].x - cen.x, py = rk.pts[pi].y - cen.y;
+      rk.pts[pi].x = cen.x + px * ca - py * sa + rk.vx * dt;
+      rk.pts[pi].y = cen.y + px * sa + py * ca + rk.vy * dt;
+    }
+    /* wrap by centroid, shifting all points */
+    var c2 = polyCentroid(rk.pts), sx = 0, sy = 0;
+    if (c2.x < -70) sx = W + 140; else if (c2.x > W + 70) sx = -(W + 140);
+    if (c2.y < -70) sy = H + 140; else if (c2.y > H + 70) sy = -(H + 140);
+    if (sx || sy) for (var pj = 0; pj < rk.pts.length; pj++) { rk.pts[pj].x += sx; rk.pts[pj].y += sy; }
+    /* ship collision — a bump trades momentum; only a hard closing kills.
+       Normal runs from the rock's centre to the ship. Rock mass ~ its area. */
+    if (ship.invuln <= 0 && respawnTimer <= 0) {
+      var dShip = distToPoly(ship, rk.pts);
+      if (pointInPoly(ship, rk.pts) || dShip < 11) {
+        var cenB = polyCentroid(rk.pts);
+        var bnx = ship.x - cenB.x, bny = ship.y - cenB.y;
+        var bnl = Math.hypot(bnx, bny) || 1; bnx /= bnl; bny /= bnl;
+        var rvx = ship.vx - rk.vx, rvy = ship.vy - rk.vy;
+        var vn = rvx * bnx + rvy * bny;
+        var closing = -vn;
+        if (mode === 'lives' || closing > 160) {
+          lives--;
+          for (var si = 0; si < 14; si++) {
+            var va2 = rnd() * Math.PI * 2, sp2 = 40 + rnd() * 120;
+            sparks.push({ x: ship.x, y: ship.y, vx: Math.cos(va2) * sp2, vy: Math.sin(va2) * sp2, life: 0.8 });
+          }
+          if (lives <= 0) { state = 'over'; if (mode === 'lives' && score > bestLives) { bestLives = score; try { localStorage.setItem('shardstorm-best-lives', String(bestLives)); } catch (e) {} } }
+          else { resetShip(); }
+        } else {
+          var mShip = 1, mRock = Math.max(0.35, polyArea(rk.pts) / 2500);
+          if (vn < 0) {
+            var jimp = -1.55 * vn / (1 / mShip + 1 / mRock);
+            ship.vx += (jimp / mShip) * bnx; ship.vy += (jimp / mShip) * bny;
+            rk.vx -= (jimp / mRock) * bnx; rk.vy -= (jimp / mRock) * bny;
+          }
+          var pushOut = (11 - Math.min(dShip, 11)) + 2;
+          ship.x += bnx * pushOut; ship.y += bny * pushOut;
+          ship.invuln = 0.75;
+          for (var bi2 = 0; bi2 < 5; bi2++) {
+            sparks.push({ x: ship.x, y: ship.y, vx: bnx * 60 + (rnd() - 0.5) * 50, vy: bny * 60 + (rnd() - 0.5) * 50, life: 0.4 });
+          }
+          note(ship.x, ship.y, 'BUMP', 'drift ' + fmt(Math.hypot(ship.vx, ship.vy)) + ' px/s · the rock felt it too');
+        }
+        break;
+      }
+    }
+  }
+  /* rock on rock — rocks are bodies too: they bounce off each other.
+     Each rock collides as a circle of its mean vertex radius around its centroid,
+     with the same mass model (area / 2500, floored at 0.35) and the same
+     restitution (0.55) as a ship bump. Spin is not exchanged — a named simplification. */
+  for (var ra = 0; ra < rocks.length; ra++) {
+    for (var rb = ra + 1; rb < rocks.length; rb++) {
+      var A = rocks[ra], B = rocks[rb];
+      var cA = polyCentroid(A.pts), cB = polyCentroid(B.pts);
+      var dx = cB.x - cA.x, dy = cB.y - cA.y;
+      var d2 = dx * dx + dy * dy;
+      var rA = 0, rB = 0, q;
+      for (q = 0; q < A.pts.length; q++) rA += Math.hypot(A.pts[q].x - cA.x, A.pts[q].y - cA.y);
+      rA /= A.pts.length;
+      for (q = 0; q < B.pts.length; q++) rB += Math.hypot(B.pts[q].x - cB.x, B.pts[q].y - cB.y);
+      rB /= B.pts.length;
+      var rr = rA + rB;
+      if (d2 >= rr * rr || d2 === 0) continue;
+      var d = Math.sqrt(d2), nx = dx / d, ny = dy / d;
+      var rvx2 = B.vx - A.vx, rvy2 = B.vy - A.vy;
+      var vn2 = rvx2 * nx + rvy2 * ny;
+      var mA = Math.max(0.35, polyArea(A.pts) / 2500), mB = Math.max(0.35, polyArea(B.pts) / 2500);
+      if (vn2 < 0) {
+        var j2 = -1.55 * vn2 / (1 / mA + 1 / mB);
+        A.vx -= (j2 / mA) * nx; A.vy -= (j2 / mA) * ny;
+        B.vx += (j2 / mB) * nx; B.vy += (j2 / mB) * ny;
+        var mx = (cA.x + cB.x) / 2, my = (cA.y + cB.y) / 2;
+        for (var si2 = 0; si2 < 3; si2++) {
+          sparks.push({ x: mx, y: my, vx: nx * 50 + (rnd() - 0.5) * 50, vy: ny * 50 + (rnd() - 0.5) * 50, life: 0.4 });
+        }
+        note(mx, my, 'BOUNCE', 'rocks trade momentum · ' + fmt(Math.abs(vn2)) + ' px/s along the line');
+      }
+      var overlap = rr - d, totInv = 1 / mA + 1 / mB;
+      var pushA = overlap * (1 / mA) / totInv, pushB = overlap * (1 / mB) / totInv;
+      for (q = 0; q < A.pts.length; q++) { A.pts[q].x -= nx * pushA; A.pts[q].y -= ny * pushA; }
+      for (q = 0; q < B.pts.length; q++) { B.pts[q].x += nx * pushB; B.pts[q].y += ny * pushB; }
+    }
+  }
+  /* sparks */
+  for (var sk = sparks.length - 1; sk >= 0; sk--) {
+    var s = sparks[sk];
+    s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
+    if (s.life <= 0) sparks.splice(sk, 1);
+  }
+  /* cut captions */
+  for (var nk = cutNotes.length - 1; nk >= 0; nk--) {
+    cutNotes[nk].life -= dt;
+    if (cutNotes[nk].life <= 0) cutNotes.splice(nk, 1);
+  }
+  if (msgTimer > 0) msgTimer -= dt;
+  if (rocks.length === 0 && state === 'playing') {
+    wave++; flash('WAVE ' + wave);
+    spawnWave(wave);
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.lineWidth = 1.6;
+  var i, p;
+  /* X-Ray: the chords, drawn before the rocks so the field reads through them */
+  if (xray && chords) {
+    ctx.save();
+    ctx.strokeStyle = 'rgba(126,226,255,.28)'; ctx.lineWidth = 1;
+    ctx.setLineDash([6, 9]);
+    for (i = 0; i < bullets.length; i++) {
+      var b0 = bullets[i], bl = Math.hypot(b0.vx, b0.vy) || 1, ux = b0.vx / bl, uy = b0.vy / bl;
+      ctx.beginPath();
+      ctx.moveTo(b0.x - ux * 1400, b0.y - uy * 1400);
+      ctx.lineTo(b0.x + ux * 1400, b0.y + uy * 1400);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  /* rocks */
+  ctx.strokeStyle = '#7ee2ff';
+  ctx.shadowColor = 'rgba(126,226,255,.55)'; ctx.shadowBlur = 7;
+  for (i = 0; i < rocks.length; i++) {
+    p = rocks[i].pts;
+    if (xray && polyArea(p) < MIN_AREA * 2) ctx.strokeStyle = '#ffcf7d'; else ctx.strokeStyle = '#7ee2ff';
+    ctx.beginPath();
+    ctx.moveTo(p[0].x, p[0].y);
+    for (var j = 1; j < p.length; j++) ctx.lineTo(p[j].x, p[j].y);
+    ctx.closePath(); ctx.stroke();
+  }
+  ctx.strokeStyle = '#7ee2ff';
+  /* X-Ray: rock labels, drift arrows, ship circle + velocity, cut captions */
+  if (xray) {
+    ctx.save();
+    ctx.shadowBlur = 0;
+    for (i = 0; i < rocks.length; i++) {
+      var rk = rocks[i], cen = polyCentroid(rk.pts), ar = polyArea(rk.pts);
+      ctx.strokeStyle = 'rgba(232,236,244,.65)'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(cen.x, cen.y);
+      ctx.lineTo(cen.x + rk.vx * 1.6, cen.y + rk.vy * 1.6); ctx.stroke();
+      ctx.fillStyle = '#ffcf7d'; ctx.font = '700 15px ui-monospace,Consolas,monospace'; ctx.textAlign = 'center';
+      ctx.fillText(rk.pts.length, cen.x, cen.y - 2);
+      ctx.fillStyle = 'rgba(154,167,189,.95)'; ctx.font = '10px ui-monospace,Consolas,monospace';
+      ctx.fillText(fmt(ar) + ' px²', cen.x, cen.y + 11);
+    }
+    if (state === 'playing') {
+      ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.setLineDash([4, 5]);
+      ctx.beginPath(); ctx.arc(ship.x, ship.y, 11, 0, 7); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle = 'rgba(232,236,244,.8)';
+      ctx.beginPath(); ctx.moveTo(ship.x, ship.y);
+      ctx.lineTo(ship.x + ship.vx * 0.6, ship.y + ship.vy * 0.6); ctx.stroke();
+    }
+    for (i = 0; i < cutNotes.length; i++) {
+      var nt = cutNotes[i];
+      ctx.globalAlpha = Math.min(1, nt.life / 1.1);
+      ctx.fillStyle = '#ffcf7d'; ctx.font = '700 15px ui-monospace,Consolas,monospace'; ctx.textAlign = 'center';
+      ctx.fillText(nt.text, nt.x, nt.y - 26);
+      ctx.fillStyle = 'rgba(232,236,244,.92)'; ctx.font = '11px ui-monospace,Consolas,monospace';
+      ctx.fillText(nt.sub, nt.x, nt.y - 9);
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+  /* bullets */
+  ctx.shadowBlur = 0; ctx.fillStyle = '#ffffff';
+  for (i = 0; i < bullets.length; i++) { ctx.beginPath(); ctx.arc(bullets[i].x, bullets[i].y, 2.2, 0, 7); ctx.fill(); }
+  /* sparks */
+  ctx.strokeStyle = '#ffcf7d';
+  for (i = 0; i < sparks.length; i++) {
+    var s = sparks[i];
+    ctx.globalAlpha = Math.max(0, s.life / 0.55);
+    ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx * 0.03, s.y - s.vy * 0.03); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  /* ship */
+  if (state === 'playing' && !(ship.invuln > 0 && Math.floor(ship.invuln * 9) % 2 === 0)) {
+    var a = ship.ang;
+    ctx.strokeStyle = '#ffffff'; ctx.shadowColor = 'rgba(255,255,255,.6)'; ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.moveTo(ship.x + Math.cos(a) * 14, ship.y + Math.sin(a) * 14);
+    ctx.lineTo(ship.x + Math.cos(a + 2.5) * 10, ship.y + Math.sin(a + 2.5) * 10);
+    ctx.lineTo(ship.x + Math.cos(a - 2.5) * 10, ship.y + Math.sin(a - 2.5) * 10);
+    ctx.closePath(); ctx.stroke();
+    if (keys.up) {
+      ctx.strokeStyle = '#ffcf7d';
+      ctx.beginPath();
+      ctx.moveTo(ship.x + Math.cos(a + 2.9) * 9, ship.y + Math.sin(a + 2.9) * 9);
+      ctx.lineTo(ship.x + Math.cos(a + Math.PI) * 18, ship.y + Math.sin(a + Math.PI) * 18);
+      ctx.lineTo(ship.x + Math.cos(a - 2.9) * 9, ship.y + Math.sin(a - 2.9) * 9);
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0;
+  }
+  /* Time Machine: the ghost of the original, while a branch runs */
+  if (tmBase && tmBase[tmCursor] && tmCursor > tmForkAt) {
+    var gs = tmBase[tmCursor];
+    ctx.save(); ctx.shadowBlur = 0; ctx.setLineDash([5, 5]); ctx.lineWidth = 1.4;
+    ctx.strokeStyle = 'rgba(255,207,125,.5)';
+    for (i = 0; i < gs.rocks.length; i++) {
+      p = gs.rocks[i].pts;
+      ctx.beginPath(); ctx.moveTo(p[0].x, p[0].y);
+      for (var gj = 1; gj < p.length; gj++) ctx.lineTo(p[gj].x, p[gj].y);
+      ctx.closePath(); ctx.stroke();
+    }
+    if (gs.state === 'playing') {
+      var ga = gs.ship.ang;
+      ctx.strokeStyle = 'rgba(255,207,125,.85)';
+      ctx.beginPath();
+      ctx.moveTo(gs.ship.x + Math.cos(ga) * 14, gs.ship.y + Math.sin(ga) * 14);
+      ctx.lineTo(gs.ship.x + Math.cos(ga + 2.5) * 10, gs.ship.y + Math.sin(ga + 2.5) * 10);
+      ctx.lineTo(gs.ship.x + Math.cos(ga - 2.5) * 10, gs.ship.y + Math.sin(ga - 2.5) * 10);
+      ctx.closePath(); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  /* overlays */
+  ctx.fillStyle = '#e8ecf4'; ctx.font = '600 30px "Segoe UI",system-ui,sans-serif'; ctx.textAlign = 'center';
+  if (!started) {
+    ctx.fillText('SHARDSTORM', W / 2, H / 2 - 30);
+    ctx.font = '17px "Segoe UI",system-ui,sans-serif'; ctx.fillStyle = '#9aa7bd';
+    ctx.fillText('Press ENTER to play — every bullet draws the chord that cuts.', W / 2, H / 2 + 6);
+    ctx.font = '15px "Segoe UI",system-ui,sans-serif';
+    ctx.fillText(mode === 'lives' ? 'MODE: 3 LIVES — any full contact costs a ship. Best: ' + bestLives + ' · M switches mode' : 'MODE: FLOW — bumps trade momentum; only a spear-hit costs a ship · M switches to 3 LIVES', W / 2, H / 2 + 32);
+  } else if (state === 'over') {
+    ctx.fillText('GAME OVER', W / 2, H / 2 - 24);
+    ctx.font = '17px "Segoe UI",system-ui,sans-serif'; ctx.fillStyle = '#9aa7bd';
+    ctx.fillText('Final score ' + score + ' · press ENTER to play again', W / 2, H / 2 + 12);
+    if (mode === 'lives') ctx.fillText('BEST (3 LIVES): ' + bestLives, W / 2, H / 2 + 38);
+  } else if (state === 'paused') {
+    ctx.fillText('PAUSED', W / 2, H / 2);
+  }
+  if (msgTimer > 0 && state === 'playing') {
+    ctx.font = '600 20px "Segoe UI",system-ui,sans-serif'; ctx.fillStyle = '#ffcf7d';
+    ctx.fillText(msgText, W / 2, 40);
+  }
+  /* HUD */
+  document.getElementById('hud-score').textContent = score;
+  document.getElementById('hud-lives').textContent = Math.max(0, lives);
+  document.getElementById('hud-wave').textContent = wave;
+  var sides = 0;
+  for (i = 0; i < rocks.length; i++) sides += rocks[i].pts.length;
+  document.getElementById('hud-sides').textContent = sides;
+}
+
+var last = performance.now(), acc = 0;
+function frame(now) {
+  var dt = Math.min(0.25, (now - last) / 1000);
+  last = now;
+  if (state === 'playing') {
+    if (tmMode === 'free') {
+      acc += dt; var nf = 0;
+      while (acc >= TICK && nf < 8) { tmFreeStep(); acc -= TICK; nf++; }
+      if (nf === 8) acc = 0;
+    } else if ((tmMode === 'live' || tmMode === 'branch') && tmCursor === tmHistory.length - 1 && !tmHalt) {
+      acc += dt; var n = 0;
+      while (acc >= TICK && n < 8) { tmStepTick(); acc -= TICK; n++; if (tmHalt) break; }
+      if (n === 8) acc = 0;
+    } else if (tmPlaying && tmCursor < tmHistory.length - 1) {
+      acc += dt;
+      while (acc >= TICK && tmPlaying && tmCursor < tmHistory.length - 1) {
+        tmCursor++; tmRestore(tmHistory[tmCursor]); acc -= TICK;
+      }
+      if (tmCursor === tmHistory.length - 1) {
+        tmPlaying = false;
+        if (tmBranchKind) tmMode = 'branch'; else if (tmMode === 'review') tmMode = 'live';
+        tmSyncPanel();
+      }
+    }
+  }
+  draw();
+  requestAnimationFrame(frame);
+}
+rocks = []; bullets = []; sparks = []; score = 0; lives = 3; wave = 1; state = 'ready';
+resetShip();
+requestAnimationFrame(frame);
+
+document.addEventListener('keydown', function (e) {
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA') liveKeys.left = true;
+  if (e.code === 'ArrowRight' || e.code === 'KeyD') liveKeys.right = true;
+  if (e.code === 'ArrowUp' || e.code === 'KeyW') liveKeys.up = true;
+  if (e.code === 'Space') { liveKeys.fire = true; e.preventDefault(); }
+  if (e.code === 'KeyP' && started) state = (state === 'paused') ? 'playing' : (state === 'playing' ? 'paused' : state);
+  if (e.code === 'F2') { setXray(!xray); e.preventDefault(); }
+  if (e.code === 'KeyT') { setChords(!chords); }
+  if (e.code === 'KeyM' && state !== 'playing' && state !== 'paused') setMode(mode === 'lives' ? 'flow' : 'lives');
+  if (e.code === 'Enter' && state !== 'playing' && state !== 'paused') newGame();
+});
+function setXray(v) {
+  xray = v;
+  var btn = document.getElementById('xray-btn');
+  btn.textContent = xray ? 'X-RAY: ON' : 'X-RAY: OFF';
+  btn.className = xray ? 'on' : '';
+}
+document.getElementById('xray-btn').addEventListener('click', function () { setXray(!xray); });
+function syncModeBtn() {
+  var btn = document.getElementById('mode-btn');
+  btn.textContent = mode === 'lives' ? 'MODE: 3 LIVES' : 'MODE: FLOW';
+  btn.className = mode === 'lives' ? 'on' : '';
+}
+function setMode(m) {
+  if (state === 'playing' || state === 'paused') { flash('MODE SWITCHES BETWEEN RUNS'); return; }
+  mode = m; syncModeBtn();
+}
+document.getElementById('mode-btn').addEventListener('click', function () { setMode(mode === 'lives' ? 'flow' : 'lives'); });
+function setChords(v) {
+  chords = v;
+  var btn = document.getElementById('chords-btn');
+  btn.textContent = chords ? 'CHORDS: ON' : 'CHORDS: OFF';
+  btn.className = chords ? '' : 'on';
+}
+document.getElementById('chords-btn').addEventListener('click', function () { setChords(!chords); });
+document.addEventListener('keyup', function (e) {
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA') liveKeys.left = false;
+  if (e.code === 'ArrowRight' || e.code === 'KeyD') liveKeys.right = false;
+  if (e.code === 'ArrowUp' || e.code === 'KeyW') liveKeys.up = false;
+  if (e.code === 'Space') liveKeys.fire = false;
+});
+
+/* flight recorder panel */
+document.getElementById('tm-play').addEventListener('click', tmPlay);
+document.getElementById('tm-step').addEventListener('click', function () {
+  if (tmCursor < tmHistory.length - 1) { tmCursor++; tmRestore(tmHistory[tmCursor]); tmSyncPanel(); }
+});
+document.getElementById('tm-back').addEventListener('click', function () { tmSeek(tmCursor - 300); });
+document.getElementById('tm-start').addEventListener('click', function () { tmSeek(0); });
+document.getElementById('tm-slider').addEventListener('input', function (e) { tmSeek(Number(e.target.value)); });
+document.getElementById('tm-branch').addEventListener('click', tmBranch);
+document.getElementById('tm-verify').addEventListener('click', function () {
+  var v = tmVerify();
+  document.getElementById('tm-verify-out').textContent = v.ok
+    ? 'PASS · ' + v.checks + ' ticks replayed exactly from the recorded inputs — seed, splits, bumps and all.'
+    : (v.checks ? 'Mismatch at tick ' + v.error + '.' : 'Record at least one tick before verifying.');
+});
+document.querySelectorAll('#tm-pred [data-guess]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    if (!tmPrediction || tmPrediction.guess) return;
+    tmPrediction.guess = b.getAttribute('data-guess');
+    tmHalt = false; tmMode = 'branch';
+    document.getElementById('tm-pred-answer').textContent = 'Prediction locked: ' + tmPrediction.guess + '. Replaying the original controls with the recoil flipped…';
+    tmSyncPanel();
+  });
+});
+tmSyncPanel();
+
+/* test hooks for the audit (drives the shipped code, changes nothing) */
+window.__shard = {
+  splitByLine: splitByLine,
+  polyArea: polyArea,
+  makeRockPoly: makeRockPoly,
+  state: function () {
+    return {
+      state: state, score: score, lives: lives, wave: wave, mode: mode, bestLives: bestLives, xray: xray, chords: chords, notes: cutNotes.length,
+      rocks: rocks.map(function (r) { var c = polyCentroid(r.pts); return { sides: r.pts.length, area: Math.round(polyArea(r.pts)), cx: Math.round(c.x), cy: Math.round(c.y), vx: Math.round(r.vx * 10) / 10, vy: Math.round(r.vy * 10) / 10 }; }),
+      ship: { x: Math.round(ship.x), y: Math.round(ship.y), vx: Math.round(ship.vx * 10) / 10, vy: Math.round(ship.vy * 10) / 10 },
+      bullets: bullets.length
+    };
+  },
+  start: function () { newGame(); },
+  setXray: function (v) { setXray(v); },
+  setChords: function (v) { setChords(v); },
+  setMode: function (m) { setMode(m); },
+  addRock: function (pts, vx, vy) { rocks.push({ pts: pts, vx: vx || 0, vy: vy || 0, spin: 0 }); },
+  fireAt: function (x, y, dx, dy) { bullets.push({ x: x, y: y, vx: dx, vy: dy, life: 2 }); },
+  clearRocks: function () { rocks = []; },
+  tmVerify: function () { return tmVerify(); },
+  tmSeek: function (t) { tmSeek(t); },
+  tmBranch: function (kind) { document.getElementById('tm-branch-mode').value = kind; tmBranch(); },
+  tmPlay: function () { tmPlay(); },
+  tmDrive: function (arr) { tmDriveQueue = arr.slice(); },
+  tmState: function () { return tmSnapshot(); },
+  tmCursor: function () { return { cursor: tmCursor, ticks: tmHistory.length - 1, mode: tmMode, fork: tmForkAt, hasBase: !!tmBase, events: tmEvents.length }; },
+  tmHash: function (i) { var s = JSON.stringify(tmHistory[i]), h = 0; for (var k = 0; k < s.length; k++) h = (Math.imul(h, 31) + s.charCodeAt(k)) | 0; return h; },
+  tmBaseHash: function (i) { if (!tmBase || !tmBase[i]) return null; var s = JSON.stringify(tmBase[i]), h = 0; for (var k = 0; k < s.length; k++) h = (Math.imul(h, 31) + s.charCodeAt(k)) | 0; return h; },
+  tmShipSpeed: function () { return Math.hypot(ship.vx, ship.vy); }
+};
+</script>
+</body>
+</html>

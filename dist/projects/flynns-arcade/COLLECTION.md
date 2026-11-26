@@ -59,3 +59,19 @@ collection assembly.
 - `games/tempest.html`
 - `games/tron.html`
 - `games/wandering-hub.html`
+
+## Addendum — 2026-11-26: the Energy in Motion survivor pick
+
+Steven picked **Breakout** (2026-11-26, 00:07) to survive the Nov 21 duplication: two
+triple-cabinet "Energy in Motion" pages (`games/breakout.html`, `games/tempest.html`,
+each bundling Breakout + Tempest + Frogger). The pick landed at the shelf: the hub's
+cabinet map now sends the Tempest cabinet to `games/breakout.html` — one roof for the
+wing. `games/tempest.html` is **preserved in place** (still shipped and cached): it
+uniquely holds the Geometry Lab and the feature-rich Tempest Steven ordered
+(parabola web, geometry overlay). The file-level endgame — transplant that Tempest
+into the survivor, then retire `games/tempest.html` to a redirect — is boarded on the
+Bench as a separate, confirmed step, because it rewrites a page the family plays.
+`index.html` changed (one line of the PAGES map).
+
+
+Forum link (26 November 2026): `index.html` gained the collection's Join our Forum line (Steven's Google Group — anyone may ask to join, members post), the feedback door he asked to have everywhere.

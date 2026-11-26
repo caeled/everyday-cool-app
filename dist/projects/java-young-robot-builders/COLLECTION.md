@@ -59,3 +59,62 @@ Back doors 134–138 — Bordeom batch + Resonance · 24 November 2026
 Back door 142 — Rocketry & Thrust · 24 November 2026
 
 `index.html` gained back door 142, Rocketry & Thrust — the Physics of Rockets (Everyday Physics; a new original built by Grok Bot, sixteen proofs live on the page). The section heading rose from "One hundred forty-one games" to "One hundred forty-two games", verified sequential 1–142 on the page. The full measurements live in the lesson, in its home room.
+
+Back door 143 — The Relay · 24 November 2026
+
+`index.html` gained back door 143, The Relay — A Game You Can't Play Alone (Nerd Heaven; built by Meta AI at Steven Powell's direction, web port by Muse, 12/12 proofs live on the page). The section heading rose from "One hundred forty-two games" to "One hundred forty-three games", verified sequential 1–143 on the page. The full measurements live in the lesson, in its home room.
+
+Back door 144 — The Baton Box · 24 November 2026
+
+`index.html` gained back door 144, The Baton Box — a Server That Knows No Games (its own project; built by Muse at Steven Powell's direction, self-test 20/20 with the receipts live in the lesson). The section heading rose from "One hundred forty-three games" to "One hundred forty-four games", verified sequential 1–144 on the page. The full measurements live in the lesson, in its home project.
+
+Back door 145 — The SNES Console · 24 November 2026
+
+`index.html` gained back door 145, The SNES Console — a Super Nintendo in a Page (Nerd Heaven; Snes9x via EmulatorJS, vendored unmodified under Steven Powell's attribution ruling, page by Muse, audit 20/20 with the receipts — including the cross-wired pad, measured at the cartridge — live in the lesson). The section heading rose from "One hundred forty-four games" to "One hundred forty-five games", verified sequential 1–145 on the page. The full measurements live in the lesson, in its home room.
+
+Back door 146 — The 6502 Bench · 24 November 2026
+
+`index.html` gained back door 146, The 6502 Bench — the Processor With Its Sleeves Rolled Up (Nerd Heaven; an original NMOS 6502 built from scratch by Muse at Steven Powell's direction, proofs 42/42 with the receipts — including the JMP-indirect page-boundary bug reproduced on purpose — live in the lesson). The section heading rose from "One hundred forty-five games" to "One hundred forty-six games". The full measurements live in the lesson, in its home room.
+
+Back door 147 — The 2600 Console · 24 November 2026
+
+`index.html` gained back door 147, The 2600 Console — a Whole Atari 2600 in a Page (Nerd Heaven; Javatari v5.0.4 by Paulo Peccin embedded unmodified, AGPL-3.0, audit 17/17 with the receipts live in the lesson). The section heading rose from "One hundred forty-six games" to "One hundred forty-seven games". The full measurements live in the lesson, in its home room.
+
+Back door 148 — The NES Console · 24 November 2026
+
+`index.html` gained back door 148, The NES Console — a Whole Nintendo in One File (Nerd Heaven; JSNES v3.0.0 by Ben Firshman inlined byte-for-byte, Apache-2.0, audit 18/18 plus three field fixes with the receipts live in the lesson). The section heading rose from "One hundred forty-seven games" to "One hundred forty-eight games", verified sequential 1–148 on the page. The full measurements live in the lesson, in its home room.
+
+## BACK DOOR 160: DipoleLab · 25 November 2026
+
+Back door added for the Radio Room's DipoleLab lesson; heading count to one hundred sixty. Changed files: `index.html`, `COLLECTION.md`.
+
+## BACK DOOR 161: LuxLab · 25 November 2026
+
+Back door added for Everyday Physics' LuxLab lesson; heading count to one hundred sixty-one. Changed files: `index.html`, `COLLECTION.md`.
+
+## BACK DOOR 162: SpacetimeLab · 25 November 2026
+
+Back door added for Everyday Physics' SpacetimeLab lesson; heading count to one hundred sixty-two. Changed files: `index.html`, `COLLECTION.md`.
+
+
+## 2026-11-25 — Back door 163: Is the Earth Flat?
+
+`index.html`: BACK DOOR 163 card for the Is the Earth Flat? lesson (Tonight's Sky); heading now one hundred sixty-three games.
+## BACK DOOR 163: Hear the Hydrogen Line · 25 November 2026
+
+Back door added for Tonight's Sky's Hear the Hydrogen Line lesson; heading count to one hundred sixty-three. Changed files: `index.html`, `COLLECTION.md`.
+
+Merge note (2026-11-25): the Hydrogen Line back-door card from PR #11 arrived numbered 163, but 163 had gone to Is the Earth Flat? on main the same evening — the card was renumbered BACK DOOR 164 in the merge, and the heading now reads one hundred sixty-four games. `index.html` carries the change.
+
+Back door 165 (2026-11-25): X-Ray Time Machine lesson card added at the head of `index.html`; heading now reads one hundred sixty-five games.
+
+## Addendum — 2026-11-25 (late): Back door 166 — GaussLab
+
+`index.html` gained card BACK DOOR 166 / EVERYDAY MATH for GaussLab (Antigravity's matrix
+workbench, audited 283/283 + 26/26 geometry), and the section heading count rose to one hundred
+sixty-six. The standing precedent question from the GaussLab integration — shelf lines or not — was
+settled by Steven's green light on the whole Bench board.
+
+
+
+Forum link (26 November 2026): `index.html` gained the collection's Join our Forum line (Steven's Google Group — anyone may ask to join, members post), the feedback door he asked to have everywhere.
